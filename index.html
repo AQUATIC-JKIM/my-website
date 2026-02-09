@@ -15,30 +15,42 @@
         }
 
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
+        .lab-name { font-size: 30px; font-weight: 500; letter-spacing: 3px; color: #777; text-transform: uppercase; }
+        .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
 
-        /* 🎨 메인 타이틀 폰트 두께 수정 (800 -> 500) */
-        .lab-name { 
-            font-size: 30px; 
-            font-weight: 500; /* 숫자가 작을수록 얇아집니다 */
-            letter-spacing: 3px; 
-            color: #777; 
-            text-transform: uppercase; 
-        }
-
-        .univ-name { 
-            font-size: 19px; 
-            font-weight: 100; 
-            font-style: italic; 
-            color: #ccc; 
-            margin-left: 15px; 
-            letter-spacing: 2px; 
-            font-family: 'Segoe UI', sans-serif; 
-        }
-
+        /* --- 네비게이션 스타일 --- */
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
-        nav ul { list-style: none; display: flex; justify-content: center; padding: 12px 0; margin: 0; gap: 35px; }
-        nav a { text-decoration: none; color: #999; font-size: 13px; }
+        nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
+        nav li { position: relative; padding: 12px 0; }
+        nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
+        
+        /* ✨ 현재 카테고리 강조 스타일 (Bold) */
+        nav a.active {
+            color: #333;       /* 색상을 더 진하게 */
+            font-weight: 700;  /* 볼드체 적용 */
+        }
+        
+        nav a:hover { color: #333; }
 
+        /* 드롭다운 스타일 */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
+            z-index: 1;
+            border: 1px solid #eee;
+            padding: 5px 0;
+        }
+        .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
+        nav li:hover .dropdown-content { display: block; }
+        .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
+
+        /* 메인 및 슬라이드쇼 */
         main { flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 40px 20px; }
         .mySlides { display: none; max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain; animation: fade 1.5s; }
 
@@ -51,17 +63,8 @@
             text-align: left;
             flex-shrink: 0;
         }
-
-        .footer-info {
-            font-size: 13px;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .footer-info a {
-            color: #007bff;
-            text-decoration: none;
-        }
+        .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
+        .footer-info a { color: #007bff; text-decoration: none; }
 
         @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
@@ -74,14 +77,20 @@
     </header>
 
     <nav>
-        <ul>
+        <ul id="nav-list">
             <li><a href="index.html">Home</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Research</a></li>
-            <li><a href="#">Works</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li>
+                <a href="works.html">Works</a>
+                <div class="dropdown-content">
+                    <a href="publications.html">Publications</a>
+                    <a href="presentations.html">Presentations</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
@@ -100,26 +109,43 @@
     <footer>
         <div class="footer-info">
             <strong>김지승 ©2026 Jiseung Kim</strong><br>
-            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (University), 
-            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (Private)<br><br>
-            
+            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
             <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
             (54896) 전북특별자치도 전주시 덕진구 백제대로 567
         </div>
     </footer>
 
     <script>
+        // 1. 슬라이드쇼 스크립트
         let slideIndex = 0;
         showSlides();
         function showSlides() {
             let i;
             let slides = document.getElementsByClassName("mySlides");
+            if (slides.length === 0) return;
             for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
             slideIndex++;
             if (slideIndex > slides.length) {slideIndex = 1}    
             slides[slideIndex-1].style.display = "block";  
             setTimeout(showSlides, 5000); 
         }
+
+        // 2. ✨ 현재 페이지 인식 및 볼드체 적용 스크립트
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll("#nav-list a");
+
+        navLinks.forEach(link => {
+            const linkPage = link.getAttribute("href");
+            if (linkPage === currentPage) {
+                link.classList.add("active");
+                
+                // 드롭다운 메뉴인 경우 부모 메뉴인 'Works'도 볼드체로 유지
+                if (link.closest(".dropdown-content")) {
+                    link.closest("li").querySelector("a").classList.add("active");
+                }
+            }
+        });
     </script>
 </body>
 </html>
