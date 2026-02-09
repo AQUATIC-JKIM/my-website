@@ -1,12 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <title>나의 포트폴리오 사이트</title>
+    <style>
+        /* 깔끔한 디자인을 위한 CSS 스타일 */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+        }
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 { margin: 0; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 5px; }
+        .skills { display: flex; gap: 10px; flex-wrap: wrap; list-style: none; padding: 0; }
+        .skills li { background: #e74c3c; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #777; }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>This is a simple website hosted on GitHub Pages.</p>
+
+    <header>
+        <h1>안녕하세요, 홍길동입니다</h1>
+        <p>GitHub Pages를 통해 운영하는 저의 첫 웹사이트입니다.</p>
+    </header>
+
+    <section>
+        <h2>소개</h2>
+        <p>여기에 본인의 소개글을 작성하세요. 코딩을 공부 중이거나, 본인의 취미 등을 적으면 좋습니다.</p>
+    </section>
+
+    <section>
+        <h2>기술 스택</h2>
+        <ul class="skills">
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>JavaScript</li>
+            <li>GitHub</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>연락처</h2>
+        <p>📧 Email: email@example.com</p>
+        <p>🔗 GitHub: <a href="https://github.com" target="_blank">github.com/username</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 My GitHub Page. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>
