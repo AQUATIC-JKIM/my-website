@@ -15,8 +15,24 @@
         }
 
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
-        .lab-name { font-size: 30px; font-weight: 500; letter-spacing: 3px; color: #777; text-transform: uppercase; }
-        .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
+
+        .lab-name { 
+            font-size: 30px; 
+            font-weight: 700;
+            letter-spacing: 3px; 
+            color: #777; 
+            text-transform: uppercase; 
+        }
+
+        .univ-name { 
+            font-size: 19px; 
+            font-weight: 100; 
+            font-style: italic; 
+            color: #ccc; 
+            margin-left: 15px; 
+            letter-spacing: 2px; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
 
         /* --- 네비게이션 스타일 --- */
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
@@ -24,15 +40,13 @@
         nav li { position: relative; padding: 12px 0; }
         nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
         
-        /* ✨ 현재 카테고리 강조 스타일 (Bold) */
         nav a.active {
-            color: #333;       /* 색상을 더 진하게 */
-            font-weight: 700;  /* 볼드체 적용 */
+            color: #333;
+            font-weight: 700;
         }
         
         nav a:hover { color: #333; }
 
-        /* 드롭다운 스타일 */
         .dropdown-content {
             display: none;
             position: absolute;
@@ -54,6 +68,7 @@
         main { flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 40px 20px; }
         .mySlides { display: none; max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain; animation: fade 1.5s; }
 
+        /* 푸터 스타일 */
         footer {
             border-top: 1px solid #eee;
             padding: 40px 50px;
@@ -117,7 +132,6 @@
     </footer>
 
     <script>
-        // 1. 슬라이드쇼 스크립트
         let slideIndex = 0;
         showSlides();
         function showSlides() {
@@ -131,7 +145,6 @@
             setTimeout(showSlides, 5000); 
         }
 
-        // 2. ✨ 현재 페이지 인식 및 볼드체 적용 스크립트
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
 
@@ -139,8 +152,6 @@
             const linkPage = link.getAttribute("href");
             if (linkPage === currentPage) {
                 link.classList.add("active");
-                
-                // 드롭다운 메뉴인 경우 부모 메뉴인 'Works'도 볼드체로 유지
                 if (link.closest(".dropdown-content")) {
                     link.closest("li").querySelector("a").classList.add("active");
                 }
