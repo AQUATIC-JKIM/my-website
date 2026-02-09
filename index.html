@@ -5,37 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jiseung Kim Website</title>
     <style>
+        /* 1. 전체 레이아웃 및 배경 설정 */
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            color: #666; background-color: #fff;
-            text-align: center; overflow: hidden; 
-            height: 100vh; display: flex; flex-direction: column;
+            color: #666;
+            /* 요청하신 아주 연한 하늘색 배경 */
+            background-color: #f0f8ff; 
+            text-align: center;
+            /* 페이지 전체가 한 화면에 들어오도록 설정 */
+            overflow: hidden; 
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        header { padding: 40px 0 20px 0; flex-shrink: 0; }
-        .lab-name { font-size: 30px; font-weight: 800; letter-spacing: 3px; color: #777; text-transform: uppercase; }
-        .univ-name { font-size: 22px; font-weight: 200; font-style: italic; color: #ccc; margin-left: 15px; }
+        /* 2. 헤더 영역 (연구실 이름 및 대학교) */
+        header {
+            padding: 40px 0 20px 0;
+            flex-shrink: 0;
+        }
 
-        nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
-        nav ul { list-style: none; display: flex; justify-content: center; padding: 12px 0; margin: 0; gap: 35px; }
-        nav a { text-decoration: none; color: #999; font-size: 13px; }
+        .lab-name {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #777;
+            text-transform: uppercase;
+        }
 
-        /* 슬라이드쇼 컨테이너 */
+        /* 예시 사진처럼 얇고 기울어진 폰트 적용 */
+        .univ-name {
+            font-size: 22px;
+            font-weight: 200;
+            font-style: italic;
+            color: #ccc;
+            margin-left: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* 3. 네비게이션 메뉴 (카테고리) */
+        nav {
+            /* 메뉴 바 배경을 약간 투명한 흰색으로 주어 배경색과 조화롭게 설정 */
+            background-color: rgba(255, 255, 255, 0.3);
+            border-top: 1px solid #e0eefb;
+            border-bottom: 1px solid #e0eefb;
+            flex-shrink: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            margin: 0;
+            gap: 35px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #999;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #333;
+        }
+
+        /* 4. 메인 이미지 슬라이드쇼 영역 */
         main {
-            flex-grow: 1; display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden; padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
         }
 
-        .slide-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         
-        /* 이미지 스타일: 기본적으로 숨김 상태 */
+        /* 이미지가 화면 높이 80%를 넘지 않게 조절 */
         .mySlides {
             display: none; 
-            max-width: 100%; max-height: 80vh;
-            width: auto; height: auto;
+            max-width: 100%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
             object-fit: contain;
-            /* 부드러운 전환 효과 */
+            /* 부드러운 페이드 효과 */
             animation: fade 1.5s;
         }
 
@@ -44,13 +110,20 @@
             to { opacity: 1 }
         }
 
-        .copyright-tag { position: absolute; bottom: 25px; left: 50px; color: #ddd; font-size: 12px; }
+        /* 저작권 표시 */
+        .copyright-tag {
+            position: absolute;
+            bottom: 25px;
+            left: 50px;
+            color: #ccc;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <span class="lab-name">JISEUNG KIM</span>
+        <span class="lab-name">JISEUNG KIM WEBSITE</span>
         <span class="univ-name">Jeonbuk National University</span>
     </header>
 
@@ -71,16 +144,12 @@
             <img class="mySlides" src="image1.jpg">
             <img class="mySlides" src="image2.jpg">
             <img class="mySlides" src="image3.jpg">
-            <img class="mySlides" src="image4.jpg">
-            <img class="mySlides" src="image5.jpg">
-            <img class="mySlides" src="image6.jpg">
-            <img class="mySlides" src="image7.jpg">
         </div>
         <div class="copyright-tag">© Jiseung Kim</div>
     </main>
 
     <script>
-        // 슬라이드 작동 스크립트
+        // 자동으로 이미지를 넘겨주는 스크립트
         let slideIndex = 0;
         showSlides();
 
@@ -93,7 +162,8 @@
             slideIndex++;
             if (slideIndex > slides.length) {slideIndex = 1}    
             slides[slideIndex-1].style.display = "block";  
-            setTimeout(showSlides, 5000); // 5000ms = 5초마다 교체
+            // 5초마다 이미지 교체
+            setTimeout(showSlides, 5000); 
         }
     </script>
 
