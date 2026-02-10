@@ -3,18 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentations - Jiseung Kim</title>
+    <title>Publications - Jiseung Kim</title>
     <style>
-        /* 기존 body, header, nav, footer 스타일은 그대로 유지하세요 */
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #666; background-color: #fff;
-            text-align: center;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
-
+        /* 기존 공통 스타일 */
+        body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
         .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
         .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
@@ -28,18 +20,41 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Presentations 전용 스타일 --- */
-        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 800px; margin: 0 auto; }
-        
+        /* --- Publications 세로형 이미지 스타일 --- */
+        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 1000px; margin: 0 auto; }
         h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
         
-        .year-section { margin-bottom: 40px; }
-        .year-title { font-size: 20px; font-weight: 700; color: #007bff; margin-bottom: 15px; border-left: 4px solid #007bff; padding-left: 15px; }
+        .pub-item { margin-bottom: 80px; border-bottom: 1px solid #eee; padding-bottom: 50px; }
+        .pub-text { line-height: 1.7; font-size: 15px; color: #555; margin-bottom: 25px; }
+        .pub-author strong { color: #333; text-decoration: underline; }
+        .pub-title { color: #333; font-weight: 600; display: block; margin: 5px 0; }
+        .pub-journal { font-style: italic; }
+        .pub-link { color: #007bff; text-decoration: none; font-size: 14px; }
         
-        .pres-item { margin-bottom: 20px; padding-left: 20px; }
-        .pres-title { font-size: 16px; font-weight: 600; color: #444; margin-bottom: 5px; }
-        .pres-detail { font-size: 14px; color: #888; line-height: 1.6; }
-        .pres-type { display: inline-block; background: #f0f0f0; color: #666; font-size: 11px; padding: 2px 8px; border-radius: 3px; margin-right: 8px; text-transform: uppercase; }
+        /* 이미지 그리드: 세로형 비율 유지 */
+        .pub-images-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-top: 20px;
+        }
+
+        .pub-images-grid img { 
+            width: 100%; 
+            height: 350px; /* 높이를 늘려 세로형으로 설정 */
+            object-fit: cover; /* 이미지가 잘리지 않고 세로 박스에 맞춰지게 함 */
+            border: 1px solid #eee; 
+            border-radius: 4px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .pub-images-grid img:hover { transform: scale(1.03); }
+
+        @media (max-width: 600px) {
+            .pub-images-grid { grid-template-columns: repeat(2, 1fr); } /* 모바일은 2열로 */
+            .pub-images-grid img { height: 250px; }
+        }
 
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
@@ -71,31 +86,41 @@
     </nav>
 
     <main>
-        <h2>Presentations</h2>
+        <h2>Publications</h2>
 
-        <div class="year-section">
-            <div class="year-title">2025</div>
-            <div class="pres-item">
-                <div class="pres-title"><span class="pres-type">Oral</span> A Taxonomic review of the Family Myrmeleontidae Latreille from the Korean Peninsula</div>
-                <div class="pres-detail">Korean Society of Applied Entomology (KSAE) Spring Conference, Pyeongchang, South Korea.</div>
+        <div class="pub-item">
+            <div class="pub-text">
+                <span class="pub-author"><strong>Kim, Jiseung</strong>, Neung-Ho Ahn, and Sora Kim.</span> 
+                <span class="pub-title">"A taxonomic review of the family <strong>Myrmeleontidae</strong> Latreille (Neuroptera, Myrmeleontiformia) from the Korean peninsula, highlighting the conservation value of this family."</span> 
+                <span class="pub-journal">ZooKeys</span> 1262 (2025): 97. 
+                <br><a href="https://doi.org/10.3897/zookeys.1262.133221" class="pub-link" target="_blank">DOI: 10.3897/zookeys.1262.133221</a>
+            </div>
+            <div class="pub-images-grid">
+                <img src="myr_1.jpg" alt="Myrmeleontidae Vertical 1">
+                <img src="myr_2.jpg" alt="Myrmeleontidae Vertical 2">
+                <img src="myr_3.jpg" alt="Myrmeleontidae Vertical 3">
             </div>
         </div>
 
-        <div class="year-section">
-            <div class="year-title">2024</div>
-            <div class="pres-item">
-                <div class="pres-title"><span class="pres-type">Poster</span> First report of Xenocorixa vittipennis from the Korean Peninsula</div>
-                <div class="pres-detail">International Congress of Entomology, Kyoto, Japan.</div>
+        <div class="pub-item">
+            <div class="pub-text">
+                <span class="pub-author"><strong>Kim, Jiseung</strong>, and Sora Kim.</span> 
+                <span class="pub-title">"First report <em>Xenocorixa vittipennis</em> (Horváth) (Hemiptera, Corixoidea, Corixidae) from South Korea and checklist of the Korean Corixoidea."</span> 
+                <span class="pub-journal">Biodiversity Data Journal</span> 13 (2025): e165218.
+                <br><a href="https://doi.org/10.3897/BDJ.13.e165218" class="pub-link" target="_blank">DOI: 10.3897/BDJ.13.e165218</a>
+            </div>
+            <div class="pub-images-grid">
+                <img src="xeno_1.jpg" alt="Xenocorixa Vertical 1">
+                <img src="xeno_2.jpg" alt="Xenocorixa Vertical 2">
+                <img src="xeno_3.jpg" alt="Xenocorixa Vertical 3">
             </div>
         </div>
-
     </main>
 
     <footer>
         <div class="footer-info">
             <strong>김지승 ©2026 Jiseung Kim</strong><br>
-            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
-            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
+            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
             <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
             (54896) 전북특별자치도 전주시 덕진구 백제대로 567
         </div>
@@ -105,8 +130,7 @@
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
         navLinks.forEach(link => {
-            const linkPage = link.getAttribute("href");
-            if (linkPage === currentPage) {
+            if (link.getAttribute("href") === currentPage) {
                 link.classList.add("active");
                 if (link.closest(".dropdown-content")) {
                     link.closest("li").querySelector("a").classList.add("active");
