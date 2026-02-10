@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Works - Jiseung Kim</title>
+    <title>Presentations - Jiseung Kim</title>
     <style>
+        /* 기존 body, header, nav, footer 스타일은 그대로 유지하세요 */
         body {
             margin: 0; padding: 0;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -15,109 +16,32 @@
         }
 
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
-
-        .lab-name { 
-            font-size: 30px; 
-            font-weight: 700;
-            letter-spacing: 2px; 
-            color: #777; 
-            text-transform: uppercase; 
-        }
-
-        .univ-name { 
-            font-size: 19px; 
-            font-weight: 100; 
-            font-style: italic; 
-            color: #ccc; 
-            margin-left: 15px; 
-            letter-spacing: 2px; 
-            font-family: 'Segoe UI', sans-serif; 
-        }
-
+        .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
+        .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
         nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
         nav li { position: relative; padding: 12px 0; }
         nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
-        
         nav a.active { color: #333; font-weight: 700; }
         nav a:hover { color: #333; }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            min-width: 120px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
-            z-index: 1;
-            border: 1px solid #eee;
-            padding: 5px 0;
-        }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
-        .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
 
-        /* --- Works 리스트 스타일 --- */
-        main { 
-            flex-grow: 1; 
-            display: block; /* 리스트 페이지이므로 block으로 설정 */
-            padding: 60px 20px; 
-        }
+        /* --- Presentations 전용 스타일 --- */
+        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 800px; margin: 0 auto; }
+        
+        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
+        
+        .year-section { margin-bottom: 40px; }
+        .year-title { font-size: 20px; font-weight: 700; color: #007bff; margin-bottom: 15px; border-left: 4px solid #007bff; padding-left: 15px; }
+        
+        .pres-item { margin-bottom: 20px; padding-left: 20px; }
+        .pres-title { font-size: 16px; font-weight: 600; color: #444; margin-bottom: 5px; }
+        .pres-detail { font-size: 14px; color: #888; line-height: 1.6; }
+        .pres-type { display: inline-block; background: #f0f0f0; color: #666; font-size: 11px; padding: 2px 8px; border-radius: 3px; margin-right: 8px; text-transform: uppercase; }
 
-        .works-container {
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .works-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .works-list li {
-            font-size: 24px;
-            font-weight: 500;
-            margin-bottom: 35px;
-            position: relative;
-            padding-left: 30px;
-        }
-
-        /* 이미지 속 파란색 사각형 불렛 포인트 구현 */
-        .works-list li::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
-            background-color: #007bff;
-            border-radius: 2px;
-        }
-
-        .works-list a {
-            text-decoration: none;
-            color: #444;
-            transition: color 0.3s;
-        }
-
-        .works-list a:hover {
-            color: #007bff;
-            text-decoration: underline;
-        }
-
-        footer {
-            border-top: 1px solid #eee;
-            padding: 40px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            text-align: left;
-            flex-shrink: 0;
-        }
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
         .footer-info a { color: #007bff; text-decoration: none; }
     </style>
@@ -147,12 +71,24 @@
     </nav>
 
     <main>
-        <div class="works-container">
-            <ul class="works-list">
-                <li><a href="publications.html">Publications</a></li>
-                <li><a href="presentations.html">Presentations</a></li>
-            </ul>
+        <h2>Presentations</h2>
+
+        <div class="year-section">
+            <div class="year-title">2025</div>
+            <div class="pres-item">
+                <div class="pres-title"><span class="pres-type">Oral</span> A Taxonomic review of the Family Myrmeleontidae Latreille from the Korean Peninsula</div>
+                <div class="pres-detail">Korean Society of Applied Entomology (KSAE) Spring Conference, Pyeongchang, South Korea.</div>
+            </div>
         </div>
+
+        <div class="year-section">
+            <div class="year-title">2024</div>
+            <div class="pres-item">
+                <div class="pres-title"><span class="pres-type">Poster</span> First report of Xenocorixa vittipennis from the Korean Peninsula</div>
+                <div class="pres-detail">International Congress of Entomology, Kyoto, Japan.</div>
+            </div>
+        </div>
+
     </main>
 
     <footer>
@@ -166,10 +102,8 @@
     </footer>
 
     <script>
-        /* 현재 페이지 활성화 표시용 스크립트 */
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
-
         navLinks.forEach(link => {
             const linkPage = link.getAttribute("href");
             if (linkPage === currentPage) {
