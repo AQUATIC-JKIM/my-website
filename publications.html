@@ -28,29 +28,44 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Publications 전용 스타일 --- */
-        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 850px; margin: 0 auto; }
-        
+        /* --- Publications 이미지 포함 스타일 --- */
+        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 900px; margin: 0 auto; }
         h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
         
         .pub-list { list-style: none; padding: 0; }
-        .pub-item { margin-bottom: 30px; line-height: 1.7; font-size: 15px; color: #555; position: relative; padding-left: 20px; }
         
-        /* 논문 번호 매기기 효과 */
-        .pub-item::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #007bff;
-            font-weight: bold;
+        /* 텍스트와 이미지를 가로로 배치하는 컨테이너 */
+        .pub-item { 
+            display: flex; 
+            gap: 25px; 
+            margin-bottom: 50px; 
+            align-items: flex-start;
+            border-bottom: 1px style #f9f9f9;
+            padding-bottom: 30px;
         }
 
+        .pub-text { flex: 1; line-height: 1.7; font-size: 15px; color: #555; }
         .pub-author { font-weight: 500; }
-        .pub-author strong { color: #333; text-decoration: underline; } /* 본인 이름 강조 */
-        .pub-title { color: #333; font-weight: 600; }
+        .pub-author strong { color: #333; text-decoration: underline; }
+        .pub-title { color: #333; font-weight: 600; display: block; margin: 5px 0; }
         .pub-journal { font-style: italic; color: #444; }
         .pub-link { color: #007bff; text-decoration: none; font-size: 14px; }
-        .pub-link:hover { text-decoration: underline; }
+        
+        /* 이미지 스타일 */
+        .pub-image-container { width: 220px; flex-shrink: 0; }
+        .pub-image-container img { 
+            width: 100%; 
+            height: auto; 
+            border: 1px solid #eee; 
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+
+        /* 모바일 대응: 화면이 작아지면 세로로 배치 */
+        @media (max-width: 600px) {
+            .pub-item { flex-direction: column-reverse; }
+            .pub-image-container { width: 100%; }
+        }
 
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
@@ -81,25 +96,35 @@
         </ul>
     </nav>
 
-<main>
-    <h2>Publications</h2>
+    <main>
+        <h2>Publications</h2>
 
-    <ul class="pub-list">
-        <li class="pub-item">
-            <span class="pub-author"><strong>Kim, Jiseung</strong>, Neung-Ho Ahn, and Sora Kim.</span> 
-            <span class="pub-title">"A taxonomic review of the family Myrmeleontidae Latreille (Neuroptera, Myrmeleontiformia) from the Korean peninsula, highlighting the conservation value of this family."</span> 
-            <span class="pub-journal">ZooKeys</span> 1262 (2025): 97. 
-            <br><a href="https://doi.org/10.3897/zookeys.1262.133221" class="pub-link" target="_blank">https://doi.org/10.3897/zookeys.1262.133221</a>
-        </li>
+        <div class="pub-list">
+            <div class="pub-item">
+                <div class="pub-text">
+                    <span class="pub-author"><strong>Kim, Jiseung</strong>, Neung-Ho Ahn, and Sora Kim.</span> 
+                    <span class="pub-title">"A taxonomic review of the family Myrmeleontidae Latreille (Neuroptera, Myrmeleontiformia) from the Korean peninsula, highlighting the conservation value of this family."</span> 
+                    <span class="pub-journal">ZooKeys</span> 1262 (2025): 97. 
+                    <br><a href="https://doi.org/10.3897/zookeys.1262.133221" class="pub-link" target="_blank">DOI: 10.3897/zookeys.1262.133221</a>
+                </div>
+                <div class="pub-image-container">
+                    <img src="pub_image1.jpg" alt="Myrmeleontidae Publication Image">
+                </div>
+            </div>
 
-        <li class="pub-item">
-            <span class="pub-author"><strong>Kim, Jiseung</strong>, and Sora Kim.</span> 
-            <span class="pub-title">"First report <em>Xenocorixa vittipennis</em> (Horváth) (Hemiptera, Corixoidea, Corixidae) from South Korea and checklist of the Korean Corixoidea."</span> 
-            <span class="pub-journal">Biodiversity Data Journal</span> 13 (2025): e165218.
-            <br><a href="https://doi.org/10.3897/BDJ.13.e165218" class="pub-link" target="_blank">https://doi.org/10.3897/BDJ.13.e165218</a>
-        </li>
-    </ul>
-</main>
+            <div class="pub-item">
+                <div class="pub-text">
+                    <span class="pub-author"><strong>Kim, Jiseung</strong>, and Sora Kim.</span> 
+                    <span class="pub-title">"First report <em>Xenocorixa vittipennis</em> (Horváth) (Hemiptera, Corixoidea, Corixidae) from South Korea and checklist of the Korean Corixoidea."</span> 
+                    <span class="pub-journal">Biodiversity Data Journal</span> 13 (2025): e165218.
+                    <br><a href="https://doi.org/10.3897/BDJ.13.e165218" class="pub-link" target="_blank">DOI: 10.3897/BDJ.13.e165218</a>
+                </div>
+                <div class="pub-image-container">
+                    <img src="pub_image2.jpg" alt="Xenocorixa Publication Image">
+                </div>
+            </div>
+        </div>
+    </main>
 
     <footer>
         <div class="footer-info">
