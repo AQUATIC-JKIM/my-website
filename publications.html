@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jiseung Kim Website</title>
+    <title>Publications - Jiseung Kim</title>
     <style>
+        /* 기존 공통 스타일 유지 */
         body {
             margin: 0; padding: 0;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -15,73 +16,45 @@
         }
 
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
-
-        .lab-name { 
-            font-size: 30px; 
-            font-weight: 700;
-            letter-spacing: 2px; 
-            color: #777; 
-            text-transform: uppercase; 
-        }
-
-        .univ-name { 
-            font-size: 19px; 
-            font-weight: 100; 
-            font-style: italic; 
-            color: #ccc; 
-            margin-left: 15px; 
-            letter-spacing: 2px; 
-            font-family: 'Segoe UI', sans-serif; 
-        }
-
-        /* --- 네비게이션 스타일 --- */
+        .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
+        .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
         nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
         nav li { position: relative; padding: 12px 0; }
         nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
-        
-        nav a.active {
-            color: #333;
-            font-weight: 700;
-        }
-        
+        nav a.active { color: #333; font-weight: 700; }
         nav a:hover { color: #333; }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            min-width: 120px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
-            z-index: 1;
-            border: 1px solid #eee;
-            padding: 5px 0;
-        }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
-        .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
 
-        /* 메인 및 슬라이드쇼 */
-        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 40px 20px; }
-        .mySlides { display: none; max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain; animation: fade 1.5s; }
-
-        /* 푸터 스타일 */
-        footer {
-            border-top: 1px solid #eee;
-            padding: 40px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            text-align: left;
-            flex-shrink: 0;
+        /* --- Publications 전용 스타일 --- */
+        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 850px; margin: 0 auto; }
+        
+        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
+        
+        .pub-list { list-style: none; padding: 0; }
+        .pub-item { margin-bottom: 30px; line-height: 1.7; font-size: 15px; color: #555; position: relative; padding-left: 20px; }
+        
+        /* 논문 번호 매기기 효과 */
+        .pub-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-weight: bold;
         }
+
+        .pub-author { font-weight: 500; }
+        .pub-author strong { color: #333; text-decoration: underline; } /* 본인 이름 강조 */
+        .pub-title { color: #333; font-weight: 600; }
+        .pub-journal { font-style: italic; color: #444; }
+        .pub-link { color: #007bff; text-decoration: none; font-size: 14px; }
+        .pub-link:hover { text-decoration: underline; }
+
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
         .footer-info a { color: #007bff; text-decoration: none; }
-
-        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
 </head>
 <body>
@@ -109,12 +82,24 @@
     </nav>
 
     <main>
-     <main style="display: block; text-align: left; max-width: 800px; margin: 0 auto;">
-    <h2>Publications</h2>
-    <ol reversed>
-        <li><strong>Kim, J.</strong> (2025). First report on <em>Xenocorixa vittipennis</em>... Journal Name. <a href="DOI_LINK">https://doi.org/...</a></li>
-        </ol>
-</main>
+        <h2>Publications</h2>
+
+        <ul class="pub-list">
+            <li class="pub-item">
+                <span class="pub-author"><strong>Kim, Jiseung</strong>, Neung-Ho Ahn, and Sora Kim.</span> 
+                <span class="pub-title">"A taxonomic review of the family Myrmeleontidae Latreille (Neuroptera, Myrmeleontiformia) from the Korean peninsula, highlighting the conservation value of this family."</span> 
+                <span class="pub-journal">ZooKeys</span> 1262 (2025): 97. 
+                <br><a href="https://doi.org/10.3897/zookeys.1262.133221" class="pub-link" target="_blank">https://doi.org/10.3897/zookeys.1262.133221</a>
+            </li>
+
+            <li class="pub-item">
+                <span class="pub-author"><strong>Kim, Jiseung</strong>, and Sora Kim.</span> 
+                <span class="pub-title">"First report Xenocorixa vittipennis (Horváth)(Hemiptera, Corixoidea, Corixidae) from South Korea and checklist of the Korean Corixoidea."</span> 
+                <span class="pub-journal">Biodiversity Data Journal</span> 13 (2025): e165218.
+                <br><a href="https://doi.org/10.3897/BDJ.13.e165218" class="pub-link" target="_blank">https://doi.org/10.3897/BDJ.13.e165218</a>
+            </li>
+        </ul>
+    </main>
 
     <footer>
         <div class="footer-info">
@@ -127,22 +112,8 @@
     </footer>
 
     <script>
-        let slideIndex = 0;
-        showSlides();
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            if (slides.length === 0) return;
-            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex-1].style.display = "block";  
-            setTimeout(showSlides, 5000); 
-        }
-
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
-
         navLinks.forEach(link => {
             const linkPage = link.getAttribute("href");
             if (linkPage === currentPage) {
