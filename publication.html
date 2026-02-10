@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiseung Kim Website</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #666; background-color: #fff;
+            text-align: center;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+        }
+
+        header { padding: 40px 0 20px 0; flex-shrink: 0; }
+
+        .lab-name { 
+            font-size: 30px; 
+            font-weight: 700;
+            letter-spacing: 2px; 
+            color: #777; 
+            text-transform: uppercase; 
+        }
+
+        .univ-name { 
+            font-size: 19px; 
+            font-weight: 100; 
+            font-style: italic; 
+            color: #ccc; 
+            margin-left: 15px; 
+            letter-spacing: 2px; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
+
+        /* --- 네비게이션 스타일 --- */
+        nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
+        nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
+        nav li { position: relative; padding: 12px 0; }
+        nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
+        
+        nav a.active {
+            color: #333;
+            font-weight: 700;
+        }
+        
+        nav a:hover { color: #333; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
+            z-index: 1;
+            border: 1px solid #eee;
+            padding: 5px 0;
+        }
+        .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
+        nav li:hover .dropdown-content { display: block; }
+        .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
+
+        /* 메인 및 슬라이드쇼 */
+        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 40px 20px; }
+        .mySlides { display: none; max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain; animation: fade 1.5s; }
+
+        /* 푸터 스타일 */
+        footer {
+            border-top: 1px solid #eee;
+            padding: 40px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left;
+            flex-shrink: 0;
+        }
+        .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
+        .footer-info a { color: #007bff; text-decoration: none; }
+
+        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="lab-name">JISEUNG KIM WEBSITE</span>
+        <span class="univ-name">Jeonbuk National University</span>
+    </header>
+
+    <nav>
+        <ul id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li>
+                <a href="works.html">Works</a>
+                <div class="dropdown-content">
+                    <a href="publications.html">Publications</a>
+                    <a href="presentations.html">Presentations</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+     <main style="display: block; text-align: left; max-width: 800px; margin: 0 auto;">
+    <h2>Publications</h2>
+    <ol reversed>
+        <li><strong>Kim, J.</strong> (2025). First report on <em>Xenocorixa vittipennis</em>... Journal Name. <a href="DOI_LINK">https://doi.org/...</a></li>
+        </ol>
+</main>
+
+    <footer>
+        <div class="footer-info">
+            <strong>김지승 ©2026 Jiseung Kim</strong><br>
+            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
+            <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
+            (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+        </div>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            if (slides.length === 0) return;
+            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "block";  
+            setTimeout(showSlides, 5000); 
+        }
+
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll("#nav-list a");
+
+        navLinks.forEach(link => {
+            const linkPage = link.getAttribute("href");
+            if (linkPage === currentPage) {
+                link.classList.add("active");
+                if (link.closest(".dropdown-content")) {
+                    link.closest("li").querySelector("a").classList.add("active");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
