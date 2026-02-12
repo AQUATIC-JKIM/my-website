@@ -78,22 +78,81 @@
 </nav>
 
 <main>
-        <h2>Fieldwork & Observations</h2>
-        
-        <section class="map-section">
+        <section class="section-container">
+            <h2>Observations</h2>
             <div class="map-container">
                 <iframe width="100%" height="100%" scrolling="no" frameborder="0" src="https://www.inaturalist.org/observations/map?user_id=jimenn_kim"></iframe>
             </div>
-
-            <div class="inat-notice" style="text-align: center; background-color: #f8f9fa; border: none; border-top: 1px solid #eee; margin-top: 0; padding: 15px;">
-                <p style="margin: 0; font-size: 14px; color: #666;">
-                    Explore my real-time field data on 
-                    <a href="https://www.inaturalist.org/observations/jimenn_kim" target="_blank" class="inat-link" style="color: #007bff; font-weight: 600; text-decoration: none;">
-                        iNaturalist →
-                    </a>
+            <div class="inat-notice">
+                <p>📍 Explore my real-time field data on 
+                    <a href="https://www.inaturalist.org/observations/jimenn_kim" target="_blank" class="inat-link">iNaturalist →</a>
                 </p>
             </div>
         </section>
+
+        <section class="section-container" style="margin-top: 80px;">
+            <h2>Fieldwork</h2>
+            <div class="fieldwork-grid">
+                
+                <div class="field-item">
+                    <a href="구글포토나 외부링크주소" target="_blank" class="field-link">
+                        <div class="field-thumb">
+                            <img src="대표사진1.jpg" alt="Fieldwork Image 1">
+                        </div>
+                        <div class="field-meta">
+                            <span class="field-date">2025.08.15 - 08.20</span>
+                            <span class="field-loc">Jeju Island, South Korea</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="field-item">
+                    <a href="구글포토나 외부링크주소" target="_blank" class="field-link">
+                        <div class="field-thumb">
+                            <img src="대표사진2.jpg" alt="Fieldwork Image 2">
+                        </div>
+                        <div class="field-meta">
+                            <span class="field-date">2025.05.10</span>
+                            <span class="field-loc">Mt. Naejang, Jeonbuk, South Korea</span>
+                        </div>
+                    </a>
+                </div>
+
+                </div>
+        </section>
+    </main>
+
+    <style>
+        /* 추가 및 수정된 스타일 */
+        .section-container { margin-bottom: 60px; }
+        .map-container { 
+            border: 1px solid #eee; border-radius: 8px; overflow: hidden; height: 500px; background: #f9f9f9; 
+        }
+        .inat-notice { 
+            text-align: center; background-color: #f8f9fa; border-top: 1px solid #eee; padding: 15px; 
+        }
+        .inat-link { color: #007bff; font-weight: 600; text-decoration: none; }
+
+        /* Fieldwork 그리드 (한 줄에 2개) */
+        .fieldwork-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; 
+        }
+        .field-link { text-decoration: none; display: block; }
+        .field-thumb { 
+            width: 100%; height: 250px; overflow: hidden; border-radius: 8px; border: 1px solid #eee; transition: transform 0.3s;
+        }
+        .field-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .field-item:hover .field-thumb { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* 날짜 및 장소 메타데이터 */
+        .field-meta { margin-top: 12px; padding-left: 5px; }
+        .field-date { display: block; font-size: 12px; color: #999; font-weight: 400; }
+        .field-loc { display: block; font-size: 14px; color: #555; font-weight: 500; margin-top: 2px; }
+
+        @media (max-width: 600px) {
+            .fieldwork-grid { grid-template-columns: 1fr; } /* 모바일은 1열로 */
+        }
+    </style>
     </main>
     
     <footer>
