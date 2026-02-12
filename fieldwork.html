@@ -21,32 +21,24 @@
         nav li:hover .dropdown-content { display: block; }
 
         /* --- Fieldwork 상세 스타일 --- */
-        main { flex-grow: 1; display: block; text-align: left; max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
-        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; }
-        .intro-text { font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 40px; }
-
-        /* 지도 컨테이너 스타일 */
-        .map-section { margin-bottom: 40px; }
-        .map-container { 
-            border: 1px solid #eee; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            background: #f9f9f9;
-            height: 600px;
-        }
+        main { flex-grow: 1; display: block; text-align: left; }
         
-        /* 정보 박스 스타일 */
-        .inat-notice { 
-            background-color: #f0f7ff; 
-            padding: 25px; 
-            border-radius: 8px; 
-            border-left: 5px solid #007bff;
-            margin-top: 20px;
+        .section-inner { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+        /* Fieldwork 그리드 스타일 */
+        .fieldwork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
+        .field-link { text-decoration: none; display: block; }
+        .field-thumb { width: 100%; height: 280px; overflow: hidden; border-radius: 8px; border: 1px solid #eee; transition: all 0.3s; }
+        .field-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .field-item:hover .field-thumb { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .field-meta { margin-top: 15px; }
+        .field-date { display: block; font-size: 12px; color: #999; }
+        .field-loc { display: block; font-size: 15px; color: #444; font-weight: 500; margin-top: 3px; }
+
+        @media (max-width: 768px) {
+            .fieldwork-grid { grid-template-columns: 1fr; }
+            .observations-full-width { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; left: 0 !important; }
         }
-        .inat-notice p { margin: 5px 0; font-size: 15px; color: #444; }
-        .inat-link { color: #007bff; text-decoration: none; font-weight: bold; }
-        .inat-link:hover { text-decoration: underline; }
 
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
@@ -60,64 +52,56 @@
         <span class="univ-name">Jeonbuk National University</span>
     </header>
 
-<nav>
-    <ul id="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="fieldwork.html">Fieldwork</a></li> <li>
-            <a href="works.html">Works</a>
-            <div class="dropdown-content">
-                <a href="publications.html">Publications</a>
-                <a href="presentations.html">Presentations</a>
+    <nav>
+        <ul id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="fieldwork.html">Fieldwork</a></li>
+            <li>
+                <a href="works.html">Works</a>
+                <div class="dropdown-content">
+                    <a href="publications.html">Publications</a>
+                    <a href="presentations.html">Presentations</a>
+                </div>
+            </li>
+            <li><a href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="observations-full-width" style="margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); width: 100vw; position: relative; left: 50%; right: 50%; margin-bottom: 80px; padding: 60px 0; background-color: #fafafa; border-bottom: 1px solid #eee;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <h2 style="font-size: 28px; color: #333; margin-bottom: 30px;">Observations</h2>
+                <div class="map-container" style="height: 650px; width: 100%; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: #fff;">
+                    <iframe width="100%" height="100%" scrolling="no" frameborder="0" src="https://www.inaturalist.org/observations/map?user_id=jimenn_kim" style="border:0;"></iframe>
+                </div>
+                <div class="inat-notice" style="text-align: center; background-color: #fff; border: 1px solid #eee; border-top: none; border-radius: 0 0 8px 8px; padding: 15px;">
+                    <p style="margin: 0; font-size: 14px; color: #666;">
+                        📍 Explore my real-time field data on 
+                        <a href="https://www.inaturalist.org/observations/jimenn_kim" target="_blank" style="color: #007bff; font-weight: 600; text-decoration: none;">iNaturalist →</a>
+                    </p>
+                </div>
             </div>
-        </li>
-        <li><a href="archive.html">Archive</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-</nav>
+        </section>
 
-<main>
-<section class="section-container">
-    <h2>Observations</h2>
-    <div class="map-container" style="height: 600px; width: 100%; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
-        <iframe 
-            width="100%" 
-            height="100%" 
-            scrolling="no" 
-            frameborder="0" 
-            src="https://www.inaturalist.org/observations/map?user_id=본인ID"
-            style="border:0;">
-        </iframe>
-    </div>
-    <div class="inat-notice">
-        <p>📍 Explore my real-time field data on 
-            <a href="https://www.inaturalist.org/observations/본인ID" target="_blank" class="inat-link">iNaturalist →</a>
-        </p>
-    </div>
-</section>
-
-        <section class="section-container" style="margin-top: 80px;">
-            <h2>Fieldwork</h2>
+        <div class="section-inner">
+            <h2 style="font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">Fieldwork</h2>
             <div class="fieldwork-grid">
                 
                 <div class="field-item">
-                    <a href="구글포토나 외부링크주소" target="_blank" class="field-link">
-                        <div class="field-thumb">
-                            <img src="대표사진1.jpg" alt="Fieldwork Image 1">
-                        </div>
+                    <a href="https://photos.google.com/..." target="_blank" class="field-link">
+                        <div class="field-thumb"><img src="thumb1.jpg" alt="Jeju Expedition"></div>
                         <div class="field-meta">
                             <span class="field-date">2025.08.15 - 08.20</span>
                             <span class="field-loc">Jeju Island, South Korea</span>
                         </div>
                     </a>
                 </div>
-
+                
                 <div class="field-item">
-                    <a href="구글포토나 외부링크주소" target="_blank" class="field-link">
-                        <div class="field-thumb">
-                            <img src="대표사진2.jpg" alt="Fieldwork Image 2">
-                        </div>
+                    <a href="https://photos.google.com/..." target="_blank" class="field-link">
+                        <div class="field-thumb"><img src="thumb2.jpg" alt="Naejangsan Trip"></div>
                         <div class="field-meta">
                             <span class="field-date">2025.05.10</span>
                             <span class="field-loc">Mt. Naejang, Jeonbuk, South Korea</span>
@@ -125,43 +109,10 @@
                     </a>
                 </div>
 
-                </div>
-        </section>
+            </div>
+        </div>
     </main>
 
-    <style>
-        /* 추가 및 수정된 스타일 */
-        .section-container { margin-bottom: 60px; }
-        .map-container { 
-            border: 1px solid #eee; border-radius: 8px; overflow: hidden; height: 500px; background: #f9f9f9; 
-        }
-        .inat-notice { 
-            text-align: center; background-color: #f8f9fa; border-top: 1px solid #eee; padding: 15px; 
-        }
-        .inat-link { color: #007bff; font-weight: 600; text-decoration: none; }
-
-        /* Fieldwork 그리드 (한 줄에 2개) */
-        .fieldwork-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; 
-        }
-        .field-link { text-decoration: none; display: block; }
-        .field-thumb { 
-            width: 100%; height: 250px; overflow: hidden; border-radius: 8px; border: 1px solid #eee; transition: transform 0.3s;
-        }
-        .field-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .field-item:hover .field-thumb { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-        /* 날짜 및 장소 메타데이터 */
-        .field-meta { margin-top: 12px; padding-left: 5px; }
-        .field-date { display: block; font-size: 12px; color: #999; font-weight: 400; }
-        .field-loc { display: block; font-size: 14px; color: #555; font-weight: 500; margin-top: 2px; }
-
-        @media (max-width: 600px) {
-            .fieldwork-grid { grid-template-columns: 1fr; } /* 모바일은 1열로 */
-        }
-    </style>
-    </main>
-    
     <footer>
         <div class="footer-info">
             <strong>김지승 ©2026 Jiseung Kim</strong><br>
@@ -178,9 +129,6 @@
         navLinks.forEach(link => {
             if (link.getAttribute("href") === currentPage) {
                 link.classList.add("active");
-                if (link.closest(".dropdown-content")) {
-                    link.closest("li").querySelector("a").classList.add("active");
-                }
             }
         });
     </script>
