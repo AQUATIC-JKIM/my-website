@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fieldwork - Jiseung Kim</title>
+    <style>
+        /* 기존 공통 스타일 유지 */
+        body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
+        header { padding: 40px 0 20px 0; flex-shrink: 0; }
+        .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
+        .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
+        nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
+        nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
+        nav li { position: relative; padding: 12px 0; }
+        nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
+        nav a.active { color: #333; font-weight: 700; }
+        nav a:hover { color: #333; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
+        .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
+        nav li:hover .dropdown-content { display: block; }
+
+        /* --- Fieldwork 상세 스타일 --- */
+        main { flex-grow: 1; display: block; text-align: left; max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 30px; }
+        .intro-text { font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 40px; }
+
+        /* 지도 컨테이너 스타일 */
+        .map-section { margin-bottom: 40px; }
+        .map-container { 
+            border: 1px solid #eee; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: #f9f9f9;
+            height: 600px;
+        }
+        
+        /* 정보 박스 스타일 */
+        .inat-notice { 
+            background-color: #f0f7ff; 
+            padding: 25px; 
+            border-radius: 8px; 
+            border-left: 5px solid #007bff;
+            margin-top: 20px;
+        }
+        .inat-notice p { margin: 5px 0; font-size: 15px; color: #444; }
+        .inat-link { color: #007bff; text-decoration: none; font-weight: bold; }
+        .inat-link:hover { text-decoration: underline; }
+
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
+        .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
+        .footer-info a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="lab-name">JISEUNG KIM WEBSITE</span>
+        <span class="univ-name">Jeonbuk National University</span>
+    </header>
+
+<nav>
+    <ul id="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="fieldwork.html">Fieldwork</a></li> <li>
+            <a href="works.html">Works</a>
+            <div class="dropdown-content">
+                <a href="publications.html">Publications</a>
+                <a href="presentations.html">Presentations</a>
+            </div>
+        </li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+    <main>
+        <h2>Fieldwork & Observations</h2>
+        
+        <div class="intro-text">
+            곤충의 계통분류와 진화를 연구하기 위해 한반도 전역 및 다양한 서식지를 탐사하며 직접 관찰한 기록들입니다. 
+            아래 지도는 <strong>iNaturalist</strong> 플랫폼을 통해 기록된 저의 현장 관찰 데이터이며, 시민 과학 데이터베이스 구축에도 기여하고 있습니다.
+        </div>
+
+        <section class="map-section">
+            <div class="map-container">
+                <iframe width="100%" height="100%" scrolling="no" frameborder="0" src="https://www.inaturalist.org/observations/map?user_id=본인ID"></iframe>
+            </div>
+
+            <div class="inat-notice">
+                <p>📍 본 지도는 iNaturalist에 등록된 저의 실시간 관찰 기록을 보여줍니다.</p>
+                <p>🔍 개별 종의 상세 정보, 고화질 사진 및 관찰 시점 등을 확인하시려면 아래 링크를 방문해 주세요.</p>
+                <p style="margin-top: 15px;">
+                    <a href="https://www.inaturalist.org/observations/jimenn_kim" target="_blank" class="inat-link">
+                        View my complete observations on iNaturalist →
+                    </a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-info">
+            <strong>김지승 ©2026 Jiseung Kim</strong><br>
+            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
+            <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
+            (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+        </div>
+    </footer>
+
+    <script>
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll("#nav-list a");
+        navLinks.forEach(link => {
+            if (link.getAttribute("href") === currentPage) {
+                link.classList.add("active");
+                if (link.closest(".dropdown-content")) {
+                    link.closest("li").querySelector("a").classList.add("active");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
