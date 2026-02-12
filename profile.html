@@ -3,85 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jiseung Kim Website</title>
+    <title>Profile - Jiseung Kim</title>
     <style>
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #666; background-color: #fff;
-            text-align: center;
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-        }
-
+        /* 기존 공통 스타일 유지 */
+        body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
-
-        .lab-name { 
-            font-size: 30px; 
-            font-weight: 700;
-            letter-spacing: 2px; 
-            color: #777; 
-            text-transform: uppercase; 
-        }
-
-        .univ-name { 
-            font-size: 19px; 
-            font-weight: 100; 
-            font-style: italic; 
-            color: #ccc; 
-            margin-left: 15px; 
-            letter-spacing: 2px; 
-            font-family: 'Segoe UI', sans-serif; 
-        }
-
-        /* --- 네비게이션 스타일 --- */
+        .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
+        .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
         nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
         nav li { position: relative; padding: 12px 0; }
         nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
-        
-        nav a.active {
-            color: #333;
-            font-weight: 700;
-        }
-        
+        nav a.active { color: #333; font-weight: 700; }
         nav a:hover { color: #333; }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #fff;
-            min-width: 120px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05);
-            z-index: 1;
-            border: 1px solid #eee;
-            padding: 5px 0;
-        }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
-        .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
 
-        /* 메인 및 슬라이드쇼 */
-        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; position: relative; padding: 40px 20px; }
-        .mySlides { display: none; max-width: 100%; max-height: 70vh; width: auto; height: auto; object-fit: contain; animation: fade 1.5s; }
+        /* --- Profile 상세 스타일 --- */
+        main { flex-grow: 1; display: block; text-align: left; max-width: 850px; margin: 0 auto; padding: 60px 20px; }
+        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
+        h3 { font-size: 20px; color: #007bff; margin-top: 50px; margin-bottom: 20px; border-left: 4px solid #007bff; padding-left: 15px; }
+        
+        .cv-item { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
+        .cv-content { flex: 1; }
+        .cv-date { color: #999; font-size: 14px; white-space: nowrap; margin-left: 20px; }
+        
+        strong { font-size: 16px; color: #444; }
+        .sub-info { color: #777; display: block; margin-top: 3px; }
+        .advisor { font-size: 14px; color: #888; font-style: italic; }
 
-        /* 푸터 스타일 */
-        footer {
-            border-top: 1px solid #eee;
-            padding: 40px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            text-align: left;
-            flex-shrink: 0;
-        }
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
         .footer-info a { color: #007bff; text-decoration: none; }
-
-        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
 </head>
 <body>
@@ -109,42 +63,66 @@
     </nav>
 
     <main>
-     <main style="display: block; text-align: left; max-width: 800px; margin: 0 auto; padding: 60px 20px;">
-    <h2 style="font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px;">Profile</h2>
+        <h2>Profile</h2>
 
-    <section style="margin-bottom: 50px;">
-        <h3 style="font-size: 20px; color: #007bff; margin-bottom: 20px;">Current Position</h3>
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
-            <div>
-                <strong style="font-size: 16px; color: #444;">Researcher and Graduate Student</strong><br>
-                <span style="color: #777;">Insect Phylogeny and Evolution Lab, Jeonbuk National University, Korea</span>
+        <section>
+            <h3>Education</h3>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>M.S.A. in Biology</strong>
+                    <span class="sub-info">Jeonbuk National University, Korea</span>
+                    <span class="advisor">Advisor: Prof. Dr. Sora Kim</span>
+                </div>
+                <div class="cv-date">2025–Present</div>
             </div>
-            <div style="color: #999; font-size: 14px; white-space: nowrap;">2025–Present</div>
-        </div>
-    </section>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>B.S.A. in Biology</strong>
+                    <span class="sub-info">Jeonbuk National University, Korea</span>
+                </div>
+                <div class="cv-date">2019–2025</div>
+            </div>
+        </section>
 
-    <section>
-        <h3 style="font-size: 20px; color: #007bff; margin-bottom: 20px;">Education</h3>
-        
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;">
-            <div>
-                <strong style="font-size: 16px; color: #444;">M.S.A. in Biology</strong><br>
-                <span style="color: #777;">Jeonbuk National University, Korea</span><br>
-                <span style="font-size: 14px; color: #888;">Advisor: Prof. Dr. Sora Kim</span>
+        <section>
+            <h3>Experiences</h3>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Researcher</strong>
+                    <span class="sub-info">Insect Phylogeny and Evolution Lab, Jeonbuk National University</span>
+                    <span class="advisor">Advisor: Prof. Dr. Sora Kim</span>
+                </div>
+                <div class="cv-date">2025–Present</div>
             </div>
-            <div style="color: #999; font-size: 14px; white-space: nowrap;">2025–Present</div>
-        </div>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Undergraduate Student Researcher</strong>
+                    <span class="sub-info">Insect Phylogeny and Evolution Lab, Jeonbuk National University</span>
+                    <span class="advisor">Advisor: Prof. Dr. Sora Kim</span>
+                </div>
+                <div class="cv-date">2024–2025</div>
+            </div>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Visiting Researcher</strong>
+                    <span class="sub-info">Natural History Museum of Jeonbuk National University</span>
+                    <span class="advisor">Principal Collaborator: Ms. Ji-in Yang</span>
+                </div>
+                <div class="cv-date">2021–2022</div>
+            </div>
+        </section>
 
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <div>
-                <strong style="font-size: 16px; color: #444;">B.S.A. in Biology</strong><br>
-                <span style="color: #777;">Jeonbuk National University, Korea</span>
+        <section>
+            <h3>Awards</h3>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Excellence Insect Photography Prize</strong>
+                    <span class="sub-info">2025 Autumn Conference of Korean Society of Applied Entomology (Seogwipo, South Korea)</span>
+                </div>
+                <div class="cv-date">2025</div>
             </div>
-            <div style="color: #999; font-size: 14px; white-space: nowrap;">2019–2025</div>
-        </div>
-    </section>
-</main>
-</main>
+        </section>
+    </main>
 
     <footer>
         <div class="footer-info">
@@ -157,25 +135,10 @@
     </footer>
 
     <script>
-        let slideIndex = 0;
-        showSlides();
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-            if (slides.length === 0) return;
-            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex-1].style.display = "block";  
-            setTimeout(showSlides, 5000); 
-        }
-
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
-
         navLinks.forEach(link => {
-            const linkPage = link.getAttribute("href");
-            if (linkPage === currentPage) {
+            if (link.getAttribute("href") === currentPage) {
                 link.classList.add("active");
                 if (link.closest(".dropdown-content")) {
                     link.closest("li").querySelector("a").classList.add("active");
