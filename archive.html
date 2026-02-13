@@ -62,12 +62,73 @@
             .archive-card { padding: 40px 20px; }
         }
 
-        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0; }
-        .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
-        .footer-info a { color: #007bff; text-decoration: none; }
+    <footer style="border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: space-between; align-items: flex-start; text-align: left; flex-shrink: 0;">
+    <div class="footer-info" style="font-size: 13px; line-height: 1.8; color: #555;">
+        <strong style="font-size: 14px; color: #333;">김지승 ©2026 Jiseung Kim</strong><br>
+        Email: <a href="mailto:gjs0917@jbnu.ac.kr" style="color: #007bff; text-decoration: none;">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+        <a href="mailto:gjs09177@gmail.com" style="color: #007bff; text-decoration: none;">gjs09177@gmail.com</a> (PRIVATE)<br><br>
+        <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #555; text-decoration: none;">전북대학교 (Jeonbuk National University)</a><br>
+        (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+    </div>
+
+    <div class="footer-social" style="display: flex; gap: 20px; align-items: center; padding-top: 10px;">
+        <a href="https://www.researchgate.net/profile/Jiseung-Kim" target="_blank" title="ResearchGate" class="social-icon">
+            <i class="fab fa-researchgate"></i>
+        </a>
+        <a href="https://www.instagram.com/k_js_00" target="_blank" title="Instagram" class="social-icon">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://x.com/jiseungKim00" target="_blank" title="X" class="social-icon">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://blog.naver.com/deyrolli" target="_blank" title="Naver Blog" class="social-icon naver-icon">
+            <span>N</span>
+        </a>
+    </div>
+</footer>
+
+<style>
+    /* 아이콘 공통 스타일: 올려주신 사진처럼 회색톤으로 통일 */
+    .social-icon {
+        color: #888; /* 기본 회색 */
+        font-size: 20px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 마우스 올렸을 때만 조금 더 진한 회색/검정으로 변경 */
+    .social-icon:hover {
+        color: #333;
+    }
+
+    /* 네이버 블로그 전용 커스텀 스타일 */
+    .naver-icon span {
+        width: 20px;
+        height: 20px;
+        background-color: #888; /* 아이콘과 동일한 회색 배경 */
+        color: #fff; /* 글자는 흰색 */
+        border-radius: 50%; /* 원형 */
+        font-size: 11px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .naver-icon:hover span {
+        background-color: #333; /* 마우스 올리면 배경색 변경 */
+    }
+</style>
     </style>
 </head>
 <body>
+
+
+
 
     <header>
         <span class="lab-name">JISEUNG KIM WEBSITE</span>
