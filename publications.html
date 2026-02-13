@@ -5,24 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publications - Jiseung Kim</title>
     <style>
-        /* 기존 공통 스타일 */
+        /* --- 공통 레이아웃 스타일 --- */
         body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
         .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
         .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
+        
+        /* 네비게이션 스타일 */
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
         nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
         nav li { position: relative; padding: 12px 0; }
         nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
         nav a.active { color: #333; font-weight: 700; }
         nav a:hover { color: #333; }
+        
         .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Publications 세로형 이미지 스타일 --- */
-        main { flex-grow: 1; display: block; padding: 60px 20px; text-align: left; max-width: 1000px; margin: 0 auto; }
-        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
+        /* --- Publications 섹션 스타일 및 여백 최적화 --- */
+        main { 
+            flex-grow: 1; 
+            display: block; 
+            padding: 30px 20px 60px 20px; /* 상단 여백 축소 */
+            text-align: left; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+        }
+        h2 { 
+            font-size: 28px; 
+            color: #333; 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 10px; 
+            margin-top: 0; /* 제목 상단 마진 제거 */
+            margin-bottom: 40px; 
+        }
         
         .pub-item { margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 30px; }
         .pub-text { line-height: 1.7; font-size: 15px; color: #555; margin-bottom: 25px; }
@@ -31,7 +48,7 @@
         .pub-journal { font-style: italic; }
         .pub-link { color: #007bff; text-decoration: none; font-size: 14px; }
         
-        /* 이미지 그리드: 세로형 비율 유지 */
+        /* 이미지 그리드: 논문 페이지 등 세로형 비율 유지 */
         .pub-images-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -41,8 +58,8 @@
 
         .pub-images-grid img { 
             width: 100%; 
-            height: 500px; /* 높이를 늘려 세로형으로 설정 */
-            object-fit: cover; /* 이미지가 잘리지 않고 세로 박스에 맞춰지게 함 */
+            height: 500px; /* 세로형 높이 설정 */
+            object-fit: cover; 
             border: 1px solid #eee; 
             border-radius: 4px;
             box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
@@ -52,11 +69,11 @@
         .pub-images-grid img:hover { transform: scale(1.03); }
 
         @media (max-width: 600px) {
-            .pub-images-grid { grid-template-columns: repeat(2, 1fr); } /* 모바일은 2열로 */
+            .pub-images-grid { grid-template-columns: repeat(2, 1fr); }
             .pub-images-grid img { height: 250px; }
         }
 
-/* --- 푸터 스타일 및 아이콘 --- */
+        /* --- 푸터 스타일 및 회색 아이콘 --- */
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
         .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
@@ -68,6 +85,8 @@
 
         .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
         .naver-icon:hover span { background-color: #333; }
+
+        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -106,9 +125,9 @@
                 <br><a href="https://doi.org/10.3897/zookeys.1262.133221" class="pub-link" target="_blank">DOI: 10.3897/zookeys.1262.133221</a>
             </div>
             <div class="pub-images-grid">
-                <img src="myr_1.jpg" alt="Myrmeleontidae Vertical 1">
-                <img src="myr_2.jpg" alt="Myrmeleontidae Vertical 2">
-                <img src="myr_3.jpg" alt="Myrmeleontidae Vertical 3">
+                <img src="myr_1.jpg" alt="Myrmeleontidae Plate 1">
+                <img src="myr_2.jpg" alt="Myrmeleontidae Plate 2">
+                <img src="myr_3.jpg" alt="Myrmeleontidae Plate 3">
             </div>
         </div>
 
@@ -120,19 +139,41 @@
                 <br><a href="https://doi.org/10.3897/BDJ.13.e165218" class="pub-link" target="_blank">DOI: 10.3897/BDJ.13.e165218</a>
             </div>
             <div class="pub-images-grid">
-                <img src="xeno_1.jpg" alt="Xenocorixa Vertical 1">
-                <img src="xeno_2.jpg" alt="Xenocorixa Vertical 2">
-                <img src="xeno_3.jpg" alt="Xenocorixa Vertical 3">
+                <img src="xeno_1.jpg" alt="Xenocorixa Plate 1">
+                <img src="xeno_2.jpg" alt="Xenocorixa Plate 2">
+                <img src="xeno_3.jpg" alt="Xenocorixa Plate 3">
             </div>
         </div>
     </main>
 
     <footer>
-        <div class="footer-info">
-            <strong>김지승 ©2026 Jiseung Kim</strong><br>
-            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
-            <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
-            (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+        <div class="footer-container">
+            <div class="footer-info">
+                <strong>김지승 ©2026 Jiseung Kim</strong><br>
+                <span>
+                    Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+                    <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)
+                </span><br><br>
+                <span>
+                    <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
+                    (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+                </span>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.researchgate.net/profile/Jiseung-Kim-5?ev=hdr_xprf" target="_blank" title="ResearchGate" class="social-icon">
+                    <i class="fab fa-researchgate"></i>
+                </a>
+                <a href="https://www.instagram.com/k_js_00" target="_blank" title="Instagram" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/jiseungKim00" target="_blank" title="X" class="social-icon">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://blog.naver.com/deyrolli" target="_blank" title="Naver Blog" class="social-icon naver-icon">
+                    <span>N</span>
+                </a>
+            </div>
         </div>
     </footer>
 
@@ -140,7 +181,8 @@
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
         navLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPage) {
+            const linkPage = link.getAttribute("href");
+            if (linkPage === currentPage) {
                 link.classList.add("active");
                 if (link.closest(".dropdown-content")) {
                     link.closest("li").querySelector("a").classList.add("active");
