@@ -83,6 +83,7 @@
 
         @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -121,14 +122,35 @@
     </main>
 
     <footer>
-        <div class="footer-info">
-            <strong>김지승 ©2026 Jiseung Kim</strong><br>
-            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
-            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
-            <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
-            (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+    <div class="footer-container" style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; margin: 0 auto;">
+        <div class="footer-info" style="text-align: left;">
+            <strong style="font-size: 15px; color: #333;">김지승 ©2026 Jiseung Kim</strong><br>
+            <span style="font-size: 13px; color: #666;">
+                Email: <a href="mailto:gjs0917@jbnu.ac.kr" style="color: #007bff; text-decoration: none;">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+                <a href="mailto:gjs09177@gmail.com" style="color: #007bff; text-decoration: none;">gjs09177@gmail.com</a> (PRIVATE)
+            </span><br><br>
+            <span style="font-size: 13px; color: #666;">
+                <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; text-decoration: none; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
+                (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+            </span>
         </div>
-    </footer>
+
+        <div class="footer-social" style="display: flex; gap: 15px; align-items: center; padding-top: 10px;">
+            <a href="https://www.researchgate.net/profile/Jiseung-Kim" target="_blank" title="ResearchGate" style="color: #00ccbb; font-size: 22px; transition: opacity 0.3s;">
+                <i class="fab fa-researchgate"></i>
+            </a>
+            <a href="https://www.instagram.com/본인아이디" target="_blank" title="Instagram" style="color: #E1306C; font-size: 22px; transition: opacity 0.3s;">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/본인아이디" target="_blank" title="X" style="color: #000; font-size: 20px; transition: opacity 0.3s;">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            <a href="https://blog.naver.com/본인아이디" target="_blank" title="Naver Blog" style="background: #2db400; color: #fff; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; text-decoration: none; transition: opacity 0.3s;">
+                N
+            </a>
+        </div>
+    </div>
+</footer>
 
     <script>
         let slideIndex = 0;
