@@ -86,24 +86,108 @@
         </ul>
     </nav>
 
-    <main>
-        <h2>Research Interests</h2>
+   <main>
+    <h2>Research Interests</h2>
 
-        <div class="research-item">
-            <h3>Taxonomy of Myrmeleontidae</h3>
-            <p>I am conducting a taxonomic review of the family Myrmeleontidae Latreille (Neuroptera: Myrmeleontiformia) from the Korean Peninsula. This study highlights the conservation value of this family and provides an updated checklist and morphological descriptions for Korean antlions.</p>
+    <div class="research-item zigzag">
+        <div class="res-image">
+            <img src="research_gerroidea.jpg" alt="Taxonomy of Gerroidea">
         </div>
+        <div class="res-text">
+            <h3>Taxonomy and Evolution of Gerroidea</h3>
+            <p>
+                My primary research focuses on the <strong>systematics and evolutionary history of the superfamily Gerroidea</strong>. 
+            </p>
+        </div>
+    </div>
 
-        <div class="research-item">
-            <h3>Phylogenomics of Veliidae</h3>
-            <p>My research extends to the phylogenomics of Veliidae (Hemiptera: Gerromorpha). I am planning a comprehensive study using Transcriptome and Anchored Hybrid Enrichment (AHE) methods to resolve phylogenetic relationships within this family, especially focused on the Korean fauna.</p>
+    <div class="research-item zigzag reverse">
+        <div class="res-text">
+            <h3>Korean Insect Fauna and Conservation</h3>
+            <p>
+                My faunistic research specifically targets <strong>Aquatic Coleoptera, Aquatic Hemiptera, 
+                and the family Myrmeleontidae (Neuroptera)</strong>. Through taxonomic reviews, 
+                I strive to provide crucial data that contributes to the 
+                <strong>conservation and management of these vulnerable taxa</strong>.
+            </p>
         </div>
+        <div class="res-image">
+            <img src="research_fauna.jpg" alt="Korean Insect Fauna">
+        </div>
+    </div>
 
-        <div class="research-item">
-            <h3>Korean Aquatic Insect Fauna</h3>
-            <p>I am also interested in the broader taxonomic review and faunistic study of Korean aquatic insects, including Gerroidea and Corixoidea. My goal is to establish a robust database for the freshwater insect diversity of South Korea.</p>
+    <div class="research-item zigzag">
+        <div class="res-image">
+            <img src="research_biogeography.jpg" alt="Biogeography of East Asia">
         </div>
-    </main>
+        <div class="res-text">
+            <h3>Biogeography of East Asia</h3>
+            <p>
+                I investigate the <strong>biogeographical patterns of East Asian insects</strong> to understand the 
+                <strong>historical and environmental factors</strong> that have shaped the current biota. 
+            </p>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* Research 지그재그 레이아웃 스타일 */
+    .research-item.zigzag {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+
+    /* 짝수 번째(또는 클래스 부여) 섹션의 순서 반전 */
+    .research-item.zigzag.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .res-image {
+        flex: 1;
+        max-width: 45%;
+    }
+
+    .res-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        display: block;
+    }
+
+    .res-text {
+        flex: 1.2;
+    }
+
+    .res-text h3 {
+        font-size: 22px;
+        color: #007bff;
+        margin-top: 0;
+        margin-bottom: 15px;
+        border-left: 5px solid #007bff;
+        padding-left: 15px;
+    }
+
+    .res-text p {
+        line-height: 1.8;
+        color: #555;
+        font-size: 15px;
+        margin: 0;
+    }
+
+    /* 모바일 환경 대응: 세로로 나열 */
+    @media (max-width: 768px) {
+        .research-item.zigzag, .research-item.zigzag.reverse {
+            flex-direction: column;
+            gap: 20px;
+        }
+        .res-image {
+            max-width: 100%;
+        }
+    }
+</style>
 
     <footer>
         <div class="footer-container">
