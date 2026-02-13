@@ -20,9 +20,23 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Profile 상세 스타일 --- */
-        main { flex-grow: 1; display: block; text-align: left; max-width: 850px; margin: 0 auto; padding: 60px 20px; }
-        h2 { font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 40px; }
+        /* --- Profile 상세 및 여백 스타일 최적화 --- */
+        main { 
+            flex-grow: 1; 
+            display: block; 
+            text-align: left; 
+            max-width: 850px; 
+            margin: 0 auto; 
+            padding: 30px 20px 60px 20px; /* 카테고리와의 여백을 위해 상단 패딩 축소 */
+        }
+        h2 { 
+            font-size: 28px; 
+            color: #333; 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 10px; 
+            margin-top: 0; /* 제목 위쪽 여백 제거 */
+            margin-bottom: 40px; 
+        }
         h3 { font-size: 20px; color: #007bff; margin-top: 50px; margin-bottom: 20px; border-left: 4px solid #007bff; padding-left: 15px; }
         
         .cv-item { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
@@ -33,61 +47,18 @@
         .sub-info { color: #777; display: block; margin-top: 3px; }
         .advisor { font-size: 14px; color: #888; font-style: italic; }
 
-        /* 푸터 스타일 */
-        footer {
-            border-top: 1px solid #eee;
-            padding: 40px 50px;
-            display: flex;
-            justify-content: center; /* 중앙 정렬 컨테이너를 위해 추가 */
-            flex-shrink: 0;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-            max-width: 1200px;
-        }
-
+        /* --- 푸터 및 아이콘 스타일 --- */
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
         .footer-info a { color: #007bff; text-decoration: none; }
 
-        /* 아이콘 회색톤 스타일링 */
         .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
-        
-        .social-icon {
-            color: #888; /* 요청하신 회색 설정 */
-            font-size: 20px;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .social-icon { color: #888; font-size: 20px; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
+        .social-icon:hover { color: #333; }
 
-        .social-icon:hover {
-            color: #333; /* 마우스 올리면 조금 더 진하게 */
-        }
-
-        /* 네이버 블로그 커스텀 회색 아이콘 */
-        .naver-icon span {
-            width: 20px;
-            height: 20px;
-            background-color: #888;
-            color: #fff;
-            border-radius: 50%;
-            font-size: 11px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-        }
-
-        .naver-icon:hover span {
-            background-color: #333;
-        }
+        .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
+        .naver-icon:hover span { background-color: #333; }
 
         @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
@@ -167,43 +138,58 @@
             </div>
         </section>
 
-<section>
-    <h3>Awards</h3>
-    
-        <div class="cv-item">
-        <div class="cv-content">
-            <strong>Participation Prize in Insect Photography</strong>
-            <span class="sub-info">2025 Autumn Conference of Korean Society of Applied Entomology (Seogwipo, South Korea)</span>
-        </div>
-        <div class="cv-date">2025</div>
-    </div>
-    <div class="cv-item">
-        <div class="cv-content">
-            <strong>Grand Prize (President of KOFPI Award)</strong>
-            <span class="sub-info">2024 Forest Insect Citizen Monitoring Program</span>
-            <span class="sub-info" style="font-size: 13px; color: #888;">Korea Forestry Promotion Institute (KOFPI), South Korea</span>
-        </div>
-        <div class="cv-date">2024</div>
-    </div>
-
-    <div class="cv-item">
-        <div class="cv-content">
-            <strong>Grand Prize (Minister of Environment Award)</strong>
-            <span class="sub-info">2024 Biological Classification Research Paper Contest for University Students</span>
-            <span class="sub-info" style="font-size: 13px; color: #888;">National Institute of Biological Resources (NIBR), South Korea</span>
-        </div>
-        <div class="cv-date">2024</div>
-    </div>
-</section>
+        <section>
+            <h3>Awards</h3>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Participation Prize in Insect Photography</strong>
+                    <span class="sub-info">2025 Autumn Conference of Korean Society of Applied Entomology (Seogwipo, South Korea)</span>
+                </div>
+                <div class="cv-date">2025</div>
+            </div>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Grand Prize (President of KOFPI Award)</strong>
+                    <span class="sub-info">2024 Forest Insect Citizen Monitoring Program</span>
+                    <span class="sub-info" style="font-size: 13px; color: #888;">Korea Forestry Promotion Institute (KOFPI), South Korea</span>
+                </div>
+                <div class="cv-date">2024</div>
+            </div>
+            <div class="cv-item">
+                <div class="cv-content">
+                    <strong>Grand Prize (Minister of Environment Award)</strong>
+                    <span class="sub-info">2024 Biological Classification Research Paper Contest for University Students</span>
+                    <span class="sub-info" style="font-size: 13px; color: #888;">National Institute of Biological Resources (NIBR), South Korea</span>
+                </div>
+                <div class="cv-date">2024</div>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <div class="footer-info">
-            <strong>김지승 ©2026 Jiseung Kim</strong><br>
-            Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
-            <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
-            <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
-            (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+        <div class="footer-container">
+            <div class="footer-info">
+                <strong>김지승 ©2026 Jiseung Kim</strong><br>
+                Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+                <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
+                <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
+                (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.researchgate.net/profile/Jiseung-Kim" target="_blank" title="ResearchGate" class="social-icon">
+                    <i class="fab fa-researchgate"></i>
+                </a>
+                <a href="https://www.instagram.com/본인ID" target="_blank" title="Instagram" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/본인ID" target="_blank" title="X" class="social-icon">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://blog.naver.com/본인ID" target="_blank" title="Naver Blog" class="social-icon naver-icon">
+                    <span>N</span>
+                </a>
+            </div>
         </div>
     </footer>
 
