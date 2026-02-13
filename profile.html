@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Jiseung Kim</title>
     <style>
-        /* 기존 공통 스타일 유지 */
+        /* --- 공통 레이아웃 스타일 --- */
         body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
         header { padding: 40px 0 20px 0; flex-shrink: 0; }
         .lab-name { font-size: 30px; font-weight: 700; letter-spacing: 2px; color: #777; text-transform: uppercase; }
         .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
+        
+        /* 네비게이션 스타일 */
         nav { border-top: 1px solid #eee; border-bottom: 1px solid #eee; flex-shrink: 0; }
         nav ul { list-style: none; display: flex; justify-content: center; padding: 0; margin: 0; gap: 35px; }
         nav li { position: relative; padding: 12px 0; }
         nav a { text-decoration: none; color: #999; font-size: 13px; transition: all 0.3s; }
         nav a.active { color: #333; font-weight: 700; }
         nav a:hover { color: #333; }
+        
         .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
@@ -27,14 +30,14 @@
             text-align: left; 
             max-width: 850px; 
             margin: 0 auto; 
-            padding: 30px 20px 60px 20px; /* 카테고리와의 여백을 위해 상단 패딩 축소 */
+            padding: 30px 20px 60px 20px; 
         }
         h2 { 
             font-size: 28px; 
             color: #333; 
             border-bottom: 2px solid #eee; 
             padding-bottom: 10px; 
-            margin-top: 0; /* 제목 위쪽 여백 제거 */
+            margin-top: 0; 
             margin-bottom: 40px; 
         }
         h3 { font-size: 20px; color: #007bff; margin-top: 50px; margin-bottom: 20px; border-left: 4px solid #007bff; padding-left: 15px; }
@@ -47,7 +50,7 @@
         .sub-info { color: #777; display: block; margin-top: 3px; }
         .advisor { font-size: 14px; color: #888; font-style: italic; }
 
-        /* --- 푸터 및 아이콘 스타일 --- */
+        /* --- 푸터 스타일 및 회색 아이콘 --- */
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
         .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
@@ -170,23 +173,27 @@
         <div class="footer-container">
             <div class="footer-info">
                 <strong>김지승 ©2026 Jiseung Kim</strong><br>
-                Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
-                <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)<br><br>
-                <a href="https://www.jbnu.ac.kr" target="_blank">전북대학교 (Jeonbuk National University)</a><br>
-                (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+                <span>
+                    Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+                    <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)
+                </span><br><br>
+                <span>
+                    <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
+                    (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+                </span>
             </div>
 
             <div class="footer-social">
-                <a href="https://www.researchgate.net/profile/Jiseung-Kim" target="_blank" title="ResearchGate" class="social-icon">
+                <a href="https://www.researchgate.net/profile/Jiseung-Kim-5?ev=hdr_xprf" target="_blank" title="ResearchGate" class="social-icon">
                     <i class="fab fa-researchgate"></i>
                 </a>
-                <a href="https://www.instagram.com/본인ID" target="_blank" title="Instagram" class="social-icon">
+                <a href="https://www.instagram.com/k_js_00" target="_blank" title="Instagram" class="social-icon">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://x.com/본인ID" target="_blank" title="X" class="social-icon">
+                <a href="https://x.com/jiseungKim00" target="_blank" title="X" class="social-icon">
                     <i class="fa-brands fa-x-twitter"></i>
                 </a>
-                <a href="https://blog.naver.com/본인ID" target="_blank" title="Naver Blog" class="social-icon naver-icon">
+                <a href="https://blog.naver.com/deyrolli" target="_blank" title="Naver Blog" class="social-icon naver-icon">
                     <span>N</span>
                 </a>
             </div>
