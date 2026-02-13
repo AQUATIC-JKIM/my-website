@@ -73,13 +73,56 @@
             border-top: 1px solid #eee;
             padding: 40px 50px;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            text-align: left;
+            justify-content: center; /* 중앙 정렬 컨테이너를 위해 추가 */
             flex-shrink: 0;
         }
-        .footer-info { font-size: 13px; line-height: 1.8; color: #555; }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
         .footer-info a { color: #007bff; text-decoration: none; }
+
+        /* 아이콘 회색톤 스타일링 */
+        .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
+        
+        .social-icon {
+            color: #888; /* 요청하신 회색 설정 */
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon:hover {
+            color: #333; /* 마우스 올리면 조금 더 진하게 */
+        }
+
+        /* 네이버 블로그 커스텀 회색 아이콘 */
+        .naver-icon span {
+            width: 20px;
+            height: 20px;
+            background-color: #888;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .naver-icon:hover span {
+            background-color: #333;
+        }
 
         @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
@@ -122,35 +165,35 @@
     </main>
 
     <footer>
-    <div class="footer-container" style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; margin: 0 auto;">
-        <div class="footer-info" style="text-align: left;">
-            <strong style="font-size: 15px; color: #333;">김지승 ©2026 Jiseung Kim</strong><br>
-            <span style="font-size: 13px; color: #666;">
-                Email: <a href="mailto:gjs0917@jbnu.ac.kr" style="color: #007bff; text-decoration: none;">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
-                <a href="mailto:gjs09177@gmail.com" style="color: #007bff; text-decoration: none;">gjs09177@gmail.com</a> (PRIVATE)
-            </span><br><br>
-            <span style="font-size: 13px; color: #666;">
-                <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; text-decoration: none; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
-                (54896) 전북특별자치도 전주시 덕진구 백제대로 567
-            </span>
-        </div>
+        <div class="footer-container">
+            <div class="footer-info">
+                <strong style="font-size: 15px; color: #333;">김지승 ©2026 Jiseung Kim</strong><br>
+                <span>
+                    Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+                    <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)
+                </span><br><br>
+                <span>
+                    <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
+                    (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+                </span>
+            </div>
 
-        <div class="footer-social" style="display: flex; gap: 15px; align-items: center; padding-top: 10px;">
-            <a href="https://www.researchgate.net/profile/Jiseung-Kim" target="_blank" title="ResearchGate" style="color: #00ccbb; font-size: 22px; transition: opacity 0.3s;">
-                <i class="fab fa-researchgate"></i>
-            </a>
-            <a href="https://www.instagram.com/본인아이디" target="_blank" title="Instagram" style="color: #E1306C; font-size: 22px; transition: opacity 0.3s;">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://x.com/본인아이디" target="_blank" title="X" style="color: #000; font-size: 20px; transition: opacity 0.3s;">
-                <i class="fab fa-x-twitter"></i>
-            </a>
-            <a href="https://blog.naver.com/본인아이디" target="_blank" title="Naver Blog" style="background: #2db400; color: #fff; width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; text-decoration: none; transition: opacity 0.3s;">
-                N
-            </a>
+            <div class="footer-social">
+                <a href="https://www.researchgate.net/profile/Jiseung-Kim" target="_blank" title="ResearchGate" class="social-icon">
+                    <i class="fab fa-researchgate"></i>
+                </a>
+                <a href="https://www.instagram.com/본인아이디" target="_blank" title="Instagram" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/본인아이디" target="_blank" title="X" class="social-icon">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://blog.naver.com/본인아이디" target="_blank" title="Naver Blog" class="social-icon naver-icon">
+                    <span>N</span>
+                </a>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
         let slideIndex = 0;
