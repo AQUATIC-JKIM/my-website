@@ -26,15 +26,20 @@
         /* --- Fieldwork 섹션 스타일 및 여백 최적화 --- */
         main { flex-grow: 1; display: block; text-align: left; }
         
-        /* 지도가 포함된 섹션: 네비게이션과의 간격 조절 */
+        /* 지도 섹션 상단 여백 조절 */
         .observations-container { 
             margin-bottom: 60px; 
-            padding: 30px 0 60px 0; /* 상단 패딩을 60px에서 30px로 축소 */
+            padding: 30px 0 60px 0; 
             background-color: #fafafa; 
             border-bottom: 1px solid #eee; 
         }
 
-        .section-inner { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        /* 하단 여백 추가: 다른 카테고리와 통일 (80px) */
+        .section-inner { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 0 20px 80px 20px; 
+        }
 
         /* Fieldwork 그리드 스타일 */
         .fieldwork-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 40px; }
@@ -121,7 +126,7 @@
             <div class="fieldwork-grid">
                 
                 <div class="field-item">
-                    <a href="https://photos.google.com/..." target="_blank" class="field-link">
+                    <a href="https://photos.google.com/share/..." target="_blank" class="field-link">
                         <div class="field-thumb"><img src="thumb1.jpg" alt="Jeju Expedition"></div>
                         <div class="field-meta">
                             <span class="field-date">2025.08.15 - 08.20</span>
@@ -131,7 +136,7 @@
                 </div>
                 
                 <div class="field-item">
-                    <a href="https://photos.google.com/..." target="_blank" class="field-link">
+                    <a href="https://photos.google.com/share/..." target="_blank" class="field-link">
                         <div class="field-thumb"><img src="thumb2.jpg" alt="Naejangsan Trip"></div>
                         <div class="field-meta">
                             <span class="field-date">2025.05.10</span>
