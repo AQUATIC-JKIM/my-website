@@ -23,22 +23,13 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Fieldwork 섹션 스타일 및 여백 최적화 --- */
+        /* --- Fieldwork 섹션 스타일 --- */
         main { flex-grow: 1; display: block; text-align: left; }
         
-        /* 지도 섹션 상단 여백 조절 */
-        .observations-container { 
-            margin-bottom: 60px; 
-            padding: 30px 0 60px 0; 
-            background-color: #fafafa; 
-            border-bottom: 1px solid #eee; 
-        }
-
-        /* 하단 여백 추가: 다른 카테고리와 통일 (80px) */
         .section-inner { 
             max-width: 1000px; 
             margin: 0 auto; 
-            padding: 0 20px 80px 20px; 
+            padding: 50px 20px 80px 20px; /* 상단 여백 추가 */
         }
 
         /* Fieldwork 그리드 스타일 */
@@ -52,142 +43,3 @@
         .field-loc { display: block; font-size: 15px; color: #444; font-weight: 500; margin-top: 3px; }
 
         @media (max-width: 768px) {
-            .fieldwork-grid { grid-template-columns: 1fr; }
-        }
-
-        /* --- 푸터 스타일 및 회색 아이콘 --- */
-        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
-        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
-        .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
-        .footer-info a { color: #007bff; text-decoration: none; }
-
-        .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
-        .social-icon { color: #888; font-size: 20px; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
-        .social-icon:hover { color: #333; }
-
-        .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
-        .naver-icon:hover span { background-color: #333; }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
-
-    <header>
-        <span class="lab-name">JISEUNG KIM WEBSITE</span>
-        <span class="univ-name">Jeonbuk National University</span>
-    </header>
-
-    <nav>
-        <ul id="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="research.html">Research</a></li>
-            <li><a href="fieldwork.html">Fieldwork</a></li>
-            <li>
-                <a href="works.html">Works</a>
-                <div class="dropdown-content">
-                    <a href="publications.html">Publications</a>
-                    <a href="presentations.html">Presentations</a>
-                </div>
-            </li>
-            <li><a href="archive.html">Archive</a></li>
-        </ul>
-    </nav>
-    
-    <main>
-        <section class="observations-container">
-            <div style="max-width: 1040px; margin: 0 auto; padding: 0 20px;"> 
-                <h2 style="font-size: 28px; color: #333; margin-top: 0; margin-bottom: 30px; text-align: left;">Observations</h2>
-                
-                <div class="map-wrapper" style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); background: #fff;">
-                    <div class="map-container" style="height: 550px; width: 100%;">
-                        <iframe 
-                            width="100%" 
-                            height="100%" 
-                            scrolling="no" 
-                            frameborder="0" 
-                            src="https://www.inaturalist.org/observations/map?user_id=jimenn_kim" 
-                            style="border:0;">
-                        </iframe>
-                    </div>
-
-                    <div class="inat-notice" style="text-align: center; background-color: #fff; border-top: 1px solid #eee; padding: 15px;">
-                        <p style="margin: 0; font-size: 14px; color: #666;">
-                            📍 Explore my real-time field data on 
-                            <a href="https://www.inaturalist.org/observations/jimenn_kim" target="_blank" style="color: #007bff; font-weight: 600; text-decoration: none;">iNaturalist →</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-inner">
-            <h2 style="font-size: 28px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-top: 0; margin-bottom: 20px;">Fieldwork</h2>
-            <div class="fieldwork-grid">
-                
-                <div class="field-item">
-                    <a href="https://photos.google.com/share/..." target="_blank" class="field-link">
-                        <div class="field-thumb"><img src="thumb1.jpg" alt="Jeju Expedition"></div>
-                        <div class="field-meta">
-                            <span class="field-date">2025.08.15 - 08.20</span>
-                            <span class="field-loc">Jeju Island, South Korea</span>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="field-item">
-                    <a href="https://photos.google.com/share/..." target="_blank" class="field-link">
-                        <div class="field-thumb"><img src="thumb2.jpg" alt="Naejangsan Trip"></div>
-                        <div class="field-meta">
-                            <span class="field-date">2025.05.10</span>
-                            <span class="field-loc">Mt. Naejang, Jeonbuk, South Korea</span>
-                        </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-info">
-                <strong>김지승 ©2026 Jiseung Kim</strong><br>
-                <span>
-                    Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
-                    <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)
-                </span><br><br>
-                <span>
-                    <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
-                    (54896) 전북특별자치도 전주시 덕진구 백제대로 567
-                </span>
-            </div>
-
-            <div class="footer-social">
-                <a href="https://www.researchgate.net/profile/Jiseung-Kim-5?ev=hdr_xprf" target="_blank" title="ResearchGate" class="social-icon">
-                    <i class="fab fa-researchgate"></i>
-                </a>
-                <a href="https://www.instagram.com/k_js_00" target="_blank" title="Instagram" class="social-icon">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://x.com/jiseungKim00" target="_blank" title="X" class="social-icon">
-                    <i class="fa-brands fa-x-twitter"></i>
-                </a>
-                <a href="https://blog.naver.com/deyrolli" target="_blank" title="Naver Blog" class="social-icon naver-icon">
-                    <span>N</span>
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const currentPage = window.location.pathname.split("/").pop() || "index.html";
-        const navLinks = document.querySelectorAll("#nav-list a");
-        navLinks.forEach(link => {
-            if (link.getAttribute("href") === currentPage) {
-                link.classList.add("active");
-            }
-        });
-    </script>
-</body>
-</html>
