@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive - Jiseung Kim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* --- 공통 레이아웃 스타일 --- */
         body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
@@ -23,93 +24,49 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Archive 섹션 여백 및 카드 스타일 --- */
-        main { 
-            flex-grow: 1; 
-            display: block; 
-            padding: 30px 20px 60px 20px; /* 상단 여백 축소 적용 */
-            text-align: center; 
-            max-width: 1000px; 
-            margin: 0 auto; 
-        }
-        h2 { 
-            font-size: 32px; 
-            color: #333; 
-            margin-top: 0; /* 제목 상단 마진 제거 */
-            margin-bottom: 15px; 
-            letter-spacing: 1px; 
-        }
-        .archive-desc { font-size: 15px; color: #999; margin-bottom: 60px; }
+        /* --- Archive 섹션 스타일 --- */
+        main { flex-grow: 1; display: block; text-align: left; background-color: #fafafa; padding-bottom: 80px; }
+        .section-inner { max-width: 1000px; margin: 0 auto; padding: 40px 20px 0 20px; background-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.02); min-height: 600px; border-radius: 8px; margin-top: 40px;}
+        
+        .archive-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 30px; }
+        .archive-header h2 { font-size: 28px; color: #333; margin: 0; }
+        .archive-controls button { background-color: #f0f0f0; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; color: #555; font-size: 13px; transition: background 0.2s; margin-left: 10px; }
+        .archive-controls button:hover { background-color: #e0e0e0; color: #333; }
 
-        .archive-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        /* 트리뷰(Taxonomy Tree) 스타일 */
+        .taxonomy-tree { font-size: 14.5px; line-height: 1.6; color: #444; }
+        .taxonomy-tree ul { list-style-type: none; padding-left: 24px; border-left: 1px dashed #ddd; margin-left: 8px; }
+        .taxonomy-tree > ul { border-left: none; padding-left: 0; margin-left: 0; }
+        .taxonomy-tree li { margin: 6px 0; position: relative; }
+        
+        details > summary { cursor: pointer; list-style: none; display: flex; align-items: center; transition: color 0.2s; padding: 3px 0; }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary::before { content: '\f0da'; font-family: 'Font Awesome 6 Free'; font-weight: 900; display: inline-block; width: 16px; margin-right: 5px; color: #aaa; transition: transform 0.2s; }
+        details[open] > summary::before { transform: rotate(90deg); color: #007bff; }
+        details > summary:hover { color: #007bff; }
+        
+        /* 터미널 노드(종) 스타일 */
+        .species-item { padding-left: 21px; display: flex; align-items: center; }
+        .species-item::before { content: '\f111'; font-family: 'Font Awesome 6 Free'; font-weight: 400; font-size: 6px; position: absolute; left: 5px; top: 12px; color: #ccc; }
 
-        .archive-card {
-            background-color: #fff;
-            border: 1px solid #eee;
-            padding: 40px 20px;
-            text-decoration: none;
-            color: #555;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-        }
+        /* 분류군 텍스트 스타일 */
+        .rank { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; margin-right: 8px; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .name { font-weight: 500; color: #333; }
+        .italic-name { font-style: italic; font-weight: 600; color: #222; }
+        .author { color: #777; font-size: 13.5px; margin-left: 5px; }
+        .ko-name { color: #0066cc; margin-left: 8px; font-size: 14px; font-weight: 500; }
 
-        .archive-card:hover { border-color: #333; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
-
-        .archive-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 25px;
-            border: 1px solid #eee;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .archive-card h3 { font-size: 18px; margin-bottom: 15px; color: #333; line-height: 1.4; }
-        .view-link { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #007bff; font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .archive-container { grid-template-columns: 1fr; }
-            .archive-card { padding: 40px 20px; }
-        }
-
-        /* --- 푸터 스타일 및 회색 아이콘 --- */
-        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
+        /* --- 푸터 스타일 --- */
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; background-color: #fff;}
         .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
         .footer-info a { color: #007bff; text-decoration: none; }
-
         .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
         .social-icon { color: #888; font-size: 20px; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
         .social-icon:hover { color: #333; }
-
         .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
         .naver-icon:hover span { background-color: #333; }
-
-/* --- Checklist Style (리스트 페이지 전용) --- */
-        .checklist-container { max-width: 800px; margin: 0 auto; text-align: left; padding: 20px; }
-        .family-section { margin-bottom: 40px; }
-        .family-title { font-size: 20px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .species-list { list-style-type: none; padding-left: 0; margin: 0; }
-        .species-list li { font-size: 15px; color: #555; padding: 12px 0; border-bottom: 1px dashed #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
-        .taxon-info { display: flex; align-items: baseline; }
-        .species-name { font-style: italic; font-weight: bold; color: #2c3e50; font-size: 16px; }
-        .species-author { font-size: 13px; color: #888; margin-left: 8px; }
-        .korean-name { color: #666; font-size: 14px; }
-        .btn-back { display: inline-block; margin-top: 10px; margin-bottom: 50px; padding: 10px 25px; background-color: #f8f9fa; color: #555; border: 1px solid #ddd; border-radius: 5px; text-decoration: none; font-size: 13px; transition: all 0.3s; letter-spacing: 1px; }
-        .btn-back:hover { background-color: #eee; color: #333; }
-        
-        @media (max-width: 768px) {
-            .species-list li { flex-direction: column; align-items: flex-start; gap: 5px; }
-        }
-        
-        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -123,6 +80,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
             <li><a href="research.html">Research</a></li>
+            <li><a href="fieldwork.html">Fieldwork</a></li>
             <li>
                 <a href="works.html">Works</a>
                 <div class="dropdown-content">
@@ -130,58 +88,876 @@
                     <a href="presentations.html">Presentations</a>
                 </div>
             </li>
-            <li><a href="fieldwork.html">Fieldwork</a></li>
-            <li><a href="archive.html">Archive</a></li>
+            <li><a href="archive.html" class="active">Archive</a></li>
         </ul>
     </nav>
-
+    
     <main>
-        <h2>Aquatic Hemiptera</h2>
-        <p class="archive-desc">Checklist of aquatic and semi-aquatic bugs from the Korean Peninsula.</p>
-
-        <div class="checklist-container">
-            <div class="family-section">
-                <h3 class="family-title">Family Gerridae (소금쟁이과)</h3>
-                <ul class="species-list">
-                    <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Aquarius elongatus</span>
-                            <span class="species-author">(Uhler, 1896)</span>
-                        </div>
-                        <span class="korean-name">장수소금쟁이</span>
-                    </li>
-                    <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Gerris gracilicornis</span>
-                            <span class="species-author">(Horváth, 1879)</span>
-                        </div>
-                        <span class="korean-name">등줄소금쟁이</span>
-                    </li>
-                </ul>
+        <div class="section-inner">
+            <div class="archive-header">
+                <h2>Checklist of Aquatic Hemiptera in Korea</h2>
+                <div class="archive-controls">
+                    <button onclick="expandAll()">Expand All</button>
+                    <button onclick="collapseAll()">Collapse All</button>
+                </div>
             </div>
 
-            <div class="family-section">
-                <h3 class="family-title">Family Nepidae (장구애비과)</h3>
-                <ul class="species-list">
+            <div class="taxonomy-tree" id="taxonomyTree">
+                <ul>
                     <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Laccotrephes japonensis</span>
-                            <span class="species-author">Scott, 1874</span>
-                        </div>
-                        <span class="korean-name">장구애비</span>
-                    </li>
-                    <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Ranatra chinensis</span>
-                            <span class="species-author">Mayr, 1865</span>
-                        </div>
-                        <span class="korean-name">게아재비</span>
+                        <details open>
+                            <summary><span class="rank">Order</span> <span class="name">Hemiptera</span> <span class="ko-name">노린재목</span></summary>
+                            <ul>
+                                <li>
+                                    <details open>
+                                        <summary><span class="rank">Suborder</span> <span class="name">Heteroptera</span> <span class="ko-name">노린재아목</span></summary>
+                                        
+                                        <ul>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Infraorder</span> <span class="name">Gerromorpha</span> <span class="author">Popov, 1971</span> <span class="ko-name">소금쟁이하목</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Gerroidea</span> <span class="author">Leach, 1815</span> <span class="ko-name">소금쟁이상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Gerridae</span> <span class="author">Leach, 1815</span> <span class="ko-name">소금쟁이과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Gerrinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">소금쟁이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Gerrini</span> <span class="author">Leach, 1815</span> <span class="ko-name">소금쟁이족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Aquarius</span> <span class="author">Schellenberg, 1800</span> <span class="ko-name">왕소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Aquarius elongatus</span> <span class="author">(Uhler, 1896)</span> <span class="ko-name">왕소금쟁이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Aquarius paludum paludum</span> <span class="author">(Fabricius, 1794)</span> <span class="ko-name">소금쟁이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Gerris</span> <span class="author">Fabricius, 1794</span> <span class="ko-name">소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Gerris</span> <span class="author">Fabricius, 1794</span> <span class="ko-name">소금쟁이아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerris) angulatus</span> <span class="author">Lundblad, 1934</span> <span class="ko-name">모소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerris) babai</span> <span class="author">Miyamoto, 1958</span> <span class="ko-name">맵시소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerris) lacustris</span> <span class="author">(Linnaeus, 1758)</span> <span class="ko-name">참소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerris) latiabdominis</span> <span class="author">Miyamoto, 1958</span> <span class="ko-name">애소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerris) nepalensis</span> <span class="author">Distant, 1910</span> <span class="ko-name">엿소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerris) odontogaster</span> <span class="author">(Zetterstedt, 1828)</span> <span class="ko-name">북방소금쟁이</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Gerriselloides</span> <span class="author">Hungerford & Matsuda, 1958</span> <span class="ko-name">등빨간민날개소금쟁이아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Gerriselloides) brachynotus</span> <span class="author">Horváth, 1907</span> <span class="ko-name">등빨간민날개소금쟁이</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Macrogerris</span> <span class="author">Andersen, 1993</span> <span class="ko-name">등빨간소금쟁이아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Macrogerris) gracilicornis</span> <span class="author">(Horváth, 1879)</span> <span class="ko-name">등빨간소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Macrogerris) insularis</span> <span class="author">(Motschulsky, 1866)</span> <span class="ko-name">섬소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Gerris (Macrogerris) yezoensis</span> <span class="author">(Miyamoto, 1958)</span> <span class="ko-name">동해소금쟁이</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Limnoporus</span> <span class="author">Stål, 1868</span> <span class="ko-name">나도등빨간소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Limnoporus esakii</span> <span class="author">(Miyamoto, 1958)</span> <span class="ko-name">꼭지소금쟁이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Limnoporus rufoscutellatus</span> <span class="author">(Latreille, 1807)</span> <span class="ko-name">나도등빨간소금쟁이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Halobatinae</span> <span class="author">Bianchi, 1896</span> <span class="ko-name">바다소금쟁이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Halobatini</span> <span class="author">Bianchi, 1896</span> <span class="ko-name">바다소금쟁이족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Asclepios</span> <span class="author">Distant, 1915</span> <span class="ko-name">황해소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Asclepios apicalis</span> <span class="author">(Esaki, 1924)</span> <span class="ko-name">황해소금쟁이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Halobates</span> <span class="author">Eschscholtz, 1822</span> <span class="ko-name">바다소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Halobates matsumurai</span> <span class="author">Esaki, 1924</span> <span class="ko-name">바다소금쟁이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Metrocorini</span> <span class="author">Matsuda, 1960</span> <span class="ko-name">광대소금쟁이족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Metrocoris</span> <span class="author">Mayr, 1865</span> <span class="ko-name">광대소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Metrocoris histrio</span> <span class="author">(White, 1883)</span> <span class="ko-name">광대소금쟁이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Ptilomerinae</span> <span class="author">Bianchi, 1896</span> <span class="ko-name">어리광대소금쟁이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Rhyacobates</span> <span class="author">Esaki, 1923</span> <span class="ko-name">어리광대소금쟁이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Rhyacobates chinensis</span> <span class="author">Hungerford & Matsuda, 1959</span> <span class="ko-name">어리광대소금쟁이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Veliidae</span> <span class="author">Brullé, 1836</span> <span class="ko-name">깨알소금쟁이과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Microveliinae</span> <span class="author">China & Usinger, 1949</span> <span class="ko-name">깨알소금쟁이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Microvelini</span> <span class="author">China & Usinger, 1949</span> <span class="ko-name">깨알소금쟁이족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Microvelia</span> <span class="author">Westwood, 1834</span> <span class="ko-name">깨알소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Microvelia</span> <span class="author">Westwood, 1834</span> <span class="ko-name">깨알소금쟁이아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Microvelia reticulata</span> <span class="author">(Burmeister, 1835)</span> <span class="ko-name">얼룩깨알소금쟁이</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Picaultia</span> <span class="author">Distant, 1834</span> <span class="ko-name">호르바드깨알소금쟁이아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Microvelia douglasi</span> <span class="author">Scott, 1874</span> <span class="ko-name">긴깨알소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Microvelia horvathi</span> <span class="author">Lundblad, 1933</span> <span class="ko-name">호르바드깨알소금쟁이</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Pseudovelia</span> <span class="author">Hoberlandt, 1950</span> <span class="ko-name">털깨알소금쟁이속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Pseudovelia</span> <span class="author">Hoberlandt, 1950</span> <span class="ko-name">털깨알소금쟁이아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Pseudovelia koreana</span> <span class="author">Miyamoto & Lee, 1963</span> <span class="ko-name">강깨알소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Pseudovelia tibialis tibialis</span> <span class="author">Esaki & Miyamoto, 1955</span> <span class="ko-name">털깨알소금쟁이</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Pseudovelia tibialis sexseta</span> <span class="author">Miyamoto & Lee, 1963</span> <span class="ko-name">낙동털깨알소금쟁이</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Halovelinae</span> <span class="author">Esaki, 1930</span> <span class="ko-name">바다깨알소금쟁이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Halovelia</span> <span class="author">Bergroth, 1893</span> <span class="ko-name">바다깨알소금쟁이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Halovelia septentrionalis</span> <span class="author">Esaki, 1926</span> <span class="ko-name">바다깨알소금쟁이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Hydrometroidea</span> <span class="author">Billberg, 1820</span> <span class="ko-name">실소금쟁이상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Hydrometridae</span> <span class="author">Billberg, 1820</span> <span class="ko-name">실소금쟁이과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Hydrometrinae</span> <span class="author">Billberg, 1820</span> <span class="ko-name">실소금쟁이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Hydrometra</span> <span class="author">Latreille, 1796</span> <span class="ko-name">실소금쟁이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrometra albolineata</span> <span class="author">(Scott, 1874)</span> <span class="ko-name">실소금쟁이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrometra procera</span> <span class="author">Horváth, 1905</span> <span class="ko-name">애실소금쟁이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrometra okinawana</span> <span class="author">Drake, 1951</span> <span class="ko-name">제주실소금쟁이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Hebroidea</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">깨알물노린재상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Hebridae</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">깨알물노린재과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Hebrinae</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">깨알물노린재아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Hebrus</span> <span class="author">Curtis, 1833</span> <span class="ko-name">깨알물노린재속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Hebrus</span> <span class="author">Curtis, 1833</span> <span class="ko-name">깨알물노린재아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hebrus (Hebrus) nipponicus</span> <span class="author">Horváth, 1929</span> <span class="ko-name">깨알물노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hebrus (Hebrus) pilosellus</span> <span class="author">Kanyukova, 1997</span> <span class="ko-name">긴점깨알물노린재</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Mesovelioidea</span> <span class="author">Douglas & Scott, 1867</span> <span class="ko-name">물노린재상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Mesoveliidae</span> <span class="author">Douglas & Scott, 1867</span> <span class="ko-name">물노린재과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Mesovelinae</span> <span class="author">Douglas & Scott, 1867</span> <span class="ko-name">물노린재아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Mesovelia</span> <span class="author">Musant & Rey, 1852</span> <span class="ko-name">물노린재속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Mesovelia vittigera</span> <span class="author">Horváth, 1895</span> <span class="ko-name">물노린재</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Mesovelia egorovi</span> <span class="author">Kanyukova, 1981</span> <span class="ko-name">극동물노린재</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Infraorder</span> <span class="name">Nepomorpha</span> <span class="author">Popov, 1968</span> <span class="ko-name">장구애비하목</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Nepoidea</span> <span class="author">Latreille, 1802</span> <span class="ko-name">장구애비상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Belostomatidae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물장군과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Belostomatinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물장군아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Appasus</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">물자라속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Appasus japonicus</span> <span class="author">(Vuillefroy, 1864)</span> <span class="ko-name">물자라</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Appasus major</span> <span class="author">(Esaki, 1934)</span> <span class="ko-name">큰물자라</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Diplonychus</span> <span class="author">Laporte, 1833</span> <span class="ko-name">각시물자라속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Diplonychus esakii</span> <span class="author">Miyamoto & Lee, 1966</span> <span class="ko-name">각시물자라</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Kirkaldyia</span> <span class="author">Montandon, 1909</span> <span class="ko-name">물장군속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Kirkaldyia deyrolli</span> <span class="author">(Vuillefroy, 1864)</span> <span class="ko-name">물장군</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Nepidae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">장구애비과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Nepinae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">장구애비아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Laccotrephes</span> <span class="author">Stål, 1866</span> <span class="ko-name">장구애비속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Laccotrephes japonensis</span> <span class="author">Scott, 1874</span> <span class="ko-name">장구애비</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Nepa</span> <span class="author">Linnaeus, 1758</span> <span class="ko-name">메추리장구애비속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Nepa hoffmanni</span> <span class="author">Esaki, 1925</span> <span class="ko-name">메추리장구애비</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Ranatrinae</span> <span class="author">Douglas & Scott, 1865</span> <span class="ko-name">게아재비아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Ranatrini</span> <span class="author">Douglas & Scott, 1865</span> <span class="ko-name">게아재비족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Ranatra</span> <span class="author">Fabricius, 1790</span> <span class="ko-name">게아재비속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ranatra chinensis</span> <span class="author">Mayr, 1865</span> <span class="ko-name">게아재비</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ranatra unicolor</span> <span class="author">Scott, 1874</span> <span class="ko-name">방게아재비</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Corixoidea</span> <span class="author">Leach, 1815</span> <span class="ko-name">물벌레상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Micronectidae</span> <span class="author">Jaczewski, 1924</span> <span class="ko-name">꼬마물벌레과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Micronecta</span> <span class="author">Kirkaldy, 1897</span> <span class="ko-name">꼬마물벌레속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Micronecta</span> <span class="author">Kirkaldy, 1897</span> <span class="ko-name">꼬마손자물벌레아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Micronecta (Micronecta) guttata</span> <span class="author">Matsumura, 1905</span> <span class="ko-name">꼬마손자물벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Basileonecta</span> <span class="author">Hutchinson, 1940</span> <span class="ko-name">꼬마물벌레아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Micronecta (Basileonecta) sahlbergii</span> <span class="author">(Jakovlev, 1881)</span> <span class="ko-name">동쪽꼬마물벌레</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Micronecta (Basileonecta) sedula</span> <span class="author">Horváth, 1905</span> <span class="ko-name">꼬마물벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Corixidae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물벌레과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Corixinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물벌레아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Corixini</span> <span class="author">Leach, 1815</span> <span class="ko-name">물벌레족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Hesperocorixa</span> <span class="author">Kirkaldy, 1908</span> <span class="ko-name">물벌레속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hesperocorixa crassipala</span> <span class="author">(Hungerford, 1940)</span> <span class="ko-name">해동물벌레</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hesperocorixa distanti</span> <span class="author">(Kirkaldy, 1899)</span> <span class="ko-name">물벌레</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hesperocorixa hokkensis</span> <span class="author">(Matsumura, 1905)</span> <span class="ko-name">왕물벌레</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hesperocorixa mandshurica</span> <span class="author">(Jaczewski, 1924)</span> <span class="ko-name">닮은물벌레</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Sigara</span> <span class="author">Fabricius, 1775</span> <span class="ko-name">방물벌레속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Sigara</span> <span class="author">Fabricius, 1775</span> <span class="ko-name">꼭지방물벌레아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Sigara) weymarni</span> <span class="author">Hungerford, 1940</span> <span class="ko-name">꼭지방물벌레</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Pseudovermicorixa</span> <span class="author">Jaczewski, 1962</span> <span class="ko-name">어리방물벌레아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Pseudovermicorixa) septemlineata</span> <span class="author">(Paiva, 1918)</span> <span class="ko-name">어리방물벌레</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Tropocorixa</span> <span class="author">Hutchinson, 1940</span> <span class="ko-name">방물벌레아속</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Tropocorixa) bellura</span> <span class="author">(Horváth, 1879)</span> <span class="ko-name">진방물벌레</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Tropocorixa) formosana</span> <span class="author">(Matsumura, 1915)</span> <span class="ko-name">대만물벌레</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Tropocorixa) gaginae</span> <span class="author">Jaczewski, 1960</span> <span class="ko-name">극동진방물벌레</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Tropocorixa) nigroventralis</span> <span class="author">(Matsumura, 1905)</span> <span class="ko-name">검정배물벌레</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Tropocorixa) paivai</span> <span class="author">Lundblad, 1928</span> <span class="ko-name">남쪽진방물벌레</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Sigara (Tropocorixa) substriata</span> <span class="author">(Uhler, 1896)</span> <span class="ko-name">방물벌레</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Cymatiainae</span> <span class="author">Walton, 1940</span> <span class="ko-name">각시물벌레아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Cymatia</span> <span class="author">Flor, 1860</span> <span class="ko-name">손톱물벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Cymatia apparens</span> <span class="author">(Distant, 1911)</span> <span class="ko-name">각시손톱물벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Ochteroidea</span> <span class="author">Kirkaldy, 1906</span> <span class="ko-name">딱부리물벌레상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Ochteridae</span> <span class="author">Kirkaldy, 1906</span> <span class="ko-name">딱부리물벌레과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Ochterus</span> <span class="author">Latreille, 1807</span> <span class="ko-name">딱부리물벌레속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Ochterus</span> <span class="author">Latreille, 1807</span> <span class="ko-name">딱부리물벌레아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Ochterus (Ochterus) marginatus marginatus</span> <span class="author">(Latreille, 1804)</span> <span class="ko-name">딱부리물벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Pleoidea</span> <span class="author">Fieber, 1851</span> <span class="ko-name">둥글물벌레상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Pleidae</span> <span class="author">Fieber, 1851</span> <span class="ko-name">둥글물벌레과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Paraplea</span> <span class="author">Esaki & China, 1928</span> <span class="ko-name">참둥글물벌레속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Paraplea indistinguenda</span> <span class="author">(Matsumura, 1905)</span> <span class="ko-name">꼬마둥글물벌레</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Paraplea japonica</span> <span class="author">(Horváth, 1904)</span> <span class="ko-name">둥글물벌레</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Notonectoidea</span> <span class="author">Latreille, 1802</span> <span class="ko-name">송장헤엄치게상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Notonectidae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">송장헤엄치게과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Anisopinae</span> <span class="author">Hutchinson, 1929</span> <span class="ko-name">애송장헤엄치게아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Anisops</span> <span class="author">Spinola, 1837</span> <span class="ko-name">애송장헤엄치게속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Anisops kuroiwae</span> <span class="author">Matsumura, 1915</span> <span class="ko-name">남쪽애송장헤엄치게</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Anisops ogasawarensis</span> <span class="author">Matsumura, 1915</span> <span class="ko-name">애송장헤엄치게</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Notonectinae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">송장헤엄치게아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Notonectini</span> <span class="author">Latreille, 1802</span> <span class="ko-name">송장헤엄치게족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Notonecta</span> <span class="author">Linnaeus, 1758</span> <span class="ko-name">송장헤엄치게속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Notonecta</span> <span class="author">Linnaeus, 1758</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Notonecta (Notonecta) amplifica</span> <span class="author">Kiritshenko, 1930</span> <span class="ko-name">북방송장헤엄치게</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Notonecta (Notonecta) reuteri reuteri</span> <span class="author">Hungerford, 1928</span> <span class="ko-name">노랑송장헤엄치게</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                    <li>
+                                                                                                                        <details>
+                                                                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Paranecta</span> <span class="author">Hutchinson, 1929</span></summary>
+                                                                                                                            <ul>
+                                                                                                                                <li class="species-item"><span class="italic-name">Notonecta (Paranecta) chinensis</span> <span class="author">Fallou, 1887</span> <span class="ko-name">중국송장헤엄치게</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Notonecta (Paranecta) kiangsis</span> <span class="author">Kirkaldy, 1897</span> <span class="ko-name">나도송장헤엄치게</span></li>
+                                                                                                                                <li class="species-item"><span class="italic-name">Notonecta (Paranecta) triguttata</span> <span class="author">Motschulsky, 1861</span> <span class="ko-name">송장헤엄치게</span></li>
+                                                                                                                            </ul>
+                                                                                                                        </details>
+                                                                                                                    </li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Naucoroidea</span> <span class="author">Leach, 1815</span> <span class="ko-name">물둥구리상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Aphelocheiridae</span> <span class="author">Fieber, 1851</span> <span class="ko-name">물빈대과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Aphelocheirus</span> <span class="author">Westwood, 1833</span> <span class="ko-name">물빈대속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Aphelocheirus kawamurae</span> <span class="author">Matsumura, 1915</span> <span class="ko-name">극동물빈대</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Aphelocheirus nawae</span> <span class="author">Nawa, 1905</span> <span class="ko-name">물빈대</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Aphelocheirus vittatus</span> <span class="author">Matsumura, 1905</span> <span class="ko-name">줄물빈대</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Naucoridae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물둥구리과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Naucorinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물둥구리아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Ilyocoris</span> <span class="author">Stål, 1861</span> <span class="ko-name">물둥구리속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Ilyocoris cimicoides cimicoides</span> <span class="author">(Linnaeus, 1758)</span> <span class="ko-name">빈대물둥구리</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Ilyocoris cimicoides exclamationis</span> <span class="author">(Scott, 1874)</span> <span class="ko-name">물둥구리</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Infraorder</span> <span class="name">Leptopodomorpha</span> <span class="author">Popov, 1971</span> <span class="ko-name">갯노린재하목</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Saldoidea</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">갯노린재상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Saldidae</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">갯노린재과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Chiloxanthinae</span> <span class="author">Cobben, 1959</span> <span class="ko-name">털갯노린재아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Chiloxanthus</span> <span class="author">Reuter, 1891</span> <span class="ko-name">털갯노린재속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Chiloxanthus pilosus</span> <span class="author">(Fallén, 1807)</span> <span class="ko-name">털갯노린재</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Saldinae</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">갯노린재아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Saldoidini</span> <span class="author">Reuter, 1912</span> <span class="ko-name">큰갯노린재족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Chartoscirta</span> <span class="author">Stål, 1868</span> <span class="ko-name">멋쟁이갯노린재속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Chartoscirta elegantula elegantula</span> <span class="author">(Fallén, 1807)</span> <span class="ko-name">멋쟁이갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Chartoscirta elongatula longicornis</span> <span class="author">(Jakovlev, 1882)</span> <span class="ko-name">새멋쟁이갯노린재</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Macrosaldula</span> <span class="author">Leston & Southwood, 1964</span> <span class="ko-name">큰갯노린재속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Macrosaldula koreana</span> <span class="author">Kiritshenko, 1912</span> <span class="ko-name">우리큰갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Macrosaldula rivularia</span> <span class="author">(Sahlberg, 1878)</span> <span class="ko-name">큰갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Macrosaldula violacea</span> <span class="author">Cobben, 1985</span> <span class="ko-name">보라큰갯노린재</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Microcanthia</span> <span class="author">Reuter, 1912</span> <span class="ko-name">좀갯노린재속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Microcanthia ornatula</span> <span class="author">(Reuter, 1881)</span> <span class="ko-name">좀갯노린재</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Saldula</span> <span class="author">Van Duzee, 1914</span> <span class="ko-name">갯노린재속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Saldula opacula</span> <span class="author">(Zetterstedt, 1838)</span> <span class="ko-name">대륙갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Saldula pallipes</span> <span class="author">(Fabricius, 1794)</span> <span class="ko-name">다리갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Saldula pilosella pilosella</span> <span class="author">(Thomson, 1871)</span> <span class="ko-name">어리갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Saldula reticollis</span> <span class="author">(Horváth, 1899)</span> <span class="ko-name">팔공갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Saldula saltatoria</span> <span class="author">(Linnaeus, 1758)</span> <span class="ko-name">갯노린재</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Tribe</span> <span class="name">Saldini</span> <span class="author">Amyot & Serville, 1843</span> <span class="ko-name">갯노린재족</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Salda</span> <span class="author">Fabricius, 1803</span> <span class="ko-name">참갯노린재속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Salda kiritshenkoi</span> <span class="author">Cobben, 1985</span> <span class="ko-name">별갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Salda sahlbergi</span> <span class="author">Reuter, 1875</span> <span class="ko-name">북쪽갯노린재</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Salda splendens</span> <span class="author">(Jakovlev, 1906)</span> <span class="ko-name">참갯노린재</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </details>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <a href="archive.html" class="btn-back"><i class="fas fa-arrow-left"></i> BACK TO ARCHIVE</a>
     </main>
 
     <footer>
@@ -216,6 +992,7 @@
     </footer>
 
     <script>
+        // 현재 페이지 활성화 스크립트
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
         navLinks.forEach(link => {
@@ -223,6 +1000,24 @@
                 link.classList.add("active");
             }
         });
+
+        // 트리 구조 모두 펼치기
+        function expandAll() {
+            const detailsElements = document.querySelectorAll('#taxonomyTree details');
+            detailsElements.forEach((detail) => {
+                detail.setAttribute('open', '');
+            });
+        }
+
+        // 트리 구조 모두 접기 (최상단 제외)
+        function collapseAll() {
+            const detailsElements = document.querySelectorAll('#taxonomyTree details');
+            detailsElements.forEach((detail, index) => {
+                if(index > 1) { // 최상단 노린재목, 노린재아목 정도는 열어둠
+                    detail.removeAttribute('open');
+                }
+            });
+        }
     </script>
 </body>
 </html>
