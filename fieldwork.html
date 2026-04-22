@@ -19,4 +19,232 @@
         nav a.active { color: #333; font-weight: 700; }
         nav a:hover { color: #333; }
         
-        .dropdown-content { display: none; position: absolute; top:
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: #fff; min-width: 120px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.05); z-index: 1; border: 1px solid #eee; padding: 5px 0; }
+        .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
+        nav li:hover .dropdown-content { display: block; }
+        .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
+
+        /* --- Fieldwork 갤러리 레이아웃 스타일 --- */
+        main { 
+            flex-grow: 1; 
+            display: block; 
+            padding: 60px 20px 100px 20px;
+            text-align: center; 
+            max-width: 900px; /* 2열 갤러리를 위해 너비를 넉넉하게 확보 */
+            margin: 0 auto; 
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h2 { 
+            font-size: 32px; 
+            color: #333; 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            letter-spacing: 1px; 
+        }
+        .desc-text { font-size: 15px; color: #999; margin-bottom: 60px; }
+
+        /* CSS Grid를 활용한 2열 갤러리 */
+        .fieldwork-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2열 생성 */
+            gap: 50px 40px; /* 세로 간격 50px, 가로 간격 40px */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .fieldwork-gallery li a {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        /* 텍스트 영역 (사진 위쪽) */
+        .fw-info {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px; /* 사진과의 간격 */
+        }
+
+        .fw-title {
+            color: #444;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            transition: color 0.3s;
+        }
+
+        .fw-date {
+            color: #888;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        /* 썸네일 이미지 (정사각형) */
+        .fw-thumbnail {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* 완벽한 정사각형 비율 유지 */
+            overflow: hidden;
+            border-radius: 6px; /* 모서리를 살짝 둥글게 (원치 않으시면 0으로 변경) */
+            background-color: #eaeaea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .fw-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 찌그러지지 않고 정사각형을 꽉 채움 */
+            transition: transform 0.5s ease;
+        }
+
+        /* 마우스 호버 효과 */
+        .fieldwork-gallery li a:hover {
+            transform: translateY(-5px); /* 전체를 살짝 위로 띄움 */
+        }
+
+        .fieldwork-gallery li a:hover .fw-title {
+            color: #007bff; /* 제목을 파란색으로 */
+        }
+
+        .fieldwork-gallery li a:hover .fw-thumbnail img {
+            transform: scale(1.04); /* 사진이 부드럽게 확대됨 */
+        }
+
+        /* 모바일 환경 (화면이 좁아지면 1열로 변경) */
+        @media (max-width: 768px) {
+            .fieldwork-gallery {
+                grid-template-columns: 1fr; /* 1열로 변경 */
+                gap: 40px;
+            }
+        }
+
+        /* --- 푸터 스타일 --- */
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; background-color: #fff;}
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
+        .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
+        .footer-info a { color: #007bff; text-decoration: none; }
+
+        .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
+        .social-icon { color: #888; font-size: 20px; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
+        .social-icon:hover { color: #333; }
+
+        .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
+        .naver-icon:hover span { background-color: #333; }
+        
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <span class="lab-name">JISEUNG KIM WEBSITE</span>
+        <span class="univ-name">Jeonbuk National University</span>
+    </header>
+
+    <nav>
+        <ul id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li>
+                <a href="works.html">Works</a>
+                <div class="dropdown-content">
+                    <a href="publications.html">Publications</a>
+                    <a href="presentations.html">Presentations</a>
+                </div>
+            </li>
+            <li><a href="fieldwork.html">Fieldwork</a></li>
+            <li><a href="archive.html">Archive</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Fieldwork</h2>
+        <p class="desc-text">Records of insect collecting trips and field expeditions.</p>
+
+        <ul class="fieldwork-gallery">
+            <li>
+                <a href="#">
+                    <div class="fw-info">
+                        <span class="fw-title">Expedition to Taiwan</span>
+                        <span class="fw-date">2026. 03</span>
+                    </div>
+                    <div class="fw-thumbnail">
+                        <img src="thumb_taiwan.jpg" alt="Expedition to Taiwan">
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="fw-info">
+                        <span class="fw-title">Jeju Island, South Korea</span>
+                        <span class="fw-date">2025. 08</span>
+                    </div>
+                    <div class="fw-thumbnail">
+                        <img src="thumb_korea_aug.jpg" alt="Jeju Island Fieldwork">
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="fw-info">
+                        <span class="fw-title">Mt. Naejang, South Korea</span>
+                        <span class="fw-date">2025. 05</span>
+                    </div>
+                    <div class="fw-thumbnail">
+                        <img src="thumb_korea_may.jpg" alt="Mt. Naejang Fieldwork">
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <strong>김지승 ©2026 Jiseung Kim</strong><br>
+                <span>
+                    Email: <a href="mailto:gjs0917@jbnu.ac.kr">gjs0917@jbnu.ac.kr</a> (UNIVERSITY), 
+                    <a href="mailto:gjs09177@gmail.com">gjs09177@gmail.com</a> (PRIVATE)
+                </span><br><br>
+                <span>
+                    <a href="https://www.jbnu.ac.kr" target="_blank" style="color: #444; font-weight: 500;">전북대학교 (Jeonbuk National University)</a><br>
+                    (54896) 전북특별자치도 전주시 덕진구 백제대로 567
+                </span>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.researchgate.net/profile/Jiseung-Kim-5?ev=hdr_xprf" target="_blank" title="ResearchGate" class="social-icon">
+                    <i class="fab fa-researchgate"></i>
+                </a>
+                <a href="https://www.instagram.com/k_js_00" target="_blank" title="Instagram" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/jiseungKim00" target="_blank" title="X" class="social-icon">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://blog.naver.com/deyrolli" target="_blank" title="Naver Blog" class="social-icon naver-icon">
+                    <span>N</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const currentPage = window.location.pathname.split("/").pop() || "index.html";
+        const navLinks = document.querySelectorAll("#nav-list a");
+        navLinks.forEach(link => {
+            if (link.getAttribute("href") === currentPage) {
+                link.classList.add("active");
+                if (link.closest(".dropdown-content")) {
+                    link.closest("li").querySelector("a").classList.add("active");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
