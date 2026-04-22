@@ -6,7 +6,7 @@
     <title>Fieldwork - Jiseung Kim</title>
     <style>
         /* --- 공통 레이아웃 스타일 --- */
-        body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fcfcfc; /* 배경색을 살짝 부드럽게 조정 */ text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
+        body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fcfcfc; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
         header { padding: 40px 0 20px 0; flex-shrink: 0; background-color: #fff; }
         .lab-name { font-size: 30px; font-weight: 500; letter-spacing: 3px; color: #777; text-transform: uppercase; }
         .univ-name { font-size: 19px; font-weight: 100; font-style: italic; color: #ccc; margin-left: 15px; letter-spacing: 2px; font-family: 'Segoe UI', sans-serif; }
@@ -30,7 +30,7 @@
             display: block; 
             padding: 60px 20px 100px 20px;
             text-align: center; 
-            max-width: 900px; /* 2열 갤러리를 위해 너비를 넉넉하게 확보 */
+            max-width: 1000px; /* 메인 컨테이너 너비 설정 */
             margin: 0 auto; 
             width: 100%;
             box-sizing: border-box;
@@ -47,12 +47,18 @@
         /* CSS Grid를 활용한 2열 갤러리 */
         .fieldwork-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2열 생성 */
-            gap: 50px 40px; /* 세로 간격 50px, 가로 간격 40px */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 50px 60px; /* 썸네일 크기가 줄어들므로 가로 간격을 조금 더 넓게 조정 */
             list-style: none;
             padding: 0;
             margin: 0;
-            text-align: left;
+            justify-items: center; /* 갤러리 아이템들을 중앙 정렬 */
+        }
+
+        .fieldwork-gallery li {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* li 안에서 a 태그를 중앙 정렬 */
         }
 
         .fieldwork-gallery li a {
@@ -60,13 +66,16 @@
             flex-direction: column;
             text-decoration: none;
             transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 320px; /* ★ 핵심: 썸네일(과 텍스트 영역)의 최대 너비를 제한하여 크기 축소 */
+            text-align: left; /* 텍스트는 왼쪽 정렬 유지 */
         }
 
         /* 텍스트 영역 (사진 위쪽) */
         .fw-info {
             display: flex;
             flex-direction: column;
-            margin-bottom: 12px; /* 사진과의 간격 */
+            margin-bottom: 12px; 
         }
 
         .fw-title {
@@ -87,9 +96,9 @@
         /* 썸네일 이미지 (정사각형) */
         .fw-thumbnail {
             width: 100%;
-            aspect-ratio: 1 / 1; /* 완벽한 정사각형 비율 유지 */
+            aspect-ratio: 1 / 1; 
             overflow: hidden;
-            border-radius: 6px; /* 모서리를 살짝 둥글게 (원치 않으시면 0으로 변경) */
+            border-radius: 6px; 
             background-color: #eaeaea;
             box-shadow: 0 4px 15px rgba(0,0,0,0.04);
         }
@@ -97,28 +106,31 @@
         .fw-thumbnail img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 이미지가 찌그러지지 않고 정사각형을 꽉 채움 */
+            object-fit: cover; 
             transition: transform 0.5s ease;
         }
 
         /* 마우스 호버 효과 */
         .fieldwork-gallery li a:hover {
-            transform: translateY(-5px); /* 전체를 살짝 위로 띄움 */
+            transform: translateY(-5px); 
         }
 
         .fieldwork-gallery li a:hover .fw-title {
-            color: #007bff; /* 제목을 파란색으로 */
+            color: #007bff; 
         }
 
         .fieldwork-gallery li a:hover .fw-thumbnail img {
-            transform: scale(1.04); /* 사진이 부드럽게 확대됨 */
+            transform: scale(1.04); 
         }
 
-        /* 모바일 환경 (화면이 좁아지면 1열로 변경) */
+        /* 모바일 환경 */
         @media (max-width: 768px) {
             .fieldwork-gallery {
-                grid-template-columns: 1fr; /* 1열로 변경 */
+                grid-template-columns: 1fr; 
                 gap: 40px;
+            }
+            .fieldwork-gallery li a {
+                max-width: 400px; /* 모바일에서는 사진이 너무 작아지지 않게 너비 제한을 조금 품 */
             }
         }
 
