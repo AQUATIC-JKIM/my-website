@@ -30,7 +30,7 @@
             display: block; 
             padding: 60px 20px 100px 20px;
             text-align: center; 
-            max-width: 1000px; /* 메인 컨테이너 너비 설정 */
+            max-width: 960px; /* 메인 컨테이너 너비를 조금 더 넓게 */
             margin: 0 auto; 
             width: 100%;
             box-sizing: border-box;
@@ -42,85 +42,76 @@
             margin-bottom: 15px; 
             letter-spacing: 1px; 
         }
-        .desc-text { font-size: 15px; color: #999; margin-bottom: 60px; }
+        .desc-text { font-size: 15px; color: #999; margin-bottom: 50px; }
 
         /* CSS Grid를 활용한 2열 갤러리 */
         .fieldwork-gallery {
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
-            gap: 50px 60px; /* 썸네일 크기가 줄어들므로 가로 간격을 조금 더 넓게 조정 */
+            gap: 60px 40px; /* 세로 간격 60px, 가로 간격 40px */
             list-style: none;
             padding: 0;
             margin: 0;
-            justify-items: center; /* 갤러리 아이템들을 중앙 정렬 */
         }
 
         .fieldwork-gallery li {
             width: 100%;
-            display: flex;
-            justify-content: center; /* li 안에서 a 태그를 중앙 정렬 */
         }
 
         .fieldwork-gallery li a {
             display: flex;
             flex-direction: column;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            text-align: left; /* 텍스트 왼쪽 정렬 */
             width: 100%;
-            max-width: 320px; /* ★ 핵심: 썸네일(과 텍스트 영역)의 최대 너비를 제한하여 크기 축소 */
-            text-align: left; /* 텍스트는 왼쪽 정렬 유지 */
         }
 
         /* 텍스트 영역 (사진 위쪽) */
         .fw-info {
             display: flex;
             flex-direction: column;
-            margin-bottom: 12px; 
+            margin-bottom: 8px; /* ★ 사진과 텍스트 사이 간격을 12px -> 8px로 축소 */
         }
 
         .fw-title {
             color: #444;
-            font-size: 16px;
+            font-size: 18px; /* 제목 폰트 크기 살짝 키움 */
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             transition: color 0.3s;
         }
 
         .fw-date {
             color: #888;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
 
-        /* 썸네일 이미지 (정사각형) */
+        /* 썸네일 이미지 (직사각형 형태) */
         .fw-thumbnail {
             width: 100%;
-            aspect-ratio: 1 / 1; 
+            aspect-ratio: 3 / 2; /* ★ 완벽한 정사각형(1/1)에서 가로로 살짝 긴 직사각형(3/2)으로 변경 */
             overflow: hidden;
-            border-radius: 6px; 
+            border-radius: 4px; /* 모서리 둥글기 살짝 줄임 */
             background-color: #eaeaea;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05); /* 그림자 살짝 약하게 */
         }
 
         .fw-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            transition: transform 0.5s ease;
+            transition: transform 0.4s ease;
         }
 
-        /* 마우스 호버 효과 */
-        .fieldwork-gallery li a:hover {
-            transform: translateY(-5px); 
-        }
-
+        /* 마우스 호버 효과 (사진 확대만 남기고 전체 들썩이는 효과 제거하여 차분하게) */
         .fieldwork-gallery li a:hover .fw-title {
             color: #007bff; 
         }
 
         .fieldwork-gallery li a:hover .fw-thumbnail img {
-            transform: scale(1.04); 
+            transform: scale(1.03); 
         }
 
         /* 모바일 환경 */
@@ -128,9 +119,6 @@
             .fieldwork-gallery {
                 grid-template-columns: 1fr; 
                 gap: 40px;
-            }
-            .fieldwork-gallery li a {
-                max-width: 400px; /* 모바일에서는 사진이 너무 작아지지 않게 너비 제한을 조금 품 */
             }
         }
 
@@ -186,7 +174,7 @@
                         <span class="fw-date">2026. 02. 20-24</span>
                     </div>
                     <div class="fw-thumbnail">
-                        <img src="thumb_taiwan.jpg" alt="Taiwan">
+                        <img src="thumb_taiwan.jpg" alt="Expedition to Taiwan">
                     </div>
                 </a>
             </li>
