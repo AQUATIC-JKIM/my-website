@@ -30,7 +30,7 @@
             display: block; 
             padding: 60px 20px 100px 20px;
             text-align: center; 
-            max-width: 960px; /* 메인 컨테이너 너비를 조금 더 넓게 */
+            max-width: 960px; /* 메인 컨테이너 너비 */
             margin: 0 auto; 
             width: 100%;
             box-sizing: border-box;
@@ -70,12 +70,12 @@
         .fw-info {
             display: flex;
             flex-direction: column;
-            margin-bottom: 8px; /* ★ 사진과 텍스트 사이 간격을 12px -> 8px로 축소 */
+            margin-bottom: 8px; /* 사진과 텍스트 사이 간격 */
         }
 
         .fw-title {
             color: #444;
-            font-size: 18px; /* 제목 폰트 크기 살짝 키움 */
+            font-size: 18px; /* 제목 폰트 크기 */
             font-weight: 600;
             margin-bottom: 2px;
             transition: color 0.3s;
@@ -88,14 +88,14 @@
             letter-spacing: 0.5px;
         }
 
-        /* 썸네일 이미지 (직사각형 형태) */
+        /* 썸네일 이미지 (정사각형 형태) */
         .fw-thumbnail {
             width: 100%;
-            aspect-ratio: 3 / 2; /* ★ 완벽한 정사각형(1/1)에서 가로로 살짝 긴 직사각형(3/2)으로 변경 */
+            aspect-ratio: 1 / 1; /* ★ 가로세로 1:1 완벽한 정사각형으로 변경 */
             overflow: hidden;
-            border-radius: 4px; /* 모서리 둥글기 살짝 줄임 */
+            border-radius: 4px; 
             background-color: #eaeaea;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05); /* 그림자 살짝 약하게 */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05); 
         }
 
         .fw-thumbnail img {
@@ -105,7 +105,7 @@
             transition: transform 0.4s ease;
         }
 
-        /* 마우스 호버 효과 (사진 확대만 남기고 전체 들썩이는 효과 제거하여 차분하게) */
+        /* 마우스 호버 효과 */
         .fieldwork-gallery li a:hover .fw-title {
             color: #007bff; 
         }
@@ -171,7 +171,7 @@
                 <a href="#">
                     <div class="fw-info">
                         <span class="fw-title">Taiwan</span>
-                        <span class="fw-date">2026. II. 20—24</span>
+                        <span class="fw-date">2026. 02. 20-24</span>
                     </div>
                     <div class="fw-thumbnail">
                         <img src="thumb_taiwan.jpg" alt="Expedition to Taiwan">
