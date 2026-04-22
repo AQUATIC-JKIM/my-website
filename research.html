@@ -27,7 +27,7 @@
         main { 
             flex-grow: 1; 
             display: block; 
-            padding: 30px 20px 60px 20px; /* 상단 여백 축소 적용 */
+            padding: 30px 20px 60px 20px; 
             text-align: left; 
             max-width: 850px; 
             margin: 0 auto; 
@@ -37,13 +37,76 @@
             color: #333; 
             border-bottom: 2px solid #eee; 
             padding-bottom: 10px; 
-            margin-top: 0; /* 제목 위쪽 마진 제거 */
+            margin-top: 0; 
             margin-bottom: 40px; 
         }
-        h3 { font-size: 20px; color: #007bff; margin-top: 40px; margin-bottom: 15px; border-left: 4px solid #007bff; padding-left: 15px; }
+
+        /* --- Research 지그재그 레이아웃 스타일 --- */
+        .research-item { margin-bottom: 80px; }
         
-        .research-item { margin-bottom: 50px; }
-        .research-item p { line-height: 1.8; color: #555; font-size: 15px; }
+        .research-item.zigzag {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        /* 짝수 번째 섹션의 순서 반전 */
+        .research-item.zigzag.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .res-image {
+            flex: 1;
+            max-width: 45%;
+        }
+
+        .res-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* 예시처럼 각진 이미지를 원하시면 이 줄을 삭제하세요 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: block;
+        }
+
+        .res-text {
+            flex: 1.2;
+        }
+
+        .res-text h3 {
+            font-size: 20px;
+            color: #333; /* 글씨 색상을 좀 더 진하게 조정 */
+            margin-top: 0;
+            margin-bottom: 15px;
+            /* 예시와 유사하게 점(bullet) 스타일 적용 */
+            display: flex;
+            align-items: center;
+        }
+
+        .res-text h3::before {
+            content: "•";
+            color: #333;
+            margin-right: 8px;
+            font-size: 24px;
+        }
+
+        .res-text p {
+            line-height: 1.8;
+            color: #555;
+            font-size: 15px;
+            margin: 0;
+            text-align: justify; /* 양쪽 정렬로 깔끔하게 떨어지도록 설정 */
+        }
+
+        /* 모바일 환경 대응: 세로로 나열 */
+        @media (max-width: 768px) {
+            .research-item.zigzag, .research-item.zigzag.reverse {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .res-image {
+                max-width: 100%;
+            }
+        }
 
         /* --- 푸터 스타일 및 회색 아이콘 --- */
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
@@ -57,8 +120,6 @@
 
         .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
         .naver-icon:hover span { background-color: #333; }
-
-        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -90,14 +151,14 @@
     <h2>Research Interests</h2>
 
     <div class="research-item zigzag">
-        <div class="res-image">
-            <img src="research_gerroidea.jpg" alt="Taxonomy of Gerroidea">
-        </div>
         <div class="res-text">
             <h3>Taxonomy and Evolution of Gerroidea</h3>
             <p>
-                My primary research focuses on the <strong>systematics and evolutionary history of the superfamily Gerroidea</strong>. 
+                My primary research focuses on the systematics and evolutionary history of the superfamily Gerroidea. (이곳에 세부 연구 내용, 분자 계통 해석 등 추가 설명을 작성해주세요. 예: 현재 00속의 계통 분석과 진화사 해명을 목표로 연구를 진행하고 있습니다.)
             </p>
+        </div>
+        <div class="res-image">
+            <img src="[첫번째_이미지_경로.jpg]" alt="Taxonomy of Gerroidea">
         </div>
     </div>
 
@@ -105,89 +166,27 @@
         <div class="res-text">
             <h3>Korean Insect Fauna and Conservation</h3>
             <p>
-                My faunistic research specifically targets <strong>Aquatic Coleoptera, Aquatic Hemiptera, 
-                and the family Myrmeleontidae (Neuroptera)</strong>. Through taxonomic reviews, 
-                I strive to provide crucial data that contributes to the 
-                <strong>conservation of these taxa</strong>.
+                My faunistic research specifically targets Aquatic Coleoptera, Aquatic Hemiptera, and the family Myrmeleontidae (Neuroptera). Through taxonomic reviews, I strive to provide crucial data that contributes to the conservation of these taxa. (이곳에 지표종 활용이나 환경 평가 관련 내용을 덧붙이면 좋습니다.)
             </p>
         </div>
         <div class="res-image">
-            <img src="research_fauna.jpg" alt="Korean Insect Fauna">
+            <img src="[두번째_이미지_경로.jpg]" alt="Korean Insect Fauna">
         </div>
     </div>
 
     <div class="research-item zigzag">
-        <div class="res-image">
-            <img src="research_biogeography.jpg" alt="Biogeography of East Asia">
-        </div>
         <div class="res-text">
             <h3>Biogeography of East Asia</h3>
             <p>
-                I investigate the <strong>biogeographical patterns of East Asian insects</strong> to understand the 
-                <strong>historical and environmental factors</strong> that have shaped the current biota. 
+                I investigate the biogeographical patterns of East Asian insects to understand the historical and environmental factors that have shaped the current biota. (이곳에 구체적인 지역 단위 생식 기원 해명이나 계통 지리 연구 내용을 추가해주세요.)
             </p>
         </div>
+        <div class="res-image">
+            <img src="[세번째_이미지_경로.jpg]" alt="Biogeography of East Asia">
+        </div>
     </div>
+
 </main>
-
-<style>
-    /* Research 지그재그 레이아웃 스타일 */
-    .research-item.zigzag {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        margin-bottom: 80px;
-    }
-
-    /* 짝수 번째(또는 클래스 부여) 섹션의 순서 반전 */
-    .research-item.zigzag.reverse {
-        flex-direction: row-reverse;
-    }
-
-    .res-image {
-        flex: 1;
-        max-width: 45%;
-    }
-
-    .res-image img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        display: block;
-    }
-
-    .res-text {
-        flex: 1.2;
-    }
-
-    .res-text h3 {
-        font-size: 22px;
-        color: #007bff;
-        margin-top: 0;
-        margin-bottom: 15px;
-        border-left: 5px solid #007bff;
-        padding-left: 15px;
-    }
-
-    .res-text p {
-        line-height: 1.8;
-        color: #555;
-        font-size: 15px;
-        margin: 0;
-    }
-
-    /* 모바일 환경 대응: 세로로 나열 */
-    @media (max-width: 768px) {
-        .research-item.zigzag, .research-item.zigzag.reverse {
-            flex-direction: column;
-            gap: 20px;
-        }
-        .res-image {
-            max-width: 100%;
-        }
-    }
-</style>
 
     <footer>
         <div class="footer-container">
