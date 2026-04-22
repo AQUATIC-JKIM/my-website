@@ -24,13 +24,13 @@
         nav li:hover .dropdown-content { display: block; }
         .dropdown-content a:hover { background-color: #f9f9f9; color: #333; }
 
-        /* --- Fieldwork 섹션 깔끔한 리스트 스타일 --- */
+        /* --- Fieldwork 섹션 깔끔한 리스트 & 썸네일 스타일 --- */
         main { 
             flex-grow: 1; 
             display: block; 
             padding: 50px 20px 80px 20px;
             text-align: center; 
-            max-width: 800px; /* 가독성을 위한 너비 제한 */
+            max-width: 850px; /* 썸네일이 들어가므로 너비를 조금 늘렸습니다 */
             margin: 0 auto; 
             width: 100%;
         }
@@ -59,19 +59,45 @@
             border-top: 1px solid #eee;
         }
 
-        /* 날짜와 제목을 가로로 정렬 */
+        /* 썸네일, 날짜, 제목을 가로로 정렬 */
         .fieldwork-list li a {
             display: flex;
             align-items: center;
-            padding: 25px 20px;
+            padding: 20px;
             text-decoration: none;
             transition: all 0.3s;
         }
 
+        /* 썸네일 이미지 컨테이너 */
+        .fw-thumbnail {
+            width: 120px;
+            height: 80px;
+            overflow: hidden;
+            border-radius: 6px;
+            margin-right: 30px; /* 썸네일과 텍스트 사이 간격 */
+            flex-shrink: 0;
+            background-color: #f4f4f4; /* 이미지가 없을 때 보여줄 배경색 */
+        }
+
+        .fw-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 찌그러지지 않고 꽉 차게 조절 */
+            transition: transform 0.3s ease;
+        }
+
+        /* 텍스트 영역 (날짜와 제목 묶음) */
+        .fw-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-grow: 1;
+        }
+
         .fw-date {
             font-weight: 700;
-            color: #007bff; /* 날짜에 파란색 포인트 */
-            width: 130px;
+            color: #007bff; 
+            width: 110px;
             font-size: 15px;
             flex-shrink: 0;
             letter-spacing: 0.5px;
@@ -86,29 +112,50 @@
         /* 호버 시 효과 */
         .fieldwork-list li a:hover {
             background-color: #fbfdff;
-            padding-left: 30px; /* 마우스 올리면 살짝 오른쪽으로 이동 */
         }
 
         .fieldwork-list li a:hover .fw-title {
             color: #007bff;
         }
 
+        /* 호버 시 이미지 살짝 확대 효과 */
+        .fieldwork-list li a:hover .fw-thumbnail img {
+            transform: scale(1.05);
+        }
+
         .fieldwork-list li a::after {
             content: '→';
-            margin-left: auto; /* 오른쪽 끝으로 화살표 밀어내기 */
+            margin-left: auto; 
             color: #007bff;
             font-weight: 300;
             opacity: 0;
             transition: opacity 0.3s;
+            font-size: 20px;
         }
 
         .fieldwork-list li a:hover::after {
             opacity: 1;
         }
 
+        /* 모바일 환경 대응 */
         @media (max-width: 600px) {
-            .fieldwork-list li a { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .fw-date { width: auto; font-size: 14px; }
+            .fieldwork-list li a { 
+                align-items: flex-start; 
+                padding: 15px;
+            }
+            .fw-thumbnail {
+                width: 90px;
+                height: 60px;
+                margin-right: 15px;
+            }
+            .fw-info { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 5px; 
+            }
+            .fw-date { width: auto; font-size: 13px; }
+            .fw-title { font-size: 16px; }
+            .fieldwork-list li a::after { display: none; } /* 모바일에서는 화살표 숨김 */
         }
 
         /* --- 푸터 스타일 --- */
@@ -159,20 +206,35 @@
         <ul class="fieldwork-list">
             <li>
                 <a href="#">
-                    <span class="fw-date">2026. 03</span>
-                    <span class="fw-title">Expedition to Taiwan</span>
+                    <div class="fw-thumbnail">
+                        <img src="thumb_taiwan.jpg" alt="Expedition to Taiwan">
+                    </div>
+                    <div class="fw-info">
+                        <span class="fw-date">2026. 03</span>
+                        <span class="fw-title">Expedition to Taiwan</span>
+                    </div>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="fw-date">2025. 08</span>
-                    <span class="fw-title">Fieldwork in Korean Peninsula</span>
+                    <div class="fw-thumbnail">
+                        <img src="thumb_korea_aug.jpg" alt="Fieldwork in Korean Peninsula">
+                    </div>
+                    <div class="fw-info">
+                        <span class="fw-date">2025. 08</span>
+                        <span class="fw-title">Fieldwork in Korean Peninsula (Jeju Island)</span>
+                    </div>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="fw-date">2024. 05</span>
-                    <span class="fw-title">Collecting trip for Aquatic Insects</span>
+                    <div class="fw-thumbnail">
+                        <img src="thumb_korea_may.jpg" alt="Collecting trip for Aquatic Insects">
+                    </div>
+                    <div class="fw-info">
+                        <span class="fw-date">2025. 05</span>
+                        <span class="fw-title">Collecting trip for Aquatic Insects (Mt. Naejang)</span>
+                    </div>
                 </a>
             </li>
         </ul>
