@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive - Jiseung Kim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* --- 공통 레이아웃 스타일 --- */
         body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
@@ -23,93 +24,49 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Archive 섹션 여백 및 카드 스타일 --- */
-        main { 
-            flex-grow: 1; 
-            display: block; 
-            padding: 30px 20px 60px 20px; /* 상단 여백 축소 적용 */
-            text-align: center; 
-            max-width: 1000px; 
-            margin: 0 auto; 
-        }
-        h2 { 
-            font-size: 32px; 
-            color: #333; 
-            margin-top: 0; /* 제목 상단 마진 제거 */
-            margin-bottom: 15px; 
-            letter-spacing: 1px; 
-        }
-        .archive-desc { font-size: 15px; color: #999; margin-bottom: 60px; }
+        /* --- Archive 섹션 스타일 --- */
+        main { flex-grow: 1; display: block; text-align: left; background-color: #fafafa; padding-bottom: 80px; }
+        .section-inner { max-width: 1000px; margin: 0 auto; padding: 40px 20px 0 20px; background-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.02); min-height: 600px; border-radius: 8px; margin-top: 40px;}
+        
+        .archive-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 30px; }
+        .archive-header h2 { font-size: 28px; color: #333; margin: 0; }
+        .archive-controls button { background-color: #f0f0f0; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; color: #555; font-size: 13px; transition: background 0.2s; margin-left: 10px; }
+        .archive-controls button:hover { background-color: #e0e0e0; color: #333; }
 
-        .archive-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        /* 트리뷰(Taxonomy Tree) 스타일 */
+        .taxonomy-tree { font-size: 14.5px; line-height: 1.6; color: #444; }
+        .taxonomy-tree ul { list-style-type: none; padding-left: 24px; border-left: 1px dashed #ddd; margin-left: 8px; }
+        .taxonomy-tree > ul { border-left: none; padding-left: 0; margin-left: 0; }
+        .taxonomy-tree li { margin: 6px 0; position: relative; }
+        
+        details > summary { cursor: pointer; list-style: none; display: flex; align-items: center; transition: color 0.2s; padding: 3px 0; }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary::before { content: '\f0da'; font-family: 'Font Awesome 6 Free'; font-weight: 900; display: inline-block; width: 16px; margin-right: 5px; color: #aaa; transition: transform 0.2s; }
+        details[open] > summary::before { transform: rotate(90deg); color: #007bff; }
+        details > summary:hover { color: #007bff; }
+        
+        /* 터미널 노드(종) 스타일 */
+        .species-item { padding-left: 21px; display: flex; align-items: center; }
+        .species-item::before { content: '\f111'; font-family: 'Font Awesome 6 Free'; font-weight: 400; font-size: 6px; position: absolute; left: 5px; top: 12px; color: #ccc; }
 
-        .archive-card {
-            background-color: #fff;
-            border: 1px solid #eee;
-            padding: 40px 20px;
-            text-decoration: none;
-            color: #555;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-        }
+        /* 분류군 텍스트 스타일 */
+        .rank { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; margin-right: 8px; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .name { font-weight: 500; color: #333; }
+        .italic-name { font-style: italic; font-weight: 600; color: #222; }
+        .author { color: #777; font-size: 13.5px; margin-left: 5px; }
+        .ko-name { color: #0066cc; margin-left: 8px; font-size: 14px; font-weight: 500; }
 
-        .archive-card:hover { border-color: #333; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
-
-        .archive-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 25px;
-            border: 1px solid #eee;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .archive-card h3 { font-size: 18px; margin-bottom: 15px; color: #333; line-height: 1.4; }
-        .view-link { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #007bff; font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .archive-container { grid-template-columns: 1fr; }
-            .archive-card { padding: 40px 20px; }
-        }
-
-        /* --- 푸터 스타일 및 회색 아이콘 --- */
-        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
+        /* --- 푸터 스타일 --- */
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; background-color: #fff;}
         .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
         .footer-info a { color: #007bff; text-decoration: none; }
-
         .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
         .social-icon { color: #888; font-size: 20px; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
         .social-icon:hover { color: #333; }
-
         .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
         .naver-icon:hover span { background-color: #333; }
-
-/* --- Checklist Style (리스트 페이지 전용) --- */
-        .checklist-container { max-width: 800px; margin: 0 auto; text-align: left; padding: 20px; }
-        .family-section { margin-bottom: 40px; }
-        .family-title { font-size: 20px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .species-list { list-style-type: none; padding-left: 0; margin: 0; }
-        .species-list li { font-size: 15px; color: #555; padding: 12px 0; border-bottom: 1px dashed #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
-        .taxon-info { display: flex; align-items: baseline; }
-        .species-name { font-style: italic; font-weight: bold; color: #2c3e50; font-size: 16px; }
-        .species-author { font-size: 13px; color: #888; margin-left: 8px; }
-        .korean-name { color: #666; font-size: 14px; }
-        .btn-back { display: inline-block; margin-top: 10px; margin-bottom: 50px; padding: 10px 25px; background-color: #f8f9fa; color: #555; border: 1px solid #ddd; border-radius: 5px; text-decoration: none; font-size: 13px; transition: all 0.3s; letter-spacing: 1px; }
-        .btn-back:hover { background-color: #eee; color: #333; }
-        
-        @media (max-width: 768px) {
-            .species-list li { flex-direction: column; align-items: flex-start; gap: 5px; }
-        }
-        
-        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -123,6 +80,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
             <li><a href="research.html">Research</a></li>
+            <li><a href="fieldwork.html">Fieldwork</a></li>
             <li>
                 <a href="works.html">Works</a>
                 <div class="dropdown-content">
@@ -130,51 +88,1218 @@
                     <a href="presentations.html">Presentations</a>
                 </div>
             </li>
-            <li><a href="fieldwork.html">Fieldwork</a></li>
-            <li><a href="archive.html">Archive</a></li>
+            <li><a href="archive.html" class="active">Archive</a></li>
         </ul>
     </nav>
-
- <main>
-        <h2>Aquatic Coleoptera</h2>
-        <p class="archive-desc">Checklist of water beetles from the Korean Peninsula.</p>
-
-        <div class="checklist-container">
-            <div class="family-section">
-                <h3 class="family-title">Family Dytiscidae (물방개과)</h3>
-                <ul class="species-list">
-                    <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Cybister japonicus</span>
-                            <span class="species-author">Sharp, 1873</span>
-                        </div>
-                        <span class="korean-name">물방개</span>
-                    </li>
-                    <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Cybister tripunctatus lateralis</span>
-                            <span class="species-author">(Fabricius, 1798)</span>
-                        </div>
-                        <span class="korean-name">꼬마물방개</span>
-                    </li>
-                </ul>
+    
+    <main>
+        <div class="section-inner">
+            <div class="archive-header">
+                <h2>Checklist of Aquatic Coleoptera in Korea</h2>
+                <div class="archive-controls">
+                    <button onclick="expandAll()">Expand All</button>
+                    <button onclick="collapseAll()">Collapse All</button>
+                </div>
             </div>
 
-            <div class="family-section">
-                <h3 class="family-title">Family Hydrophilidae (물땡땡이과)</h3>
-                <ul class="species-list">
+            <div class="taxonomy-tree" id="taxonomyTree">
+                <ul>
                     <li>
-                        <div class="taxon-info">
-                            <span class="species-name">Hydrophilus acuminatus</span>
-                            <span class="species-author">Motschulsky, 1854</span>
-                        </div>
-                        <span class="korean-name">물땡땡이</span>
+                        <details open>
+                            <summary><span class="rank">Order</span> <span class="name">Coleoptera</span> <span class="author">Linnaeus, 1758</span> <span class="ko-name">딱정벌레목</span></summary>
+                            <ul>
+                                <li>
+                                    <details open>
+                                        <summary><span class="rank">Suborder</span> <span class="name">Adephaga</span> <span class="author">Schellenberg, 1806</span> <span class="ko-name">식육아목</span></summary>
+                                        <ul>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Gyrinidae</span> <span class="author">Latreille, 1810</span> <span class="ko-name">물맴이과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Tribe</span> <span class="name">Enhydrini</span> <span class="author">Régimbart, 1882</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Dineutus</span> <span class="author">MacLeay, 1825</span> <span class="ko-name">왕물맴이속</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subgenus</span> <span class="italic-name">Spinosodineutes</span> <span class="author">Hatch, 1925</span> <span class="ko-name">왕물맴이아속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Dineutus (Spinosodineutes) orientalis</span> <span class="author">(Modeer, 1776)</span> <span class="ko-name">왕물맴이</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Tribe</span> <span class="name">Gyrinini</span> <span class="author">Latreille, 1810</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Gyrinus</span> <span class="author">Geoffroy, 1762</span> <span class="ko-name">물맴이속</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subgenus</span> <span class="italic-name">Gyrinus</span> <span class="author">Geoffroy, 1762</span> <span class="ko-name">물맴이아속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Gyrinus (Gyrinus) gestroi</span> <span class="author">Régimbart, 1883</span> <span class="ko-name">참물맴이</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Gyrinus (Gyrinus) japonicus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">물맴이</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Gyrinus (Gyrinus) pullatus</span> <span class="author">Zaitzev, 1908</span> <span class="ko-name">꼭지물맴이(동쪽물맴이)</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Tribe</span> <span class="name">Orectochilini</span> <span class="author">Régimbart, 1882</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Orectochilus</span> <span class="author">Deajean, 1833</span> <span class="ko-name">꼬리물맴이속</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Orectochilus punctipennis</span> <span class="author">Sharp, 1884</span> <span class="ko-name">검정꼬리물맴이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Orectochilus regimbarti</span> <span class="author">Sharp, 1884</span> <span class="ko-name">꼬리물맴이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Orectochilus villosus</span> <span class="author">(Müller, 1776)</span> <span class="ko-name">긴꼬리물맴이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Haliplidae</span> <span class="author">Aubé, 1836</span> <span class="ko-name">물진드기과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Peltodytes</span> <span class="author">Régimbart, 1879</span> <span class="ko-name">물진드기속</span></summary>
+                                                                <ul>
+                                                                    <li class="species-item"><span class="italic-name">Peltodytes intermedius</span> <span class="author">(Sharp, 1873)</span> <span class="ko-name">물진드기</span></li>
+                                                                    <li class="species-item"><span class="italic-name">Peltodytes sinensis</span> <span class="author">(Hope, 1845)</span> <span class="ko-name">중국물진드기</span></li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Haliplus</span> <span class="author">Latreille, 1802</span> <span class="ko-name">큰물진드기속</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Haliplus</span> <span class="author">Latreille, 1802</span> <span class="ko-name">알락물진드기아속</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Haliplus (Haliplus) simplex</span> <span class="author">Clark, 1863</span> <span class="ko-name">알락물진드기</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subgenus</span> <span class="italic-name">Liaphlus</span> <span class="author">Guignot, 1928</span> <span class="ko-name">큰물진드기아속</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Haliplus (Liaphlus) basinotatus</span> <span class="author">Zimmermann, 1924</span> <span class="ko-name">극동큰물진드기</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Haliplus (Liaphlus) chinensis</span> <span class="author">Falkenstrom, 1932</span> <span class="ko-name">애물진드기</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Haliplus (Liaphlus) diruptus</span> <span class="author">Balfour-Browne, 1947</span> <span class="ko-name">토교물진드기</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Haliplus (Liaphlus) eximius</span> <span class="author">Clark, 1863</span> <span class="ko-name">큰물진드기</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Haliplus (Liaphlus) sharpi</span> <span class="author">Wehncke, 1880</span> <span class="ko-name">샤아프물진드기</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Noteridae</span> <span class="author">Thomson, 1860</span> <span class="ko-name">자색물방개과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Noterinae</span> <span class="author">Thomson, 1860</span> <span class="ko-name">자색물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Noterini</span> <span class="author">Thomson, 1860</span> <span class="ko-name">자색물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Noterus</span> <span class="author">Clairville, 1806</span> <span class="ko-name">자색물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Noterus angustulus</span> <span class="author">Zaitzev, 1953</span> <span class="ko-name">고구려자색물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Noterus coreanus</span> <span class="author">Lee and Jung, 2023</span> <span class="ko-name">우리자색물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Noterus japonicus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">자색물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Canthydrus</span> <span class="author">Sharp, 1882</span> <span class="ko-name">노랑띠물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Canthydrus</span> <span class="author">Sharp, 1882</span> <span class="ko-name">노랑띠물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Canthydrus (Canthydrus) politus</span> <span class="author">(Sharp, 1873)</span> <span class="ko-name">노랑띠물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Amphizoidae</span> <span class="author">LeConte, 1853</span> <span class="ko-name">백두벌레과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Genus</span> <span class="italic-name">Amphizoa</span> <span class="author">LeConte, 1853</span> <span class="ko-name">백두벌레속</span></summary>
+                                                                <ul>
+                                                                    <li class="species-item"><span class="italic-name">Amphizoa sinica</span> <span class="author">Yu & Stork, 1991</span> <span class="ko-name">백두벌레</span></li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Dytiscidae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물방개과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Hydroporinae</span> <span class="author">Aubé, 1836</span> <span class="ko-name">알물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Hyphydrini</span> <span class="author">Sharp, 1882</span> <span class="ko-name">알물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Allopachria</span> <span class="author">Zimmermann, 1924</span> <span class="ko-name">콩돌물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Allopachria flavomaculata</span> <span class="author">(Kamiya, 1938)</span> <span class="ko-name">콩돌물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Hyphydrus</span> <span class="author">Illiger, 1802</span> <span class="ko-name">알물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Hyphydrus falkenstromi</span> <span class="author">Gschwendtner, 1939</span> <span class="ko-name">제주알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Hyphydrus japonicus vagus</span> <span class="author">Brinck, 1943</span> <span class="ko-name">알물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Bidessini</span> <span class="author">Sharp, 1882</span> <span class="ko-name">꼬마물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Allodessus</span> <span class="author">Guignot, 1953</span> <span class="ko-name">테물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Allodesus megacephalus</span> <span class="author">(Gschwendtner, 1931)</span> <span class="ko-name">테물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Hydroglyphus</span> <span class="author">Motschulsky, 1853</span> <span class="ko-name">꼬마물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Hydroglyphus coreanus</span> <span class="author">Lee and Ahn, 2016</span> <span class="ko-name">우리꼬마물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Hydroglyphus flammulatus</span> <span class="author">(Sharp, 1882)</span> <span class="ko-name">네모무늬꼬마물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Hydroglyphus geminus</span> <span class="author">(Fabricius, 1781)</span> <span class="ko-name">큰꼬마물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Hydroglyphus japonicus</span> <span class="author">(Sharp, 1873)</span> <span class="ko-name">꼬마물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Leiodytes</span> <span class="author">Guignot, 1936</span> <span class="ko-name">머리테물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Leiodytes frontalis</span> <span class="author">(Sharp, 1884)</span> <span class="ko-name">머리테물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Leiodytes nicobaricus</span> <span class="author">(Redtenbacher, 1867)</span> <span class="ko-name">노랑머리테물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Hygrotus</span> <span class="author">Stephens, 1828</span> <span class="ko-name">가는줄물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Hygrotus chinensis</span> <span class="author">Sharp, 1882</span> <span class="ko-name">가는줄물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Hygrotus impressopunctatus</span> <span class="author">(Schaller, 1783)</span> <span class="ko-name">북쪽물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Hydrovatini</span> <span class="author">Sharp, 1882</span> <span class="ko-name">점톨물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Hydrovatus</span> <span class="author">Motschulsky, 1853</span> <span class="ko-name">점톨물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Hydrovatus subtilis</span> <span class="author">Sharp, 1882</span> <span class="ko-name">점톨물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Hydrovatus acuminatus</span> <span class="author">Motschulsky, 1859</span> <span class="ko-name">노랑점톨물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Hydroporini</span> <span class="author">Aubé, 1836</span> <span class="ko-name">외줄물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Hydroporus</span> <span class="author">Clairville, 1806</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Hydroporus uenoi</span> <span class="author">Nakane, 1963</span> <span class="ko-name">고산물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Nebrioporus</span> <span class="author">Régimbart, 1906</span> <span class="ko-name">외줄물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Nebrioporus hostilis</span> <span class="author">(Sharp, 1884)</span> <span class="ko-name">혹외줄물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Nebrioporus simplicipes</span> <span class="author">(Sharp, 1884)</span> <span class="ko-name">외줄물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Oreodytes</span> <span class="author">Seidlitz, 1887</span> <span class="ko-name">노랑무늬물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Oreodytes kanoi</span> <span class="author">Kamiya, 1938</span> <span class="ko-name">동해물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Oreodytes narix</span> <span class="author">(Sharp, 1884)</span> <span class="ko-name">노랑무늬물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Laccophilinae</span> <span class="author">Gistel, 1856</span> <span class="ko-name">깨알물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Laccophilini</span> <span class="author">Gistel, 1856</span> <span class="ko-name">깨알물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Laccophilus</span> <span class="author">Leach, 1815</span> <span class="ko-name">깨알물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Laccophilus difficilis</span> <span class="author">Sharp, 1873</span> <span class="ko-name">깨알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Laccophilus kobensis</span> <span class="author">Sharp, 1873</span> <span class="ko-name">동쪽깨알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Laccophilus lewisioides</span> <span class="author">Brancucci, 1983</span> <span class="ko-name">줄무늬깨알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Laccophilus vagelineatus</span> <span class="author">Zimmermann, 1922</span> <span class="ko-name">얼룩깨알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Laccophilus sharpi</span> <span class="author">Régimbart, 1899</span> <span class="ko-name">샤아프깨알물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Japanolaccophilus</span> <span class="author">Satô, 1972</span> <span class="ko-name">방울물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Japanolaccophilus niponensis</span> <span class="author">(Kamiya, 1939)</span> <span class="ko-name">방울물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Copelatinae</span> <span class="author">Branden, 1885</span> <span class="ko-name">등줄물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Copelatini</span> <span class="author">Branden, 1855</span> <span class="ko-name">등줄물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Austrelatus</span> <span class="author">Shaverdo, Hájek, Hendrich, Surbakti, Panjaitan & Balke, 2023</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Austrelatus parallelus</span> <span class="author">(Zimmermann, 1920)</span> <span class="ko-name">남방등줄물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Copelatus</span> <span class="author">Erichson, 1832</span> <span class="ko-name">등줄물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Copelatus koreanus</span> <span class="author">Mori, 1932</span> <span class="ko-name">등줄물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Copelatus weymarni</span> <span class="author">J.Balfour-Browne, 1947</span> <span class="ko-name">애등줄물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Copelatus japonicus</span> <span class="author">Sharp, 1844</span> <span class="ko-name">섬등줄물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Copelatus kammurensis</span> <span class="author">Tamu and Tsukamoto, 1955</span> <span class="ko-name">변산등줄물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Copelatus zimmermanni</span> <span class="author">Gschwendtner, 1934</span> <span class="ko-name">맵시등줄물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Agabinae</span> <span class="author">Thomson, 1867</span> <span class="ko-name">땅콩물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Agabini</span> <span class="author">Thomson, 1867</span> <span class="ko-name">땅콩물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Platambus</span> <span class="author">Thomson, 1859</span> <span class="ko-name">콩알물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Platambus pictipennis</span> <span class="author">Sharp, 1873</span> <span class="ko-name">콩알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Platambus fimbriatus</span> <span class="author">Sharp, 1884</span> <span class="ko-name">노랑테콩알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Platambus koreanus</span> <span class="author">(Nilsson, 1996)</span> <span class="ko-name">우리콩알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Platambus stygius</span> <span class="author">(Régimbart, 1899)</span> <span class="ko-name">제주콩알물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Platambus ussuriensis</span> <span class="author">(Nilsson, 1996)</span> <span class="ko-name">산수콩알물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Agabus</span> <span class="author">Leach, 1817</span> <span class="ko-name">땅콩물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Acatodes</span> <span class="author">Thomson, 1859</span> <span class="ko-name">땅콩물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Agabus (Acatodes) congener</span> <span class="author">(Thunberg, 1794)</span> <span class="ko-name">북쪽땅콩물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Agabus (Acatodes) conspicuus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">검정땅콩물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Agabus (Acatodes) japonicus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">땅콩물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Agabus (Acatodes) regimbarti</span> <span class="author">Zaitzev, 1906</span> <span class="ko-name">큰땅콩물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Gaurodytes</span> <span class="author">Thomson, 1859</span> <span class="ko-name">고구려땅콩물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Agabus (Gaurodytes) adpressus</span> <span class="author">Aube, 1837</span> <span class="ko-name">땅콩물방개붙이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Agabus (Gaurodytes) udege</span> <span class="author">Nilsson, 1994</span> <span class="ko-name">고구려땅콩물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Ilybius</span> <span class="author">Erichson, 1832</span> <span class="ko-name">모래무지물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Ilybius apicalis</span> <span class="author">Sharp, 1873</span> <span class="ko-name">모래무지물방개</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Ilybius chishimannus</span> <span class="author">Kôno, 1944</span> <span class="ko-name">섬모래무지물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Colymbetinae</span> <span class="author">Thomson, 1867</span> <span class="ko-name">애기물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Colymbetini</span> <span class="author">Erichson, 1837</span> <span class="ko-name">애기물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Rhantus</span> <span class="author">Dejean, 1833</span> <span class="ko-name">애기물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Rhantus</span> <span class="author">Dejean, 1833</span> <span class="ko-name">애기물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Rhantus (Rhantus) suturalis</span> <span class="author">(Macleay, 1825)</span> <span class="ko-name">애기물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Rhantus (Rhantus) yessoensis</span> <span class="author">Sharp, 1891</span> <span class="ko-name">제주애기물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Dytiscinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">물방개붙이아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Eretini</span> <span class="author">Crotch, 1873</span> <span class="ko-name">잿빛물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Eretes</span> <span class="author">Laporte, 1833</span> <span class="ko-name">잿빛물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Eretes griseus</span> <span class="author">(Fabricius, 1781)</span> <span class="ko-name">잿빛물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Hydaticini</span> <span class="author">Sharp, 1882</span> <span class="ko-name">줄물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Hydaticus</span> <span class="author">Leach, 1817</span> <span class="ko-name">줄물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Prodaticus</span> <span class="author">Sharp, 1822</span> <span class="ko-name">줄물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) bowringii</span> <span class="author">Clark, 1864</span> <span class="ko-name">줄무늬물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) bipunctatus</span> <span class="author">Wehncke, 1876</span> <span class="ko-name">줄물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) vittatus</span> <span class="author">(Fabricius, 1775)</span> <span class="ko-name">노란줄물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) conspersus</span> <span class="author">Régimbart, 1899</span> <span class="ko-name">큰알락물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) thermonectoides</span> <span class="author">Sharp, 1884</span> <span class="ko-name">알락물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) grammicus</span> <span class="author">(Germar, 1827)</span> <span class="ko-name">꼬마줄물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydaticus (Prodaticus) rhantoides</span> <span class="author">Sharp, 1882</span> <span class="ko-name">남쪽알락물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Aciliini</span> <span class="author">Thomson, 1867</span> <span class="ko-name">아담스물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Graphoderus</span> <span class="author">Dejean, 1833</span> <span class="ko-name">아담스물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Graphoderus adamsii</span> <span class="author">(Clark, 1864)</span> <span class="ko-name">아담스물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Sandracottus</span> <span class="author">Sharp, 1882</span> <span class="ko-name">호랑물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Sandracottus mixtus</span> <span class="author">(Blanchard, 1843)</span> <span class="ko-name">호랑물방개</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Dytiscini</span> <span class="author">Leach, 1815</span> <span class="ko-name">물방개붙이족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Dytiscus</span> <span class="author">Linneaus, 1758</span> <span class="ko-name">물방개붙이속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Dytiscus dauricus dauricus</span> <span class="author">Gebler, 1823</span> <span class="ko-name">물방개붙이</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Dytiscus marginalis czerskii</span> <span class="author">Zaitzev, 1953</span> <span class="ko-name">배물방개붙이</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Cybistrinae</span> <span class="author">Shap, 1882</span> <span class="ko-name">물방개아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Cybistrini</span> <span class="author">Sharp, 1882</span> <span class="ko-name">물방개족</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Cybister</span> <span class="author">Curtis, 1827</span> <span class="ko-name">물방개속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Cybister</span> <span class="author">Curtis, 1827</span> <span class="ko-name">물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Cybister (Cybister) chinensis</span> <span class="author">Motschulsky, 1854</span> <span class="ko-name">물방개</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Cybister (Cybister) lewsianus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">동쪽애물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Melanectes</span> <span class="author">Brinck, 1945</span> <span class="ko-name">검정물방개아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Cybister (Melanectes) brevis</span> <span class="author">Aubé, 1838</span> <span class="ko-name">검정물방개</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li>
+                                    <details open>
+                                        <summary><span class="rank">Suborder</span> <span class="name">Polyphaga</span> <span class="author">Emery, 1886</span> <span class="ko-name">풍뎅이아목(다식아목)</span></summary>
+                                        <ul>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Series</span> <span class="name">Staphyliniformia</span> <span class="author">Lameere, 1900</span> <span class="ko-name">반날개하목</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Superfamily</span> <span class="name">Staphylinoidea</span> <span class="author">Latreille, 1802</span> <span class="ko-name">반날개상과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Family</span> <span class="name">Hydraenidae</span> <span class="author">Mulsant, 1844</span> <span class="ko-name">호리가슴땡땡이과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subfamily</span> <span class="name">Hydraeninae</span> <span class="author">Mulsant, 1844</span> <span class="ko-name">호리가슴땡땡이아과</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Hydraena</span> <span class="author">Kugelann, 1794</span> <span class="ko-name">호리가슴땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Hydraena</span> <span class="author">Kugelann, 1794</span> <span class="ko-name">호리가슴땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hydraena (Hydraena) puetzi</span> <span class="author">Jäch, 1994</span> <span class="ko-name">호리가슴땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Hydraenopsis</span> <span class="author">Janssens, 1972</span> <span class="ko-name">황색호리가슴땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hydraena (Hydraenopsis) miyatakei</span> <span class="author">Satô, 1959</span> <span class="ko-name">황색호리가슴땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Ochthebius</span> <span class="author">Leach, 1815</span> <span class="ko-name">잘록호리가슴땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Ochthebius</span> <span class="author">Leach, 1815</span> <span class="ko-name">잘록호리가슴땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ochthebius (Ochthebius) ahni</span> <span class="author">Jäch & Delgado, 2014</span> <span class="ko-name">해변잘록호리가슴땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ochthebius (Ochthebius) hasegawai</span> <span class="author">Nakane & Matsui, 1986</span> <span class="ko-name">남색잘록호리가슴땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ochthebius (Ochthebius) lobatus</span> <span class="author">Pu, 1958</span> <span class="ko-name">참잘록호리가슴땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ochthebius (Ochthebius) marinus</span> <span class="author">(Paykull, 1798)</span> <span class="ko-name">소금잘록호리가슴땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ochthebius (Ochthebius) parki</span> <span class="author">Jäch & Delgado, 2014</span> <span class="ko-name">해초잘록호리가슴땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Ochthebius (Ochthebius) satoi</span> <span class="author">Nakane, 1965</span> <span class="ko-name">잔잘록호리가슴땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Superfamily</span> <span class="name">Hydrophiloidea</span> <span class="author">Latreille, 1802</span> <span class="ko-name">물땡땡이상과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Family</span> <span class="name">Helophoridae</span> <span class="author">Leach, 1815</span> <span class="ko-name">투구물땡땡이과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Helophorus</span> <span class="author">Fabricius, 1775</span> <span class="ko-name">투구물땡땡이속</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Subgenus</span> <span class="italic-name">Gephelophorus</span> <span class="author">Sharp, 1915</span> <span class="ko-name">투구물땡땡이아속</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Helophorus (Gephelophorus) auriculatus</span> <span class="author">Sharp, 1884</span> <span class="ko-name">투구물땡땡이</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Family</span> <span class="name">Hydrochidae</span> <span class="author">Thomson, 1859</span> <span class="ko-name">곰보물땡땡이과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Hydrochus</span> <span class="author">Leach, 1817</span> <span class="ko-name">곰보물땡땡이속</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Hydrochus chubu</span> <span class="author">Balfour-Browne & Satô, 1962</span> <span class="ko-name">곰보물땡땡이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Hydrochus japonicus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">갈색곰보물땡땡이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Family</span> <span class="name">Hydrophilidae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">물땡땡이과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subfamily</span> <span class="name">Hydrophilinae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">물땡땡이아과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Amphiopini</span> <span class="author">Kuwert, 1890</span> <span class="ko-name">알물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Amphiops</span> <span class="author">Erichson, 1843</span> <span class="ko-name">알물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Amphiops mater</span> <span class="author">Sharp, 1873</span> <span class="ko-name">알물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Berosini</span> <span class="author">Mulsant, 1844</span> <span class="ko-name">점박이물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Berosus</span> <span class="author">Leach, 1817</span> <span class="ko-name">점박이물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Berosus</span> <span class="author">Leach, 1817</span> <span class="ko-name">점박이물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Berosus (Berosus) japonicus</span> <span class="author">Sharp, 1873</span> <span class="ko-name">새가슴물땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Berosus (Berosus) punctipennis</span> <span class="author">Harold, 1878</span> <span class="ko-name">점박이물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Enoplurus</span> <span class="author">Hope, 1838</span> <span class="ko-name">뒷가시물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Berosus (Enoplurus) lewisius</span> <span class="author">Sharp, 1873</span> <span class="ko-name">뒷가시물땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Berosus (Enoplurus) spinosus</span> <span class="author">(Steven, 1808)</span> <span class="ko-name">가시점박이물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Regimbartia</span> <span class="author">Zaitzev, 1908</span> <span class="ko-name">콩알물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Regimbartia attenuata</span> <span class="author">(Fabricius, 1801)</span> <span class="ko-name">콩알물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Laccobiini</span> <span class="author">Bertrand, 1954</span> <span class="ko-name">점물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Laccobius</span> <span class="author">Erichson, 1837</span> <span class="ko-name">점물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Laccobius</span> <span class="author">Erichson, 1837</span> <span class="ko-name">점물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Laccobius (Laccobius) bedeli</span> <span class="author">Sharp, 1884</span> <span class="ko-name">점물땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Laccobius (Laccobius) binotatus</span> <span class="author">d’Orchymont, 1934</span> <span class="ko-name">두점물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Microlaccobius</span> <span class="author">Gentili, 1974</span> <span class="ko-name">무늬점물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Laccobius (Microlaccobius) formosus</span> <span class="author">Gentili, 1979</span> <span class="ko-name">꼬마점물땡땡이(가는점물땡땡이)</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Laccobius (Microlaccobius) oscillans</span> <span class="author">Sharp, 1884</span> <span class="ko-name">무늬점물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Paracymus</span> <span class="author">Thomson, 1867</span> <span class="ko-name">꼬마검정물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Paracymus aeneus</span> <span class="author">(Germar, 1824)</span> <span class="ko-name">염전꼬마검정물땡땡이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Paracymus zaitzevi</span> <span class="author">Shatrovskiy, 1989</span> <span class="ko-name">꼬마검정물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Hydrophilini</span> <span class="author">Latreille, 1802</span> <span class="ko-name">물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Hydrochara</span> <span class="author">Berthold, 1827</span> <span class="ko-name">잔물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrochara affinis</span> <span class="author">(Sharp, 1873)</span> <span class="ko-name">잔물땡땡이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrochara libera</span> <span class="author">(Sharp, 1884)</span> <span class="ko-name">북방물땡땡이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrochara vincina</span> <span class="author">Bamuel, 1996</span> <span class="ko-name">고구려물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Hydrophilus</span> <span class="author">Geoffroy, 1762</span> <span class="ko-name">물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Hydrophilus</span> <span class="author">Geoffroy, 1762</span> <span class="ko-name">물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hydrophilus (Hydrophilus) acuminatus</span> <span class="author">Motschulsky, 1854</span> <span class="ko-name">물땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Hydrophilus (Hydrophilus) cashimirensis cashimirensis</span> <span class="author">Kolla & Redtenbacher, 1844</span> <span class="ko-name">남방물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Sternolophus</span> <span class="author">Solier, 1834</span> <span class="ko-name">애물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Sternolophus</span> <span class="author">Solier, 1834</span> <span class="ko-name">애물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Sternolophus (Sternolophus) rufipes</span> <span class="author">(Fabricius, 1792)</span> <span class="ko-name">애물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Hydrobiusini</span> <span class="author">Mulsant, 1844</span> <span class="ko-name">참점물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Ametor</span> <span class="author">Semenov, 1900</span> <span class="ko-name">톱니물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Ametor scabrosus</span> <span class="author">(Horn, 1873)</span> <span class="ko-name">톱니물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Hydrobius</span> <span class="author">Leach, 1815</span> <span class="ko-name">참점물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Hydrobius fuscipes</span> <span class="author">(Linnaeus, 1758)</span> <span class="ko-name">참점물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subfamily</span> <span class="name">Chaetarthriinae</span> <span class="author">Bedel, 1881</span> <span class="ko-name">샘물땡땡이아과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Anacaenini</span> <span class="author">Thomson, 1859</span> <span class="ko-name">샘물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Crenitis</span> <span class="author">Bedel, 1881</span> <span class="ko-name">샘물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Crenitis</span> <span class="author">Bedel, 1881</span> <span class="ko-name">샘물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Crenitis (Crenitis) apicalis</span> <span class="author">(Reitter, 1896)</span> <span class="ko-name">샘물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Acrenitis</span> <span class="author">Matsui and Nakane, 1985</span> <span class="ko-name">가는샘물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Crenitis (Acrenitis) formosana</span> <span class="author">Hebauer, 1994</span> <span class="ko-name">북방샘물땡땡이</span></li>
+                                                                                                                    <li class="species-item"><span class="italic-name">Crenitis (Acrenitis) primorica</span> <span class="author">Hebauer, 1994</span> <span class="ko-name">가는샘물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subfamily</span> <span class="name">Enochrinae</span> <span class="author">Short and Fikáček, 2013</span> <span class="ko-name">넓적물땡땡이아과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Enochrus</span> <span class="author">Thomson, 1859</span> <span class="ko-name">넓적물땡땡이속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Methydrus</span> <span class="author">Rey, 1885</span> <span class="ko-name">꼬마넓적물땡땡이아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Enochrus (Methydrus) esuriens</span> <span class="author">(Walker, 1858)</span> <span class="ko-name">꼬마넓적물땡땡이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Enochrus (Methydrus) uniformis</span> <span class="author">Sharp, 1932</span> <span class="ko-name">한일넓적물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Holcophilydrus</span> <span class="author">Knisch, 1912</span> <span class="ko-name">애넓적물땡땡이아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Enochrus (Holcophilydrus) simulans</span> <span class="author">(Sharp, 1873)</span> <span class="ko-name">애넓적물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Lumetus</span> <span class="author">Zaitzev, 1908</span> <span class="ko-name">둥글넓적물땡땡이아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Enochrus (Lumetus) bicolor</span> <span class="author">Fabricius, 1792</span> <span class="ko-name">염전넓적물땡땡이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Enochrus (Lumetus) subsignatus</span> <span class="author">(Harold, 1877)</span> <span class="ko-name">둥글넓적물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subfamily</span> <span class="name">Acidocerinae</span> <span class="author">Zaitzev, 1908</span> <span class="ko-name">좀물땡땡이아과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Agraphydrus</span> <span class="author">Régimbart, 1903</span> <span class="ko-name">주왕물땡땡이속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Agraphydrus</span> <span class="author">Régimbart, 1903</span> <span class="ko-name">주왕물땡땡이아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Agraphydrus (Agraphydrus) ishiharai</span> <span class="author">(Matsui, 1994)</span> <span class="ko-name">황색주왕물땡땡이</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Agraphydrus (Agraphydrus) narusei</span> <span class="author">(Sato, 1960)</span> <span class="ko-name">주왕물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Helochares</span> <span class="author">Mulsant, 1844</span> <span class="ko-name">좀물땡땡이속</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Helochares</span> <span class="author">Mulsant, 1844</span> <span class="ko-name">꼬마좀물땡땡이아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Helochares (Helochares) pallens</span> <span class="author">(MacLeay, 1825)</span> <span class="ko-name">꼬마좀물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Subgenus</span> <span class="italic-name">Hydrobaticus</span> <span class="author">MacLeay, 1871</span> <span class="ko-name">좀물땡땡이아속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Helochares (Hydrobaticus) nipponicus</span> <span class="author">Hebauer, 1995</span> <span class="ko-name">좀물땡땡이</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subfamily</span> <span class="name">Spaeridiinae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">톱물땡땡이아과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Coelostomatini</span> <span class="author">L. Heyden, 1891</span> <span class="ko-name">등볼록물땡땡이족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Coelostoma</span> <span class="author">Brullé, 1835</span> <span class="ko-name">등볼록물땡땡이속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Holocoelostoma</span> <span class="author">Mouchamps, 1958</span> <span class="ko-name">등볼록물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Coelostoma (Holocoelostoma) stultum</span> <span class="author">(Walker, 1858)</span> <span class="ko-name">등볼록물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                        <li>
+                                                                                                            <details>
+                                                                                                                <summary><span class="rank">Subgenus</span> <span class="italic-name">Lachnocoelostoma</span> <span class="author">Mouchamps, 1958</span> <span class="ko-name">북방등볼록물땡땡이아속</span></summary>
+                                                                                                                <ul>
+                                                                                                                    <li class="species-item"><span class="italic-name">Coelostoma (Lachnocoelostoma) wui</span> <span class="author">d’Orchymont, 1940</span> <span class="ko-name">북방등볼록물땡땡이</span></li>
+                                                                                                                </ul>
+                                                                                                            </details>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Superfamily</span> <span class="name">Byrrhoidea</span> <span class="author">Latreille, 1804</span> <span class="ko-name">둥근가시벌레상과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Family</span> <span class="name">Dryopidae</span> <span class="author">Billberg, 1820</span> <span class="ko-name">여울벌레붙이과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Elmomorphus</span> <span class="author">Sharp, 1888</span> <span class="ko-name">여울벌레붙이속</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Elmomorphus brevicornis</span> <span class="author">Sharp, 1888</span> <span class="ko-name">여울벌레붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Family</span> <span class="name">Elmidae</span> <span class="author">Curtis, 1830</span> <span class="ko-name">여울벌레과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Subfamily</span> <span class="name">Elminae</span> <span class="author">Curtis, 1830</span> <span class="ko-name">여울벌레아과</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Elmini</span> <span class="author">Curtis, 1830</span> <span class="ko-name">여울벌레족</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Grouvellinus</span> <span class="author">Champion, 1923</span> <span class="ko-name">청동여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Grouvellinus aerosus</span> <span class="author">Jung, Jäch & Bae, 2014</span> <span class="ko-name">청동여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Heterlimnius</span> <span class="author">Hinton, 1935</span> <span class="ko-name">노란무늬여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Heterlimnius hasegawai</span> <span class="author">(Nomura, 1958)</span> <span class="ko-name">노란무늬여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Optioservus</span> <span class="author">Sanderson, 1954</span> <span class="ko-name">작은무늬여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Optioservus gapyeongensis</span> <span class="author">Jung, Kamite & Bae, 2011</span> <span class="ko-name">작은무늬여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Leptelmis</span> <span class="author">Sharp, 1888</span> <span class="ko-name">혹여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Leptelmis gracilis gracilis</span> <span class="author">Sharp, 1888</span> <span class="ko-name">혹여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Stenelmis</span> <span class="author">Dufour, 1835</span> <span class="ko-name">긴다리여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Stenelmis koreana</span> <span class="author">Satô, 1978</span> <span class="ko-name">검정긴다리여울벌레</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Stenelmis montana</span> <span class="author">Zhang & Yang, 1995</span> <span class="ko-name">뭉뚝여울벌레</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Stenelmis nipponica</span> <span class="author">Nomura, 1958</span> <span class="ko-name">곰보긴다리여울벌레</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Stenelmis vulgaris</span> <span class="author">Nomura, 1958</span> <span class="ko-name">긴다리여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Tribe</span> <span class="name">Macronychini</span> <span class="author">Mulsant & Rey, 1872</span></summary>
+                                                                                        <ul>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Macronychus</span> <span class="author">Müller, 1806</span> <span class="ko-name">거미여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Macronychus levanidovae</span> <span class="author">Lafer, 1980</span> <span class="ko-name">거미여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Zaitzevia</span> <span class="author">Champion, 1923</span> <span class="ko-name">애여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Zaitzevia tsushimana</span> <span class="author">Nomura, 1963</span> <span class="ko-name">애여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <details>
+                                                                                                    <summary><span class="rank">Genus</span> <span class="italic-name">Zaitzeviaria</span> <span class="author">Nomura, 1959</span> <span class="ko-name">좀여울벌레속</span></summary>
+                                                                                                    <ul>
+                                                                                                        <li class="species-item"><span class="italic-name">Zaitzeviaria kyungseoki</span> <span class="author">Jung, Jäch & Bae, 2014</span> <span class="ko-name">갈색긴좀여울벌레</span></li>
+                                                                                                        <li class="species-item"><span class="italic-name">Zaitzeviaria obesa</span> <span class="author">Jung, Jäch & Bae, 2014</span> <span class="ko-name">좀여울벌레</span></li>
+                                                                                                    </ul>
+                                                                                                </details>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </details>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <a href="archive.html" class="btn-back"><i class="fas fa-arrow-left"></i> BACK TO ARCHIVE</a>
     </main>
 
     <footer>
@@ -209,6 +1334,7 @@
     </footer>
 
     <script>
+        // 현재 페이지 활성화 스크립트
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
         navLinks.forEach(link => {
@@ -216,6 +1342,24 @@
                 link.classList.add("active");
             }
         });
+
+        // 트리 구조 모두 펼치기
+        function expandAll() {
+            const detailsElements = document.querySelectorAll('#taxonomyTree details');
+            detailsElements.forEach((detail) => {
+                detail.setAttribute('open', '');
+            });
+        }
+
+        // 트리 구조 모두 접기 (최상단 목, 아목 정도만 유지)
+        function collapseAll() {
+            const detailsElements = document.querySelectorAll('#taxonomyTree details');
+            detailsElements.forEach((detail, index) => {
+                if(index > 1) { 
+                    detail.removeAttribute('open');
+                }
+            });
+        }
     </script>
 </body>
 </html>
