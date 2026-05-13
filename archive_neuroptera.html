@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive - Jiseung Kim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* --- 공통 레이아웃 스타일 --- */
         body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; background-color: #fff; text-align: center; min-height: 100vh; display: flex; flex-direction: column; }
@@ -23,93 +24,49 @@
         .dropdown-content a { color: #999; padding: 10px 15px; display: block; text-align: center; font-size: 12px; }
         nav li:hover .dropdown-content { display: block; }
 
-        /* --- Archive 섹션 여백 및 카드 스타일 --- */
-        main { 
-            flex-grow: 1; 
-            display: block; 
-            padding: 30px 20px 60px 20px; /* 상단 여백 축소 적용 */
-            text-align: center; 
-            max-width: 1000px; 
-            margin: 0 auto; 
-        }
-        h2 { 
-            font-size: 32px; 
-            color: #333; 
-            margin-top: 0; /* 제목 상단 마진 제거 */
-            margin-bottom: 15px; 
-            letter-spacing: 1px; 
-        }
-        .archive-desc { font-size: 15px; color: #999; margin-bottom: 60px; }
+        /* --- Archive 섹션 스타일 --- */
+        main { flex-grow: 1; display: block; text-align: left; background-color: #fafafa; padding-bottom: 80px; }
+        .section-inner { max-width: 1000px; margin: 0 auto; padding: 40px 20px 0 20px; background-color: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.02); min-height: 600px; border-radius: 8px; margin-top: 40px;}
+        
+        .archive-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 30px; }
+        .archive-header h2 { font-size: 28px; color: #333; margin: 0; }
+        .archive-controls button { background-color: #f0f0f0; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; color: #555; font-size: 13px; transition: background 0.2s; margin-left: 10px; }
+        .archive-controls button:hover { background-color: #e0e0e0; color: #333; }
 
-        .archive-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        /* 트리뷰(Taxonomy Tree) 스타일 */
+        .taxonomy-tree { font-size: 14.5px; line-height: 1.6; color: #444; }
+        .taxonomy-tree ul { list-style-type: none; padding-left: 24px; border-left: 1px dashed #ddd; margin-left: 8px; }
+        .taxonomy-tree > ul { border-left: none; padding-left: 0; margin-left: 0; }
+        .taxonomy-tree li { margin: 6px 0; position: relative; }
+        
+        details > summary { cursor: pointer; list-style: none; display: flex; align-items: center; transition: color 0.2s; padding: 3px 0; }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary::before { content: '\f0da'; font-family: 'Font Awesome 6 Free'; font-weight: 900; display: inline-block; width: 16px; margin-right: 5px; color: #aaa; transition: transform 0.2s; }
+        details[open] > summary::before { transform: rotate(90deg); color: #007bff; }
+        details > summary:hover { color: #007bff; }
+        
+        /* 터미널 노드(종) 스타일 */
+        .species-item { padding-left: 21px; display: flex; align-items: center; }
+        .species-item::before { content: '\f111'; font-family: 'Font Awesome 6 Free'; font-weight: 400; font-size: 6px; position: absolute; left: 5px; top: 12px; color: #ccc; }
 
-        .archive-card {
-            background-color: #fff;
-            border: 1px solid #eee;
-            padding: 40px 20px;
-            text-decoration: none;
-            color: #555;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-        }
+        /* 분류군 텍스트 스타일 */
+        .rank { font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; margin-right: 8px; background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .name { font-weight: 500; color: #333; }
+        .italic-name { font-style: italic; font-weight: 600; color: #222; }
+        .author { color: #777; font-size: 13.5px; margin-left: 5px; }
+        .ko-name { color: #0066cc; margin-left: 8px; font-size: 14px; font-weight: 500; }
 
-        .archive-card:hover { border-color: #333; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
-
-        .archive-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 25px;
-            border: 1px solid #eee;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .archive-card h3 { font-size: 18px; margin-bottom: 15px; color: #333; line-height: 1.4; }
-        .view-link { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #007bff; font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .archive-container { grid-template-columns: 1fr; }
-            .archive-card { padding: 40px 20px; }
-        }
-
-        /* --- 푸터 스타일 및 회색 아이콘 --- */
-        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
+        /* --- 푸터 스타일 --- */
+        footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; background-color: #fff;}
         .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
         .footer-info { font-size: 13px; line-height: 1.8; color: #555; text-align: left; }
         .footer-info a { color: #007bff; text-decoration: none; }
-
         .footer-social { display: flex; gap: 20px; align-items: center; padding-top: 10px; }
         .social-icon { color: #888; font-size: 20px; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; justify-content: center; }
         .social-icon:hover { color: #333; }
-
         .naver-icon span { width: 20px; height: 20px; background-color: #888; color: #fff; border-radius: 50%; font-size: 11px; font-weight: bold; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
         .naver-icon:hover span { background-color: #333; }
-
-/* --- Checklist Style (리스트 페이지 전용) --- */
-        .checklist-container { max-width: 800px; margin: 0 auto; text-align: left; padding: 20px; }
-        .family-section { margin-bottom: 40px; }
-        .family-title { font-size: 20px; color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .species-list { list-style-type: none; padding-left: 0; margin: 0; }
-        .species-list li { font-size: 15px; color: #555; padding: 12px 0; border-bottom: 1px dashed #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
-        .taxon-info { display: flex; align-items: baseline; }
-        .species-name { font-style: italic; font-weight: bold; color: #2c3e50; font-size: 16px; }
-        .species-author { font-size: 13px; color: #888; margin-left: 8px; }
-        .korean-name { color: #666; font-size: 14px; }
-        .btn-back { display: inline-block; margin-top: 10px; margin-bottom: 50px; padding: 10px 25px; background-color: #f8f9fa; color: #555; border: 1px solid #ddd; border-radius: 5px; text-decoration: none; font-size: 13px; transition: all 0.3s; letter-spacing: 1px; }
-        .btn-back:hover { background-color: #eee; color: #333; }
-        
-        @media (max-width: 768px) {
-            .species-list li { flex-direction: column; align-items: flex-start; gap: 5px; }
-        }
-        
-        @keyframes fade { from { opacity: .4 } to { opacity: 1 } }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
@@ -123,6 +80,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
             <li><a href="research.html">Research</a></li>
+            <li><a href="fieldwork.html">Fieldwork</a></li>
             <li>
                 <a href="works.html">Works</a>
                 <div class="dropdown-content">
@@ -130,13 +88,489 @@
                     <a href="presentations.html">Presentations</a>
                 </div>
             </li>
-            <li><a href="fieldwork.html">Fieldwork</a></li>
-            <li><a href="archive.html">Archive</a></li>
+            <li><a href="archive.html" class="active">Archive</a></li>
         </ul>
     </nav>
+    
+    <main>
+        <div class="section-inner">
+            <div class="archive-header">
+                <h2>Checklist of Neuroptera in Korea</h2>
+                <div class="archive-controls">
+                    <button onclick="expandAll()">Expand All</button>
+                    <button onclick="collapseAll()">Collapse All</button>
+                </div>
+            </div>
 
-<main>
-      
+            <div class="taxonomy-tree" id="taxonomyTree">
+                <ul>
+                    <li>
+                        <details open>
+                            <summary><span class="rank">Order</span> <span class="name">Neuroptera</span> <span class="ko-name">풀잠자리목</span></summary>
+                            <ul>
+                                <li>
+                                    <details open>
+                                        <summary><span class="rank">Suborder</span> <span class="name">Hemerobiiformia</span> <span class="ko-name">뱀잠자리붙이아목</span></summary>
+                                        <ul>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Chrysopidae</span> <span class="author">Schneider 1851</span> <span class="ko-name">풀잠자리과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Chrysopinae</span> <span class="author">Schneider, 1851</span> <span class="ko-name">풀잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Belonopterygini</span> <span class="author">Navás, 1913</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Italochrysa</span> <span class="author">Principi, 1946</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Italochrysa japonica</span> <span class="author">(MacLachlan), 1875</span> <span class="ko-name">등빨간풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Italochrysa nigrovenosa</span> <span class="author">Kuwayama, 1970</span> <span class="ko-name">몸노랑풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Chrysopini</span> <span class="author">Schneider, 1851</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Chrysopa</span> <span class="author">Leach in Brewster, 1815</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysopa formosa</span> <span class="author">Brauer, 1851</span> <span class="ko-name">갑오풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysopa intima</span> <span class="author">MacLachlan, 1893</span> <span class="ko-name">풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysopa pallens</span> <span class="author">Rambur, 1836</span> <span class="ko-name">칠성풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysopa perplexa</span> <span class="author">MacLachlan, 1842</span> <span class="ko-name">북쪽풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysopa phyllochroma</span> <span class="author">Wesmael, 1841</span> <span class="ko-name">대륙풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Chrysoperla</span> <span class="author">Steinmann, 1964</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysoperla carnea</span> <span class="author">(Stephens, 1836)</span> <span class="ko-name">어리줄풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysoperla furcifera</span> <span class="author">(Okamoto, 1914)</span> <span class="ko-name">줄풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysoperla nipponensis</span> <span class="author">(Okamoto, 1914)</span> <span class="ko-name">일본풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Chrysopidia</span> <span class="author">Navás, 1910</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Chrysopidia ciliata</span> <span class="author">(Wesmael, 1841)</span> <span class="ko-name">민풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Cunctochrysa</span> <span class="author">Hölzel, 1970</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Cunctochrysa albolineata</span> <span class="author">(Killington, 1935)</span> <span class="ko-name">흰띠풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Mallada</span> <span class="author">Navás, 1925</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Mallada desjardinsi</span> <span class="author">(Navás, 1911)</span> <span class="ko-name">큰날개애풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Nineta</span> <span class="author">Navás, 1912</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Nineta alpicola</span> <span class="author">(Kuwayama, 1956)</span> <span class="ko-name">산풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Nineta carinthiaca</span> <span class="author">(Hölzel, 1965)</span> <span class="ko-name">북방산풀잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Nineta vittata</span> <span class="author">(Wesmael, 1841)</span> <span class="ko-name">노란가슴풀잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Osmylidae</span> <span class="author">Leach, 1815</span> <span class="ko-name">보날개풀잠자리과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Osmylinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">보날개풀잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Osmylus</span> <span class="author">Navás, 1910</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Osmylus hyalinatus</span> <span class="author">MacLachlan, 1875</span> <span class="ko-name">모시보날개풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Spilosmylinae</span> <span class="ko-name">참보날개풀잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Lysmus</span> <span class="author">Navás, 1910</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Lysmus harmandinus</span> <span class="author">(Navás, 1910)</span> <span class="ko-name">보날개풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Spilosmylus</span> <span class="author">Kolbe, 1913</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Spilosmylus saishiuensis</span> <span class="author">(Okamoto, 1924)</span> <span class="ko-name">제주보날개풀잠자리</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Spilosmylus tuberculatus</span> <span class="author">(Walker, 1853)</span> <span class="ko-name">좀보날개풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Pseudomallada</span> <span class="author">Tsukaguchi, 1995</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Pseudomallada cognatellus</span> <span class="author">(Okamoto, 1914)</span> <span class="ko-name">애풀잠자리</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Pseudomallada formosana</span> <span class="author">(Matsumura, 1910)</span> <span class="ko-name">대만풀잠자리</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Pseudomallada prasinus</span> <span class="author">(Burmeister, 1839)</span> <span class="ko-name">녹색풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Coniopterygidae</span> <span class="author">Burmeister, 1839</span> <span class="ko-name">가루풀잠자리과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Coniopteryginae</span> <span class="author">Enderlein, 1905</span> <span class="ko-name">가루풀잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Conwentzia</span> <span class="author">Enderlein, 1905</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Conwentzia pineticola</span> <span class="author">Enderlein, 1905</span> <span class="ko-name">소나무뒷날개가루풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Semidalis</span> <span class="author">Enderlein, 1905</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Semidalis aleyrodiformis</span> <span class="author">(Stephens, 1836)</span> <span class="ko-name">혹응애가루풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Dilaridae</span> <span class="author">Newman, 1853</span> <span class="ko-name">빗살수염풀잠자리과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Dilarinae</span> <span class="author">Newman, 1853</span> <span class="ko-name">빗살수염풀잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Dilar</span> <span class="author">Rambur, 1838</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Dilar septentrinalis</span> <span class="author">Navás, 1912</span> <span class="ko-name">빗살수염풀잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Hemerobiidae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">뱀잠자리붙이과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Drepanepteryginae</span> <span class="author">Krueger, 1922</span> <span class="ko-name">낙엽날개뱀잠자리붙이아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Drepanepteryx</span> <span class="author">Leach 1815</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Drepanepteryx phalaenoides</span> <span class="author">(Linnaeus, 1758)</span> <span class="ko-name">낙엽날개뱀잠자리붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Hemerobiinae</span> <span class="author">Latreille, 1802</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Hemerobius</span> <span class="author">Linnaeus, 1758</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Hemerobius harmandinus</span> <span class="author">Navás, 1910</span> <span class="ko-name">유리날개뱀잠자리붙이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Hemerobius humulinus</span> <span class="author">Linnaeus, 1758</span> <span class="ko-name">산뱀잠자리붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Microminae</span> <span class="author">Krueger, 1922</span> <span class="ko-name">애뱀잠자리붙이아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Micromus</span> <span class="author">Rambur, 1842</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Micromus angulatus</span> <span class="author">(Stephens, 1836)</span> <span class="ko-name">갈고리뱀잠자리붙이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Micromus numerosus</span> <span class="author">(Navás, 1910)</span> <span class="ko-name">애뱀잠자리붙이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Micromus variegatus</span> <span class="author">(Fabricius, 1793)</span> <span class="ko-name">점박이뱀잠자리붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Sympherobiinae</span> <span class="author">Comstock, 1918</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Neuronema</span> <span class="author">Navás, 1916</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Neuronema albostigma</span> <span class="author">(Matsumura, 1907)</span> <span class="ko-name">큰날개뱀잠자리붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Sympherbius</span> <span class="author">Banks, 1904</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Sympherbius domesticus</span> <span class="author">Nakahara, 1954</span> <span class="ko-name">검정뱀잠자리붙이</span></li>
+                                                                                <li class="species-item"><span class="italic-name">Sympherbius tessellatus</span> <span class="author">Nakahara, 1915</span> <span class="ko-name">점날개뱀잠자리붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Mantispidae</span> <span class="author">Leach, 1815</span> <span class="ko-name">사마귀붙이과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Mantispinae</span> <span class="author">Leach, 1815</span> <span class="ko-name">사마귀붙이아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Austroclimaciella</span> <span class="author">Handschin, 1961</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Austroclimaciella quadrituberculata</span> <span class="author">(Westwood, 1852)</span> <span class="ko-name">끝검은사마귀붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Eumantispa</span> <span class="author">Okamoto, 1910</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Eumantispa harmandi</span> <span class="author">(Navás, 1909)</span> <span class="ko-name">사마귀붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Mantispa</span> <span class="author">Illiger, 1798</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Mantispa japonica</span> <span class="author">MacLachlan, 1875</span> <span class="ko-name">애사마귀붙이</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+
+                                <li>
+                                    <details open>
+                                        <summary><span class="rank">Suborder</span> <span class="name">Myrmeleontiformia</span> <span class="ko-name">명주잠자리아목</span></summary>
+                                        <ul>
+                                            <li>
+                                                <details>
+                                                    <summary><span class="rank">Family</span> <span class="name">Myrmeleontidae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">명주잠자리과</span></summary>
+                                                    <ul>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Myrmeleontinae</span> <span class="author">Latreille, 1802</span> <span class="ko-name">명주잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Acanthaclisini</span> <span class="author">Navás, 1912</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Synclisis</span> <span class="author">Navás, 1919</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Synclisis japonica</span> <span class="author">(Hagen, 1866)</span> <span class="ko-name">왕명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Dendroleontini</span> <span class="author">Banks, 1899</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Gatzara</span> <span class="author">Navás, 1915</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Gatzara jezoensis</span> <span class="author">(Okamoto, 1910)</span> <span class="ko-name">애알락명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Myrmeleontini</span> <span class="author">Latreille, 1802</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Baliga</span> <span class="author">Navás, 1912</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Baliga micans</span> <span class="author">(MacLachlan, 1875)</span> <span class="ko-name">명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Euroleon</span> <span class="author">Esben-Petersen, 1918</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Euroleon coreanus</span> <span class="author">Okamoto, 1926</span> <span class="ko-name">물명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Myrmeleon</span> <span class="author">Linnaeus, 1767</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Myrmeleon bore</span> <span class="author">Tjeder, 1941</span> <span class="ko-name">맵시명주잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Myrmeleon formicarius</span> <span class="author">(Linnaeus), 1758</span> <span class="ko-name">애명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Tribe</span> <span class="name">Nemoleontini</span> <span class="author">Banks, 1911</span></summary>
+                                                                            <ul>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Distoleon</span> <span class="author">Banks, 1910</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Distoleon contubernalis</span> <span class="author">(MacLachlan, 1875)</span> <span class="ko-name">잔명주잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Distoleon lineatus</span> <span class="author">(Fabricius, 1798)</span> <span class="ko-name">황나명주잠자리</span></li>
+                                                                                            <li class="species-item"><span class="italic-name">Distoleon nigricans</span> <span class="author">(Okamoto, 1910)</span> <span class="ko-name">알락명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <details>
+                                                                                        <summary><span class="rank">Genus</span> <span class="italic-name">Paraglenurus</span> <span class="author">van der Weele, 1909</span></summary>
+                                                                                        <ul>
+                                                                                            <li class="species-item"><span class="italic-name">Paraglenurus japonicus</span> <span class="author">(MacLachlan, 1867)</span> <span class="ko-name">별박이명주잠자리</span></li>
+                                                                                        </ul>
+                                                                                    </details>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li>
+                                                            <details>
+                                                                <summary><span class="rank">Subfamily</span> <span class="name">Ascalaphinae</span> <span class="author">Lefèbvre, 1842</span> <span class="ko-name">뿔잠자리아과</span></summary>
+                                                                <ul>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Ascalohybris</span> <span class="author">Sziraki, 1998</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Ascalohybris subjacens</span> <span class="author">(Walker, 1853)</span> <span class="ko-name">뿔잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                    <li>
+                                                                        <details>
+                                                                            <summary><span class="rank">Genus</span> <span class="italic-name">Libelloides</span> <span class="author">Schäffer, 1763</span></summary>
+                                                                            <ul>
+                                                                                <li class="species-item"><span class="italic-name">Libelloides sibiricus sibiricus</span> <span class="author">(Eversmann, 1850)</span> <span class="ko-name">노랑뿔잠자리</span></li>
+                                                                            </ul>
+                                                                        </details>
+                                                                    </li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -171,6 +605,7 @@
     </footer>
 
     <script>
+        // 현재 페이지 활성화 스크립트
         const currentPage = window.location.pathname.split("/").pop() || "index.html";
         const navLinks = document.querySelectorAll("#nav-list a");
         navLinks.forEach(link => {
@@ -178,6 +613,24 @@
                 link.classList.add("active");
             }
         });
+
+        // 트리 구조 모두 펼치기
+        function expandAll() {
+            const detailsElements = document.querySelectorAll('#taxonomyTree details');
+            detailsElements.forEach((detail) => {
+                detail.setAttribute('open', '');
+            });
+        }
+
+        // 트리 구조 모두 접기 (최상단 제외)
+        function collapseAll() {
+            const detailsElements = document.querySelectorAll('#taxonomyTree details');
+            detailsElements.forEach((detail, index) => {
+                if(index > 1) { // 최상단 노린재목, 노린재아목 정도는 열어둠
+                    detail.removeAttribute('open');
+                }
+            });
+        }
     </script>
 </body>
 </html>
