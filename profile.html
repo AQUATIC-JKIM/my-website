@@ -50,6 +50,38 @@
         .sub-info { color: #777; display: block; margin-top: 3px; }
         .advisor { font-size: 14px; color: #888; font-style: italic; }
 
+        /* --- 프로필 이미지 및 소개 영역 스타일 --- */
+        .profile-intro {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #eee;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .bio-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            .profile-intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
+
         /* --- 푸터 스타일 및 회색 아이콘 --- */
         footer { border-top: 1px solid #eee; padding: 40px 50px; display: flex; justify-content: center; flex-shrink: 0; }
         .footer-container { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; max-width: 1200px; }
@@ -93,6 +125,19 @@
 
     <main>
         <h2>Profile</h2>
+
+        <!-- 프로필 이미지 및 간단 소개 영역 -->
+        <div class="profile-intro">
+            <!-- 이미지 경로(src)를 본인 사진 파일 이름으로 변경하세요 (예: profile.jpg) -->
+            <img src="profile.jpg" alt="Jiseung Kim" class="profile-img">
+            
+            <div class="bio-text">
+                <p>
+                    Hello, I am Jiseung Kim, a Master's student at Jeonbuk National University.<br>
+                    My research focuses on aquatic insects, insect phylogeny, and evolution.
+                </p>
+            </div>
+        </div>
 
         <section>
             <h3>Education</h3>
