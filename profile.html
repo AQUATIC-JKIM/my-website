@@ -50,35 +50,28 @@
         .sub-info { color: #777; display: block; margin-top: 3px; }
         .advisor { font-size: 14px; color: #888; font-style: italic; }
 
-        /* --- 프로필 이미지 및 소개 영역 스타일 --- */
-        .profile-intro {
+        /* --- 프로필 사진 3장 나란히 배열 --- */
+        .profile-gallery {
             display: flex;
-            align-items: center;
-            gap: 30px;
+            justify-content: space-between;
+            gap: 20px; /* 사진 사이 간격 */
             margin-bottom: 50px;
         }
         
-        .profile-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #eee;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        .profile-gallery img {
+            flex: 1;
+            width: 100%;
+            aspect-ratio: 1; /* 사진을 정사각형 비율로 고정. 세로가 길면 3/4 등으로 수정 가능 */
+            object-fit: cover; /* 이미지가 찌그러지지 않고 영역에 꽉 차게 잘림 */
+            border-radius: 12px; /* 모서리를 살짝 둥글게. 완전한 원을 원하면 50%로 변경 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
         }
 
-        .bio-text {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #555;
-        }
-
+        /* 모바일 화면에서 간격 살짝 줄임 */
         @media (max-width: 600px) {
-            .profile-intro {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
+            .profile-gallery {
+                gap: 10px;
             }
         }
 
@@ -126,17 +119,12 @@
     <main>
         <h2>Profile</h2>
 
-        <!-- 프로필 이미지 및 간단 소개 영역 -->
-        <div class="profile-intro">
-            <!-- 이미지 경로(src)를 본인 사진 파일 이름으로 변경하세요 (예: profile.jpg) -->
-            <img src="profile.jpg" alt="Jiseung Kim" class="profile-img">
-            
-            <div class="bio-text">
-                <p>
-                    Hello, I am Jiseung Kim, a Master's student at Jeonbuk National University.<br>
-                    My research focuses on aquatic insects, insect phylogeny, and evolution.
-                </p>
-            </div>
+        <!-- 사진 3장 일렬 배열 영역 -->
+        <div class="profile-gallery">
+            <!-- 아래 src="파일이름.jpg" 부분에 본인 사진 3장의 이름을 넣어주세요 -->
+            <img src="photo1.jpg" alt="Profile Photo 1">
+            <img src="photo2.jpg" alt="Profile Photo 2">
+            <img src="photo3.jpg" alt="Profile Photo 3">
         </div>
 
         <section>
